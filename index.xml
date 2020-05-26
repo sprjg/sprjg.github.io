@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My New Hugo Site</title>
+    <link>/</link>
+    <description>Recent content on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 26 May 2020 04:12:54 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fourier Analysis</title>
+      <link>/posts/20200524030032-pubnotes_ddse_fourier/</link>
+      <pubDate>Tue, 26 May 2020 04:12:54 +0000</pubDate>
+      
+      <guid>/posts/20200524030032-pubnotes_ddse_fourier/</guid>
+      <description>This is for my notes for Prof. Steve Brunton&amp;rsquo;s video lectures of Fourier Analysis.
+Real domain to complex domain The first confusion for me was the shift in the sum limits from real domain to complex domain. The real fourier series is expressed as \(\sum_{k=0}^{\infty} \frac{a_0}{2} + a_k \cos kx + b_k \sin kx\). The intuition here is that harmonics can express any function. The constant term accounts for all the different initial phase shifts of each of these harmonics.</description>
+    </item>
+    
+  </channel>
+</rss>
