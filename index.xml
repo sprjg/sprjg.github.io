@@ -1,20 +1,31 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Site</title>
+    <title>Prasanna</title>
     <link>/</link>
-    <description>Recent content on My New Hugo Site</description>
+    <description>Recent content on Prasanna</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 May 2020 04:12:54 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 11 Jun 2020 12:40:30 +0530</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Compressed Sensing with the Fourier Ensemble</title>
+      <link>/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</link>
+      <pubDate>Thu, 11 Jun 2020 12:40:30 +0530</pubDate>
+      
+      <guid>/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</guid>
+      <description>I&amp;rsquo;m reading the topic of compressed sensing and I find it extremely dense with a lot of historical perspective. This video is a great start to the topic.
+Reproducing the example The example at 14:05 in the video uses a DCT. The cosamp function used below is from this repository. The code here is slightly modified from the jupyter notebook available here.
+The sample audio signal  stx = 0 end = 1 n = 4096 Fs = int( n/(end - stx)) from math import pi from numpy.</description>
+    </item>
+    
+    <item>
       <title>Fourier Analysis</title>
       <link>/posts/20200524030032-pubnotes_ddse_fourier/</link>
-      <pubDate>Tue, 26 May 2020 04:12:54 +0000</pubDate>
+      <pubDate>Fri, 05 Jun 2020 16:30:42 +0530</pubDate>
       
       <guid>/posts/20200524030032-pubnotes_ddse_fourier/</guid>
       <description>This is for my notes for Prof. Steve Brunton&amp;rsquo;s video lectures of Fourier Analysis.

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fourier Analysis | My New Hugo Site</title>
+    <title>Fourier Analysis | Prasanna</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/fonts.css" />
     
@@ -131,13 +131,9 @@
 </div>
 
 <main>
-
-
 <p>This is for my notes for Prof. Steve Brunton&rsquo;s <a href="https://www.youtube.com/watch?v=jNC0jxb0OxE&amp;list=PLMrJAkhIeNNT%5FXh3Oy0Y4LTj0Oxo8GqsC">video lectures of
 Fourier Analysis</a>.</p>
-
 <h2 id="real-domain-to-complex-domain">Real domain to complex domain</h2>
-
 <p>The first confusion for me was the shift in the sum limits from real
 domain to complex domain. The real fourier series is expressed as
 \(\sum_{k=0}^{\infty} \frac{a_0}{2} + a_k \cos kx + b_k \sin kx\). The
@@ -145,9 +141,8 @@ intuition here is that harmonics can express any function. The
 constant term accounts for all the different initial phase shifts of
 each of these harmonics. The mathematical property of these
 trigonometric terms \(\sin(kx), \cos(kx)\) is that they are orthogonal.
-Their inner product \(<f, g> = \int_{-\pi}^{\pi} f(x) g^*(x) dx =
+Their inner product \(&lt;f, g&gt; = \int_{-\pi}^{\pi} f(x) g^*(x) dx =
 0\).</p>
-
 <blockquote>
 <p>To verify:
 The conjugation on the second term is irrelevant for real valued
@@ -159,14 +154,11 @@ integrating over this particular limit will be zero. But when \(a=b\)
 identities to a constant plus a periodic function, and the constant
 part evaluates to \(\pi\).</p>
 </blockquote>
-
 <p>All of the above is for the real domain. In complex domain, the
 fourier series becomes: \(\sum_{k=-\infty}^{k=\infty} c_k e^{ikx}\)
 where \(c_k \in \mathbb{C}\). The sum starts from negative infinity now
 unlike the real domain.</p>
-
 <h2 id="oscillations-in-real-domain-rotations-in-complex-domain">Oscillations in real domain, rotations in complex domain</h2>
-
 <p>In real domain, the eigenfunctions are either \(\sin kx\) or
 \(\cos kx\). This means that \(\sin(kx)\) and \(\sin(-kx)\) are not
 orthogonal. This can be verified by the inner product which evaluates
@@ -180,14 +172,11 @@ But in complex domain, the eigenfunctions represent a rotation (at
 different frequencies and starting points), rather
 than oscillation. \(k &lt; 0\)  here represents a clockwise rotation and a
 \(k &gt; 0\)  represents an anti-clockwise rotation.</p>
-
 <blockquote>
 <p><a href="https://www.youtube.com/watch?v=spUNpyF58BY">This video</a> helps</p>
 </blockquote>
-
 <p>In this case, \(k &lt; 0\) cannot be accounted for by \(k &gt; 0\) functions. The
 computation of the inner product confirms the same of course.</p>
-
 <blockquote>
 <p>TODO: The complex conjugation of the second term in the inner product is
 equivalent to a direction change of rotation. I know that the

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Compressed Sensing with the Fourier Ensemble | Prasanna</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <div id="searcher">
+    <input id="search" type="text" placeholder="search">
+    <br> 
+    <ul id="results">
+    </ul>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/1.0.0/lunr.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+    var lunrIndex,
+        $results,
+        pagesIndex;
+
+    
+    function initLunr() {
+        
+        $.getJSON("/js/lunr/PagesIndex.json")
+            .done(function(index) {
+                pagesIndex = index;
+                
+                
+                lunrIndex = lunr(function() {
+                    this.field("title", {
+                        boost: 10
+                    });
+                    this.field("tags", {
+                        boost: 5
+                    });
+                    this.field("content");
+
+                    
+                    this.ref("href");
+                });
+
+                
+                pagesIndex.forEach(function(page) {
+                    lunrIndex.add(page);
+                });
+            })
+            .fail(function(jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.error("Error getting Hugo index flie:", err);
+            });
+    }
+
+    
+    function initUI() {
+        $results = $("#results");
+        $("#search").keyup(function() {
+            $results.empty();
+
+            
+            var query = $(this).val();
+            if (query.length < 2) {
+                return;
+            }
+
+            var results = search(query);
+
+            renderResults(results);
+        });
+    }
+
+    
+
+    function search(query) {
+        
+        
+        
+        
+        
+        return lunrIndex.search(query).map(function(result) {
+                return pagesIndex.filter(function(page) {
+                    return page.href === result.ref;
+                })[0];
+            });
+    }
+
+    
+
+    function renderResults(results) {
+        if (!results.length) {
+            return;
+        }
+
+        
+        results.slice(0, 10).forEach(function(result) {
+            var $result = $("<li>");
+            $result.append($("<a>", {
+                href: result.href,
+                text: "» " + result.title
+            }));
+            $results.append($result);
+        });
+    }
+
+    
+    initLunr();
+
+    $(document).ready(function() {
+        initUI();
+    });
+    </script> 
+
+
+
+  </head>
+
+  <body>
+    <div id="posts-list">
+    <nav>
+    <ul class="menu">
+      
+    </ul>
+    <hr/>
+    </nav>
+    </div>
+
+<div class="article-meta">
+<a href="/" style="text-decoration:none;color:black;"><h1><span class="title">Compressed Sensing with the Fourier Ensemble</span></h1></a>
+</div>
+
+<main>
+<p>I&rsquo;m reading the topic of compressed sensing and I find it extremely
+dense with a lot of historical perspective. <a href="https://www.youtube.com/watch?v=aHCyHbRIz44">This video</a> is a great
+start to the topic.</p>
+<h2 id="reproducing-the-example">Reproducing the example</h2>
+<p>The example at <a href="https://youtu.be/aHCyHbRIz44?t=846">14:05 in the video</a> uses a DCT. The <code>cosamp</code>
+function used below is from <a href="https://github.com/avirmaux/CoSaMP">this repository</a>. The code here is slightly
+modified from the jupyter notebook <a href="http://databookuw.com/">available here</a>.</p>
+<h3 id="the-sample-audio-signal">The sample audio signal <!-- raw HTML omitted --><!-- raw HTML omitted --></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">stx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+end <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+n <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span>
+Fs <span style="color:#f92672">=</span> int( n<span style="color:#f92672">/</span>(end <span style="color:#f92672">-</span> stx))
+<span style="color:#f92672">from</span> math <span style="color:#f92672">import</span> pi
+<span style="color:#f92672">from</span> numpy.fft <span style="color:#f92672">import</span> rfft, rfftfreq
+t <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(stx, end, <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>Fs)
+x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cos(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">97</span> <span style="color:#f92672">*</span> pi <span style="color:#f92672">*</span> t) <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>cos(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">777</span> <span style="color:#f92672">*</span> pi <span style="color:#f92672">*</span> t)
+f <span style="color:#f92672">=</span> rfft(x)
+psd <span style="color:#f92672">=</span> f<span style="color:#f92672">*</span>f<span style="color:#f92672">/</span>n
+freqs <span style="color:#f92672">=</span> rfftfreq(n) <span style="color:#f92672">*</span> Fs
+plt<span style="color:#f92672">.</span>close()
+plt<span style="color:#f92672">.</span>figure()
+plt<span style="color:#f92672">.</span>plot(freqs, f, <span style="color:#e6db74">&#39;r&#39;</span>)
+f_int <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>floor(abs(f))
+filename <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;audio reconstruction compressed sensing&#39;</span>
+plt<span style="color:#f92672">.</span>suptitle(filename)
+plt<span style="color:#f92672">.</span>savefig(f<span style="color:#e6db74">&#39;{filename}.png&#39;</span>)
+plt<span style="color:#f92672">.</span>close()
+
+x_fft <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>fft<span style="color:#f92672">.</span>irfft(f)
+plt_save(<span style="color:#e6db74">&#39;inverse fourier check compressed sensing&#39;</span>, <span style="color:#66d9ef">lambda</span>: (
+    plt<span style="color:#f92672">.</span>plot(t, x_fft, <span style="color:#e6db74">&#39;r&#39;</span>)
+    ))
+
+plt_save(<span style="color:#e6db74">&#39;zoom in inverse fourier check compressed sensing&#39;</span>, <span style="color:#66d9ef">lambda</span>: (
+    plt<span style="color:#f92672">.</span>plot(t, x_fft, <span style="color:#e6db74">&#39;r&#39;</span>),
+    plt<span style="color:#f92672">.</span>xlim(<span style="color:#ae81ff">0.25</span>,<span style="color:#ae81ff">0.33</span>)
+    ))
+
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">/home/p/.local/lib/python3.6/site-packages/numpy/core/_asarray.py:85: ComplexWarning: Casting complex values to real discards the imaginary part
+  return array(a, dtype, copy=False, order=order)
+</code></pre></div><figure>
+    <img src="/ox-hugo/audio%20reconstruction%20compressed%20sensing.png"/> 
+</figure>
+
+<figure>
+    <img src="/ox-hugo/inverse%20fourier%20check%20compressed%20sensing.png"/> 
+</figure>
+
+<figure>
+    <img src="/ox-hugo/zoom%20in%20inverse%20fourier%20check%20compressed%20sensing.png"/> 
+</figure>
+
+<h3 id="the-code">The code <!-- raw HTML omitted --><!-- raw HTML omitted --></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">p <span style="color:#f92672">=</span> <span style="color:#ae81ff">128</span>
+<span style="color:#f92672">from</span> scipy.fftpack <span style="color:#f92672">import</span> dct, idct
+In <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>diag(np<span style="color:#f92672">.</span>ones(n))
+Psi <span style="color:#f92672">=</span> dct(In, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+<span style="color:#75715e"># Psi = sp.linalg.dft(n).real</span>
+
+plt_save(<span style="color:#e6db74">&#39;Psi matrix heatmap cosamp&#39;</span>, <span style="color:#66d9ef">lambda</span>: plt<span style="color:#f92672">.</span>imshow(Psi, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;hot&#39;</span>, interpolation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;nearest&#39;</span>))
+
+idxs <span style="color:#f92672">=</span> (np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(p) <span style="color:#f92672">*</span> n)<span style="color:#f92672">.</span>astype(int)
+y <span style="color:#f92672">=</span> x[idxs]
+
+plt_save(<span style="color:#e6db74">&#39;marked measurements of original signal for compressed sensing cosamp&#39;</span>, <span style="color:#66d9ef">lambda</span>:  (
+    plt<span style="color:#f92672">.</span>plot(t, x, t[idxs], y, <span style="color:#e6db74">&#39;rx&#39;</span>),
+    plt<span style="color:#f92672">.</span>xlim(<span style="color:#ae81ff">0.25</span>, <span style="color:#ae81ff">0.33</span>)
+    ))
+
+Theta <span style="color:#f92672">=</span> Psi[idxs, :]
+plt_save(<span style="color:#e6db74">&#39;Theta matrix heatmap cosamp&#39;</span>, <span style="color:#66d9ef">lambda</span>: plt<span style="color:#f92672">.</span>imshow(Theta, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;hot&#39;</span>, interpolation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;nearest&#39;</span>))
+
+x_est <span style="color:#f92672">=</span> cosamp(Theta, y, <span style="color:#ae81ff">3</span>)
+<span style="color:#75715e"># Score estimation</span>
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;Score estimation {np.linalg.norm(x - x_est) / np.linalg.norm(x)}&#39;</span>)
+
+plt_save(<span style="color:#e6db74">&#39;result heatmap dct cosamp&#39;</span>, <span style="color:#66d9ef">lambda</span>: plt<span style="color:#f92672">.</span>plot(t, x_est))
+
+x_dct <span style="color:#f92672">=</span> idct(x_est)
+plt_save(<span style="color:#e6db74">&#39;compare original signal with recovered signal from cvxopt, dct cosamp&#39;</span>, <span style="color:#66d9ef">lambda</span>:  (
+    plt<span style="color:#f92672">.</span>plot(t, x_dct, <span style="color:#e6db74">&#39;r-&#39;</span>, t, x, <span style="color:#e6db74">&#39;k&#39;</span>),
+    plt<span style="color:#f92672">.</span>xlim(<span style="color:#ae81ff">0.25</span>, <span style="color:#ae81ff">0.33</span>))
+         )
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">__main__:35: FutureWarning: `rcond` parameter will change to the default of machine precision times ``max(M, N)`` where M and N are the input matrix dimensions.
+To use the future default and silence this warning we advise to pass `rcond=None`, to keep using the old, explicitly pass `rcond=-1`.
+Score estimation 1.0002591450121945
+</code></pre></div><figure>
+    <img src="/ox-hugo/marked%20measurements%20of%20original%20signal%20for%20compressed%20sensing%20cosamp.png"/> 
+</figure>
+
+<figure>
+    <img src="/ox-hugo/compare%20original%20signal%20with%20recovered%20signal%20from%20cvxopt,%20dct%20cosamp.png"/> 
+</figure>
+
+<figure>
+    <img src="/ox-hugo/Psi%20matrix%20heatmap%20cosamp.png"/> 
+</figure>
+
+<figure>
+    <img src="/ox-hugo/Theta%20matrix%20heatmap%20cosamp.png"/> 
+</figure>
+
+<figure>
+    <img src="/ox-hugo/result%20heatmap%20dct%20cosamp.png"/> 
+</figure>
+
+<p>While I can reproduce the result from the video, I find the selection
+of basis confusing. If the random drawing of measurements is from the
+DCT matrix then is it equivalent to a measurement in the frequency
+domain? But the code is clearly measuring from the time domain
+samples. For example, could I use the Fourier basis and
+achieve the same results?</p>
+<blockquote>
+<p>Simply changing from DCT to DFT does not
+work, I tried. Interestingly, I recover back a signal which has the
+correct frequency spikes but very low energy. So the resulting
+estimation is scaled down by ~3 orders but the frequency content matches.</p>
+</blockquote>
+<h2 id="back-to-basics">Back to basics</h2>
+<p>From <a href="https://arxiv.org/abs/math/0410542">the original work</a> Sec. 1.1, the authors define \(F_\Omega f:= (\hat{f}(k)) _{k \in \Omega}\). The
+\(\Omega\) is a set of frequencies sampled uniformly in random. The
+reconstruction \(g\) is obtained by \(\min \| g \|_{l_1} := \min \Sigma_{t
+\in \mathbb{Z}_n} | g(t) |\) subject to \(\hat{g}(k) = \hat{f}(k)
+\forall k \in \Omega\)
+In the above signal, the sparsity is expected in the frequency domain
+i.e. we minimize the \(l_1\) norm in the frequency domain.</p>
+<h3 id="the-equivalent-problem-formulation">The equivalent problem formulation</h3>
+<p>\(\min \| \hat{g} \|_{l_1}\) subject to \(g(t) = f(t) \forall t \in T\)
+and the result is highly probable to be b\(\hat{f}\).</p>
+<h3 id="the--theta--matrix">The \(\Theta\) matrix</h3>
+<p>\(F_\Omega\) now is the random drawing of rows from the ifft.</p>
+<h4 id="using-idft-as--psi">Using IDFT as \(\Psi\) <!-- raw HTML omitted --><!-- raw HTML omitted --></h4>
+<p>\(\Psi\) can also be created from applying the inverse fft to a identity matrix
+since it&rsquo;s an unitary operation.
+The idea is to randomly sample rows of the \(\Psi\) matrix and create a theta.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># random indices of the DFT between 0 and n = 4096</span>
+p <span style="color:#f92672">=</span> <span style="color:#ae81ff">128</span>
+idxs <span style="color:#f92672">=</span> (np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(p) <span style="color:#f92672">*</span> n)<span style="color:#f92672">.</span>astype(int)
+In <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>diag(np<span style="color:#f92672">.</span>ones(n))
+idft <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>fft<span style="color:#f92672">.</span>ifft(In)<span style="color:#f92672">.</span>real
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">Theta <span style="color:#f92672">=</span> idft[idxs, :]
+
+plt_save(<span style="color:#e6db74">&#39;Theta heatmap for fft basis&#39;</span>, <span style="color:#66d9ef">lambda</span>: (
+    plt<span style="color:#f92672">.</span>imshow(Theta, cmap<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;hot&#39;</span>, interpolation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;nearest&#39;</span>)
+    ))
+<span style="color:#75715e"># The measurement $y$ is a sparse signal taken at random indices of the actual $x$</span>
+<span style="color:#75715e">#+begin_src python :session compressed-sensing</span>
+<span style="color:#75715e"># measurement is random sampling at the above indices</span>
+y <span style="color:#f92672">=</span> x[idxs]
+
+<span style="color:#75715e"># Using [[file:20200608115955-convex_optimization.org][convex optimization]]</span>
+<span style="color:#75715e"># We can use convex optimization to solve for the sparsest $s$</span>
+<span style="color:#75715e"># s_res = opt.minimize(lambda e : np.linalg.norm(e, 1),</span>
+<span style="color:#75715e">#              x0 = np.zeros(n),</span>
+<span style="color:#75715e">#              constraints = {</span>
+<span style="color:#75715e">#                  &#39;type&#39; : &#39;eq&#39;,</span>
+<span style="color:#75715e">#                  &#39;fun&#39; : lambda e : Theta @ e  - y</span>
+<span style="color:#75715e">#                  })</span>
+
+s_res <span style="color:#f92672">=</span> cosamp(Theta, y, <span style="color:#ae81ff">10</span>)
+plt_save(<span style="color:#e6db74">&#39;resulting sparse in FFT basis&#39;</span>, <span style="color:#66d9ef">lambda</span>: (
+    plt<span style="color:#f92672">.</span>plot(s_res)
+    <span style="color:#75715e"># plt.imshow(np.matrix(s_res), cmap=&#39;hot&#39;, interpolation=&#39;nearest&#39;)</span>
+))
+x_fft <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>fft<span style="color:#f92672">.</span>ifft(s_res)
+plt_save(<span style="color:#e6db74">&#39;compare original signal with recovered signal from cosamp, dft&#39;</span>, <span style="color:#66d9ef">lambda</span>: (
+    plt<span style="color:#f92672">.</span>plot(t, x_fft, <span style="color:#e6db74">&#39;r&#39;</span>
+         , t, x, <span style="color:#e6db74">&#39;k&#39;</span>
+    ),
+    plt<span style="color:#f92672">.</span>xlim(<span style="color:#ae81ff">0.25</span>,<span style="color:#ae81ff">0.33</span>))
+)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">__main__:35: FutureWarning: `rcond` parameter will change to the default of machine precision times ``max(M, N)`` where M and N are the input matrix dimensions.
+To use the future default and silence this warning we advise to pass `rcond=None`, to keep using the old, explicitly pass `rcond=-1`.
+/home/p/.local/lib/python3.6/site-packages/numpy/core/_asarray.py:85: ComplexWarning: Casting complex values to real discards the imaginary part
+  return array(a, dtype, copy=False, order=order)
+</code></pre></div><figure>
+    <img src="/ox-hugo/compare%20original%20signal%20with%20recovered%20signal%20from%20cosamp,%20dft.png"/> 
+</figure>
+
+<figure>
+    <img src="/ox-hugo/Theta%20heatmap%20for%20fft%20basis.png"/> 
+</figure>
+
+<figure>
+    <img src="/ox-hugo/resulting%20sparse%20in%20FFT%20basis.png"/> 
+</figure>
+
+<h3 id="results">Results</h3>
+<p>So drawing from the inverse fft matrix does work. The recovered basis
+also shows the spikes at the right frequencies</p>
+<h2 id="unresolved-confusions">Unresolved confusions</h2>
+<ul>
+<li>How is it possible to draw from the DCT matrix while measuring the time domain samples?</li>
+<li>Using DCT as \(\Phi\) does lead to correct recovery of the original frequencies so there&rsquo;s no flaw in the method?</li>
+<li>Units of the recovered DCT basis y-axis?</li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+  </footer>
+  </body>
+</html>
+
