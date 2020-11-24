@@ -238,7 +238,7 @@ The second case is interesting. The decrease in score on removal of the overlap 
 <h4 id="fallacy-no-benefit-in-crossing-the-blue-line">[Fallacy] No benefit in crossing the blue line</h4>
 <p>This seems to be a fallacy in our previous observation. Notice how element at <code>15</code>, could in fact move down all the way, crossing the blue line, and achieve a better score (assuming we can have a partner who wants to move up).</p>
 <h4 id="summary">Summary</h4>
-<p>On swapping, one element moves up, one element moves down. We want an increase in score and we have seen <a href="#org088732c">that</a> causing an overlap increases score.
+<p>On swapping, one element moves up, one element moves down. We want an increase in score and we have seen <a href="#org8bcaf3e">that</a> causing an overlap increases score.
 We also see that an element can cross the blue line to increase its own score.
 Together with the above two observations, we can say that if we pick any two non-overlapping score lines and swap them, there is a definite increase in total score:</p>
 <ul>
@@ -416,7 +416,6 @@ score <span style="color:#f92672">=</span> sum([abs(e <span style="color:#f92672
 score <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> (best_end <span style="color:#f92672">-</span> best_start)
 
 <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Single pass solution:&#34;</span>)
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;   Swap </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> at </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> and </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> at </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (best_left[<span style="color:#ae81ff">0</span>], best_left[<span style="color:#ae81ff">1</span>], best_right[<span style="color:#ae81ff">0</span>], best_right[<span style="color:#ae81ff">1</span>]))
 <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;   Maximum beauty achieved is </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (score))
 
 <span style="color:#75715e"># CHECK 1</span>
@@ -436,14 +435,11 @@ max_improvement <span style="color:#f92672">=</span> <span style="color:#ae81ff"
             max_choice <span style="color:#f92672">=</span> [i, a, j, b]
 
 <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Polynomial solution:&#34;</span>)
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;   Swap </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> at </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> and </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> at </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (max_choice[<span style="color:#ae81ff">1</span>], max_choice[<span style="color:#ae81ff">0</span>], max_choice[<span style="color:#ae81ff">3</span>], max_choice[<span style="color:#ae81ff">2</span>]))
 <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;   Maximum beauty achieved is </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (score <span style="color:#f92672">+</span> max_improvement))
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Single pass solution:
-   Swap 36 at 44 and 977 at 979
-   Maximum beauty achieved is 338168
+   Maximum beauty achieved is 330735
 Polynomial solution:
-   Swap 36 at 44 and 977 at 979
-   Maximum beauty achieved is 338168
+   Maximum beauty achieved is 330735
 </code></pre></div><h2 id="an-even-faster-way">An even faster way?</h2>
 <p>Our strategy currently:</p>
 <ul>
@@ -486,7 +482,6 @@ best_right <span style="color:#f92672">=</span> pair_array[<span style="color:#f
 score <span style="color:#f92672">=</span> sum([abs(e <span style="color:#f92672">-</span> idx) <span style="color:#66d9ef">for</span> idx, e <span style="color:#f92672">in</span> enumerate(array)])
 score <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> (best_start <span style="color:#f92672">-</span> best_end)
 <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Single pass solution:&#34;</span>)
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;   Swap </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> at </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> and </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> at </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (best_left[<span style="color:#ae81ff">0</span>], best_left[<span style="color:#ae81ff">1</span>], best_right[<span style="color:#ae81ff">0</span>], best_right[<span style="color:#ae81ff">1</span>]))
 <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;   Maximum beauty achieved is </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (score))
 
 <span style="color:#75715e"># CHECK 1</span>
@@ -506,14 +501,11 @@ max_improvement <span style="color:#f92672">=</span> <span style="color:#ae81ff"
             max_choice <span style="color:#f92672">=</span> [i, a, j, b]
 
 <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Polynomial solution:&#34;</span>)
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;   Swap </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> at </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> and </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> at </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (max_choice[<span style="color:#ae81ff">1</span>], max_choice[<span style="color:#ae81ff">0</span>], max_choice[<span style="color:#ae81ff">3</span>], max_choice[<span style="color:#ae81ff">2</span>]))
 <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;   Maximum beauty achieved is </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (score <span style="color:#f92672">+</span> max_improvement))
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Single pass solution:
-   Swap 2 at 13 and 979 at 993
-   Maximum beauty achieved is 330202
+   Maximum beauty achieved is 320292
 Polynomial solution:
-   Swap 2 at 13 and 993 at 979
-   Maximum beauty achieved is 330202
+   Maximum beauty achieved is 320292
 </code></pre></div>
 </main>
 

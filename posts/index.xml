@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Prasanna</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 24 Nov 2020 16:10:01 +0530</lastBuildDate>
+    <lastBuildDate>Tue, 24 Nov 2020 16:15:36 +0530</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Algo walkthrough: swapping elements to find max score</title>
       <link>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</link>
-      <pubDate>Tue, 24 Nov 2020 16:10:01 +0530</pubDate>
+      <pubDate>Tue, 24 Nov 2020 16:15:36 +0530</pubDate>
       
       <guid>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</guid>
       <description>Problem statement Given an array of size \(n\), the beauty of this array is defined as sum of \(abs(index-value)\) for each element. Swapping two elements of this array, what is the maximum beauty possible?
