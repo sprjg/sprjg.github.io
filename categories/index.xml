@@ -6,9 +6,28 @@
     <description>Recent content in Categories on Prasanna</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Tue, 24 Nov 2020 15:59:02 +0530</lastBuildDate>
     
 	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>algos</title>
+      <link>/categories/algos/</link>
+      <pubDate>Tue, 24 Nov 2020 15:59:02 +0530</pubDate>
+      
+      <guid>/categories/algos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>notes</title>
+      <link>/categories/notes/</link>
+      <pubDate>Sat, 11 Jul 2020 21:24:15 +0530</pubDate>
+      
+      <guid>/categories/notes/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

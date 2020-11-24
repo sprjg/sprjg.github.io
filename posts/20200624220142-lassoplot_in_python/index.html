@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>lassoPlot in python | Prasanna</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+    <div id="searcher">
+    <input id="search" type="text" placeholder="search">
+    <br> 
+    <ul id="results">
+    </ul>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/1.0.0/lunr.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+    var lunrIndex,
+        $results,
+        pagesIndex;
+
+    
+    function initLunr() {
+        
+        $.getJSON("/js/lunr/PagesIndex.json")
+            .done(function(index) {
+                pagesIndex = index;
+                
+                
+                lunrIndex = lunr(function() {
+                    this.field("title", {
+                        boost: 10
+                    });
+                    this.field("tags", {
+                        boost: 5
+                    });
+                    this.field("content");
+
+                    
+                    this.ref("href");
+                });
+
+                
+                pagesIndex.forEach(function(page) {
+                    lunrIndex.add(page);
+                });
+            })
+            .fail(function(jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.error("Error getting Hugo index flie:", err);
+            });
+    }
+
+    
+    function initUI() {
+        $results = $("#results");
+        $("#search").keyup(function() {
+            $results.empty();
+
+            
+            var query = $(this).val();
+            if (query.length < 2) {
+                return;
+            }
+
+            var results = search(query);
+
+            renderResults(results);
+        });
+    }
+
+    
+
+    function search(query) {
+        
+        
+        
+        
+        
+        return lunrIndex.search(query).map(function(result) {
+                return pagesIndex.filter(function(page) {
+                    return page.href === result.ref;
+                })[0];
+            });
+    }
+
+    
+
+    function renderResults(results) {
+        if (!results.length) {
+            return;
+        }
+
+        
+        results.slice(0, 10).forEach(function(result) {
+            var $result = $("<li>");
+            $result.append($("<a>", {
+                href: result.href,
+                text: "» " + result.title
+            }));
+            $results.append($result);
+        });
+    }
+
+    
+    initLunr();
+
+    $(document).ready(function() {
+        initUI();
+    });
+    </script> 
+
+
+
+  </head>
+
+  <body>
+    <div id="posts-list">
+    <nav>
+    <ul class="menu">
+      
+    </ul>
+    <hr/>
+    </nav>
+    </div>
+
+<div class="article-meta">
+<a href="/posts" style="text-decoration:none;color:black;"><h1><span class="title">lassoPlot in python</span></h1></a>
+</div>
+
+<main>
+<p>A comparison of python vs matlab</p>
+<h2 id="lassoplot-in-matlab">`lassoPlot` in matlab</h2>
+<p>In matlab, lasso regression&rsquo;s MSE is easily visualized using the command
+`lassoPlot`. The following is from Prof. Steve Brunton&rsquo;s
+<a href="http:uwdatabook.com">uwdatabook page</a>. In the zip file, the exact file is
+`CH03_SEC05_2_LASSO.m`. The most relevant parts to create the plot are
+picked out here:</p>
+<pre><code class="language-nil" data-lang="nil">A = randn(100,10);                   % Matrix of possible predictors
+x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors
+b = A*x + 2*randn(100,1);            % Observations (with noise)
+
+xL2 = pinv(A)*b
+
+[XL1 FitInfo] = lasso(A,b,'CV',10);
+lassoPlot(XL1,FitInfo,'PlotType','CV')
+save
+</code></pre><p>See output below:</p>
+<figure>
+    <img src="/ox-hugo/matlab_lassoplot.svg"/> 
+</figure>
+
+<h2 id="equivalent-command-in-python">Equivalent command in python</h2>
+<p>In python the function calls are completely different. In fact there&rsquo;
+no direct way to mention 10-fold cross validation like in
+`lasso(A,b,&lsquo;CV&rsquo;,10)`.
+<a href="https://stackoverflow.com/questions/12746479/why-are-lasso-in-sklearn-python-and-matlab-statistical-package-different/20457402#20457402">This answer</a> shows how to create the `KFold` cross validation model
+first and then use it in `LassoCV`.
+In the previous matlab code sample I saved the variables so as to
+recreate the exact plot in python.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<span style="color:#f92672">import</span> matplotlib
+matplotlib<span style="color:#f92672">.</span>use(<span style="color:#e6db74">&#39;Agg&#39;</span>)
+<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+<span style="color:#f92672">from</span> scipy.io <span style="color:#f92672">import</span> loadmat
+<span style="color:#f92672">import</span> sklearn.linear_model
+
+<span style="color:#75715e"># no effect on algorithm, plotting helper function</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plt_save</span>(title, funcarr):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Helper function for laying
+</span><span style="color:#e6db74">    out plots quickly
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    title: plot title, {title}.png is the file name given to savefig
+</span><span style="color:#e6db74">    funcarr: array of functions, one each executed for a column of subplots,
+</span><span style="color:#e6db74">    each function can include plotting, axes changes, xlim, ylim calls.
+</span><span style="color:#e6db74">    Basically anything specific to that subplot can be done in that function
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    plt<span style="color:#f92672">.</span>close()
+    fig, axs <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(len(funcarr), <span style="color:#ae81ff">1</span>,
+                            squeeze<span style="color:#f92672">=</span>False,
+                            constrained_layout<span style="color:#f92672">=</span>True)
+    <span style="color:#66d9ef">for</span> ax, func <span style="color:#f92672">in</span> zip(axs<span style="color:#f92672">.</span>T[<span style="color:#ae81ff">0</span>], funcarr):
+        func(ax)
+        plt<span style="color:#f92672">.</span>suptitle(title)
+        plt<span style="color:#f92672">.</span>savefig(f<span style="color:#e6db74">&#39;{title}.png&#39;</span>)
+        plt<span style="color:#f92672">.</span>close()
+
+
+alldata <span style="color:#f92672">=</span> loadmat(<span style="color:#e6db74">&#39;matlab.mat&#39;</span>)
+<span style="color:#75715e"># this represents the measurement</span>
+A <span style="color:#f92672">=</span> alldata[<span style="color:#e6db74">&#39;A&#39;</span>]
+x <span style="color:#f92672">=</span> alldata[<span style="color:#e6db74">&#39;x&#39;</span>]
+b <span style="color:#f92672">=</span> alldata[<span style="color:#e6db74">&#39;b&#39;</span>]
+
+<span style="color:#75715e"># with cross validation</span>
+kf <span style="color:#f92672">=</span> sklearn<span style="color:#f92672">.</span>model_selection<span style="color:#f92672">.</span>KFold(n_splits<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, shuffle<span style="color:#f92672">=</span>True)
+<span style="color:#75715e"># print(sklearn.model_selection.KFold.__doc__)</span>
+cv <span style="color:#f92672">=</span> sklearn<span style="color:#f92672">.</span>linear_model<span style="color:#f92672">.</span>LassoCV(cv<span style="color:#f92672">=</span>kf, normalize<span style="color:#f92672">=</span>True)<span style="color:#f92672">.</span>fit(A,b)
+
+<span style="color:#75715e"># mse_path_ contains the errors for each (fold, alpha) pair</span>
+<span style="color:#75715e"># we want to plot the variation of errors in each alpha across the folds</span>
+<span style="color:#75715e"># i.e. alpha on x-axis, the y spread shows the error spread</span>
+<span style="color:#75715e">#eps = 0.01 # the smaller it is the longer is the path</span>
+<span style="color:#75715e">#alphas_lasso, coefs_lasso,_ = sklearn.linear_model.lasso_path(A, b, eps=eps)</span>
+
+mean <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> e : sum(e)<span style="color:#f92672">/</span>len(e)
+
+min_mses <span style="color:#f92672">=</span> [min(cv<span style="color:#f92672">.</span>mse_path_[i, :]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(cv<span style="color:#f92672">.</span>alphas_))]
+max_mses <span style="color:#f92672">=</span> [max(cv<span style="color:#f92672">.</span>mse_path_[i, :]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(cv<span style="color:#f92672">.</span>alphas_))]
+mean_mses <span style="color:#f92672">=</span> [mean(cv<span style="color:#f92672">.</span>mse_path_[i, :]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(cv<span style="color:#f92672">.</span>alphas_))]
+dev_mses <span style="color:#f92672">=</span> [np<span style="color:#f92672">.</span>std(cv<span style="color:#f92672">.</span>mse_path_[i,:]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(cv<span style="color:#f92672">.</span>alphas_))]
+idx_alpha_of_min_mse <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>where(np<span style="color:#f92672">.</span>isclose(cv<span style="color:#f92672">.</span>alphas_, cv<span style="color:#f92672">.</span>alpha_))[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>]
+min_mse_over_alphas <span style="color:#f92672">=</span> mean(cv<span style="color:#f92672">.</span>mse_path_[idx_alpha_of_min_mse, :])
+
+<span style="color:#75715e"># standard deviation of the error at the best fit MSE</span>
+dev <span style="color:#f92672">=</span> dev_mses[idx_alpha_of_min_mse]
+<span style="color:#66d9ef">print</span>(np<span style="color:#f92672">.</span>round(dev_mses,<span style="color:#ae81ff">2</span>))
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;mean_mses: {np.round(mean_mses, 2)}&#39;</span>)
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;dev: {np.round(dev,2)}&#39;</span>)
+<span style="color:#75715e"># find closest alpha for which mean mse is close to dev</span>
+idxs_sparse_alpha_candidates <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>where(
+    np<span style="color:#f92672">.</span>isclose(
+        mean_mses,
+        np<span style="color:#f92672">.</span>ones_like(mean_mses) <span style="color:#f92672">*</span> (min_mse_over_alphas <span style="color:#f92672">+</span> dev),
+        atol<span style="color:#f92672">=</span><span style="color:#ae81ff">0.1</span>))
+<span style="color:#75715e"># print(mean_mses, min_mse_over_alphas + dev)</span>
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;idxs_sparse_alpha_candidates: {idxs_sparse_alpha_candidates}&#39;</span>)
+idx_sparsest_alpha <span style="color:#f92672">=</span> idxs_sparse_alpha_candidates[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>]
+<span style="color:#66d9ef">print</span>(idx_sparsest_alpha)
+sparsest_alpha <span style="color:#f92672">=</span> cv<span style="color:#f92672">.</span>alphas_[idx_sparsest_alpha]
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;cv.coef_:{cv.coef_}&#39;</span>)
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;sparsest_alpha: {sparsest_alpha}&#39;</span>)
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;overfit_alpha: {cv.alphas_[idx_alpha_of_min_mse]}&#39;</span>)
+<span style="color:#75715e"># without cross validation at sparsest alpha</span>
+clf <span style="color:#f92672">=</span> sklearn<span style="color:#f92672">.</span>linear_model<span style="color:#f92672">.</span>Lasso(alpha<span style="color:#f92672">=</span>sparsest_alpha)
+clf<span style="color:#f92672">.</span>fit(A, b)
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;clf.coef_: {clf.coef_}&#39;</span>)
+<span style="color:#75715e"># identify the active clf coefs</span>
+idx_active <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>where(np<span style="color:#f92672">.</span>logical_not(np<span style="color:#f92672">.</span>isclose(clf<span style="color:#f92672">.</span>coef_, np<span style="color:#f92672">.</span>zeros_like(clf<span style="color:#f92672">.</span>coef_))))
+<span style="color:#75715e">#print(np.isclose.__doc__)</span>
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;idx_active: {idx_active}&#39;</span>)
+A_active <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros_like(A)
+A_active[:, idx_active] <span style="color:#f92672">=</span> A[:, idx_active]
+<span style="color:#66d9ef">print</span>(np<span style="color:#f92672">.</span>shape(A_active))
+<span style="color:#66d9ef">print</span>(np<span style="color:#f92672">.</span>shape(b))
+
+x_estimate_active_only <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>pinv(A_active) <span style="color:#960050;background-color:#1e0010">@</span> b
+<span style="color:#66d9ef">print</span>(np<span style="color:#f92672">.</span>round(x <span style="color:#f92672">-</span> x_estimate_active_only, <span style="color:#ae81ff">2</span>))
+
+plt_save(<span style="color:#e6db74">&#39;python lasso demo, LassoCV show error spread&#39;</span>, [
+    <span style="color:#66d9ef">lambda</span> ax: (
+        ax<span style="color:#f92672">.</span>plot(cv<span style="color:#f92672">.</span>alphas_, [m <span style="color:#f92672">+</span> d<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> m,d <span style="color:#f92672">in</span> zip(mean_mses, dev_mses)], <span style="color:#e6db74">&#39;o&#39;</span>),
+        ax<span style="color:#f92672">.</span>plot(cv<span style="color:#f92672">.</span>alphas_, [m <span style="color:#f92672">-</span> d<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span> <span style="color:#66d9ef">for</span> m,d <span style="color:#f92672">in</span> zip(mean_mses, dev_mses)], <span style="color:#e6db74">&#39;o&#39;</span>),
+        ax<span style="color:#f92672">.</span>plot(cv<span style="color:#f92672">.</span>alphas_, mean_mses, <span style="color:#e6db74">&#39;o&#39;</span>),
+        ax<span style="color:#f92672">.</span>plot(cv<span style="color:#f92672">.</span>alpha_, min_mse_over_alphas, <span style="color:#e6db74">&#39;x&#39;</span>),
+        ax<span style="color:#f92672">.</span>plot(cv<span style="color:#f92672">.</span>alphas_[idx_sparsest_alpha], mean_mses[idx_sparsest_alpha], <span style="color:#e6db74">&#39;kx&#39;</span>),
+        ax<span style="color:#f92672">.</span>invert_xaxis(),
+        ax<span style="color:#f92672">.</span>set_xscale(<span style="color:#e6db74">&#39;log&#39;</span>),
+        [ax<span style="color:#f92672">.</span>plot([a, a], [m <span style="color:#f92672">-</span> d<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>, m <span style="color:#f92672">+</span> d<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>], <span style="color:#e6db74">&#39;y&#39;</span>) <span style="color:#66d9ef">for</span> a, m, d  <span style="color:#f92672">in</span> zip(cv<span style="color:#f92672">.</span>alphas_, mean_mses, dev_mses)],
+    )])
+
+<span style="color:#75715e"># plt_save(&#39;python lasso demo&#39;, [</span>
+<span style="color:#75715e">#     lambda ax: (ax.plot(cv.coef_,&#39;o&#39;, label=&#39;10-fold cv&#39;),</span>
+<span style="color:#75715e">#                 ax.plot(x, &#39;x&#39;, label=&#39;true values, x&#39;),</span>
+<span style="color:#75715e">#                 ax.plot(clf.coef_, &#39;o&#39;, label=&#39;no cv, alpha at sparsest&#39;),</span>
+<span style="color:#75715e">#                 ax.plot(l2res, &#39;o&#39;, label=&#39;l2&#39;),</span>
+<span style="color:#75715e">#                 ax.plot(x_estimate_active_only, &#39;o&#39;, label=&#39;l2 regression correction&#39;),</span>
+<span style="color:#75715e">#                 ax.plot(np.linalg.pinv(A) @ noise, &#39;s&#39;, label=&#39;inv(A) * noise&#39;),</span>
+<span style="color:#75715e">#                 ax.legend()</span>
+<span style="color:#75715e">#     ),</span>
+<span style="color:#75715e"># ])</span>
+
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">/home/p/.local/lib/python3.6/site-packages/sklearn/utils/validation.py:73: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
+  return f(**kwargs)
+[2.51 2.5  2.45 2.4  2.36 2.33 2.31 2.29 2.28 2.26 2.25 2.24 2.24 2.24
+ 2.24 2.24 2.24 2.25 2.25 2.26 2.27 2.27 2.28 2.28 2.29 2.3  2.3  2.31
+ 2.32 2.33 2.34 2.35 2.36 2.37 2.38 2.38 2.39 2.4  2.4  2.41 2.42 2.42
+ 2.43 2.44 2.45 2.45 2.46 2.47 2.48 2.48 2.49 2.49 2.5  2.5  2.51 2.51
+ 2.51 2.52 2.52 2.52 2.53 2.53 2.53 2.54 2.54 2.54 2.54 2.54 2.55 2.55
+ 2.55 2.55 2.55 2.55 2.56 2.56 2.56 2.56 2.56 2.56 2.56 2.56 2.56 2.56
+ 2.56 2.57 2.57 2.57 2.57 2.57 2.57 2.57 2.57 2.57 2.57 2.57 2.57 2.57
+ 2.57 2.57]
+mean_mses: [5.54 5.5  5.43 5.36 5.3  5.26 5.23 5.2  5.18 5.16 5.14 5.1  5.08 5.06
+ 5.04 5.03 5.02 5.01 5.01 5.02 5.04 5.06 5.08 5.11 5.14 5.17 5.2  5.22
+ 5.25 5.27 5.29 5.32 5.34 5.36 5.39 5.41 5.43 5.44 5.46 5.48 5.49 5.51
+ 5.52 5.54 5.56 5.57 5.59 5.6  5.61 5.62 5.63 5.65 5.65 5.66 5.67 5.68
+ 5.69 5.7  5.7  5.71 5.72 5.72 5.73 5.73 5.74 5.74 5.75 5.75 5.75 5.76
+ 5.76 5.76 5.76 5.77 5.77 5.77 5.77 5.78 5.78 5.78 5.78 5.78 5.78 5.78
+ 5.79 5.79 5.79 5.79 5.79 5.79 5.79 5.79 5.79 5.79 5.79 5.79 5.8  5.8
+ 5.8  5.8 ]
+dev: 2.25
+idxs_sparse_alpha_candidates: (array([], dtype=int64),)
+Traceback (most recent call last):
+  File &#34;&lt;stdin&gt;&#34;, line 1, in &lt;module&gt;
+  File &#34;/tmp/babel-Ng5Fd9/python-tkuHOj&#34;, line 69, in &lt;module&gt;
+    idx_sparsest_alpha = idxs_sparse_alpha_candidates[0][0]
+IndexError: index 0 is out of bounds for axis 0 with size 0
+</code></pre></div><figure>
+    <img src="/ox-hugo/python%20lasso%20demo,%20LassoCV%20show%20error%20spread.png"/> 
+</figure>
+
+<h3 id="important-differences">Important differences</h3>
+<h4 id="not-the-same-cost-function">Not the same cost function</h4>
+<p>The python function call `LassoCV` and matlab function call `lasso` do
+not solve the same optimization problem. `LassoCV` solves a normalized
+version of the problem by diving the cost function by the number of
+samples. This changes the resulting penalty values being used in the
+two versions. In matlab, using \(\lambda \in [a,b]\) is equivalent to
+using \(\lambda \in [na, nb]\) in python. See
+<a href="https://www.mathworks.com/help/stats/lasso.html">matlab lasso documentation</a> (end of the page). Compare to
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear%5Fmodel.LassoCV.html">scipy LassoCV documentation</a>.
+This is visible from the x-axis of the plots and you see a they are
+off by a factor of 100.</p>
+
+</main>
+
+  <footer>
+  <script src="//yihui.name/js/math-code.js"></script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+<script async src="//yihui.name/js/center-img.js"></script>
+
+  
+  </footer>
+  </body>
+</html>
+

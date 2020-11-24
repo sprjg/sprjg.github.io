@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Prasanna</title>
-    <link>/</link>
-    <description>Recent content on Prasanna</description>
+    <title>notes on Prasanna</title>
+    <link>/categories/notes/</link>
+    <description>Recent content in notes on Prasanna</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 24 Nov 2020 15:59:02 +0530</lastBuildDate>
+    <lastBuildDate>Sat, 11 Jul 2020 21:24:15 +0530</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/notes/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Algo walkthrough: swapping elements to find max score</title>
-      <link>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</link>
-      <pubDate>Tue, 24 Nov 2020 15:59:02 +0530</pubDate>
-      
-      <guid>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</guid>
-      <description>Problem statement Given an array of size \(n\), the beauty of this array is defined as sum of \(abs(index-value)\) for each element. Swapping two elements of this array, what is the maximum beauty possible?
-Initial setup The initial setup consists of an unsorted array. Each element has a score defined as the absolute value of the difference the element&amp;rsquo;s value and its index.
-The absolute value The metric for each element gives us a sense of displacement.</description>
-    </item>
     
     <item>
       <title>Fourier Analysis</title>
