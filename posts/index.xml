@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Prasanna</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 24 Nov 2020 16:15:36 +0530</lastBuildDate>
+    <lastBuildDate>Tue, 24 Nov 2020 20:19:53 +0530</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Algo walkthrough: longest sequence in unsorted array</title>
+      <link>/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</link>
+      <pubDate>Tue, 24 Nov 2020 20:19:53 +0530</pubDate>
+      
+      <guid>/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</guid>
+      <description>The setup We have an unsorted array. It may or may not have a sequence of numbers. We have to find the length of the longest sequence.
+Hints  They hint at a \(O(n)\) solution. This can be useful at a later point. They also say the length of the array can be between \(1, 10000\). This means we can a small array of size \(10\) and manually try out solutions.</description>
+    </item>
     
     <item>
       <title>Algo walkthrough: swapping elements to find max score</title>
