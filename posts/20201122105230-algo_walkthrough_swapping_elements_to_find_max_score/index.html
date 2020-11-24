@@ -238,7 +238,7 @@ The second case is interesting. The decrease in score on removal of the overlap 
 <h4 id="fallacy-no-benefit-in-crossing-the-blue-line">[Fallacy] No benefit in crossing the blue line</h4>
 <p>This seems to be a fallacy in our previous observation. Notice how element at <code>15</code>, could in fact move down all the way, crossing the blue line, and achieve a better score (assuming we can have a partner who wants to move up).</p>
 <h4 id="summary">Summary</h4>
-<p>On swapping, one element moves up, one element moves down. We want an increase in score and we have seen <a href="#org246a0bc">that</a> causing an overlap increases score.
+<p>On swapping, one element moves up, one element moves down. We want an increase in score and we have seen <a href="#orgf368dd0">that</a> causing an overlap increases score.
 We also see that an element can cross the blue line to increase its own score.
 Together with the above two observations, we can say that if we pick any two non-overlapping score lines and swap them, there is a definite increase in total score:</p>
 <ul>
@@ -281,6 +281,10 @@ plot_array_as_2d_intervals(array, <span style="color:#e6db74">&#39;swaps-model3-
 length <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
 array <span style="color:#f92672">=</span> [random<span style="color:#f92672">.</span>choice(list(range(<span style="color:#ae81ff">0</span>, length))) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, length)]
 plot_array_as_2d_intervals(array, <span style="color:#e6db74">&#39;swaps-model3-sample-array-plot.png&#39;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Python 3.8.5 (default, Sep  7 2020, 11:04:58)
+[GCC 7.5.0] on linux
+Type &#34;help&#34;, &#34;copyright&#34;, &#34;credits&#34; or &#34;license&#34; for more information.
+&gt;&gt;&gt; python.el: native completion setup loaded
 </code></pre></div><figure>
     <img src="/ox-hugo/swaps-model3-sample-small-array.png"/> 
 </figure>
