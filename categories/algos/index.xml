@@ -6,10 +6,20 @@
     <description>Recent content in algos on Prasanna</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 24 Nov 2020 20:24:37 +0530</lastBuildDate>
+    <lastBuildDate>Wed, 25 Nov 2020 18:15:27 +0530</lastBuildDate>
     
 	<atom:link href="/categories/algos/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Algo walkthrough: number of islands</title>
+      <link>/posts/20201125100541-algo_walkthrough_number_of_islands/</link>
+      <pubDate>Wed, 25 Nov 2020 18:15:27 +0530</pubDate>
+      
+      <guid>/posts/20201125100541-algo_walkthrough_number_of_islands/</guid>
+      <description>The problem  Given an m x n 2d grid map of &amp;lsquo;1&amp;rsquo;s (land) and &amp;lsquo;0&amp;rsquo;s (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+ Exploration The first instinct is to lower the dimension of the problem and see what that looks like.</description>
+    </item>
     
     <item>
       <title>Algo walkthrough: longest sequence in unsorted array</title>

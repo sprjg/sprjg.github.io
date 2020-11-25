@@ -3,27 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</loc>
-    <lastmod>2020-11-24T20:24:37+05:30</lastmod>
+    <loc>/posts/20201125100541-algo_walkthrough_number_of_islands/</loc>
+    <lastmod>2020-11-25T18:15:27+05:30</lastmod>
   </url>
   
   <url>
     <loc>/categories/algos/</loc>
-    <lastmod>2020-11-24T20:24:37+05:30</lastmod>
+    <lastmod>2020-11-25T18:15:27+05:30</lastmod>
   </url>
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2020-11-24T20:24:37+05:30</lastmod>
+    <lastmod>2020-11-25T18:15:27+05:30</lastmod>
   </url>
   
   <url>
     <loc>/posts/</loc>
-    <lastmod>2020-11-24T20:24:37+05:30</lastmod>
+    <lastmod>2020-11-25T18:15:27+05:30</lastmod>
   </url>
   
   <url>
     <loc>/</loc>
+    <lastmod>2020-11-25T18:15:27+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</loc>
+    <lastmod>2020-11-25T13:51:37+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/notes/</loc>
+    <lastmod>2020-11-25T13:51:37+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</loc>
     <lastmod>2020-11-24T20:24:37+05:30</lastmod>
   </url>
   
@@ -35,16 +50,6 @@
   <url>
     <loc>/posts/20200524030032-pubnotes_ddse_fourier/</loc>
     <lastmod>2020-07-11T21:24:15+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/notes/</loc>
-    <lastmod>2020-07-11T21:24:15+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</loc>
-    <lastmod>2020-07-11T20:53:10+05:30</lastmod>
   </url>
   
   <url>
