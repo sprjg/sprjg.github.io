@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Prasanna</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 26 Nov 2020 00:00:00 +0530</lastBuildDate>
+    <lastBuildDate>Thu, 26 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Algo walkthrough: number of islands</title>
       <link>/posts/20201125100541-algo_walkthrough_number_of_islands/</link>
-      <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
+      <pubDate>Thu, 26 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>/posts/20201125100541-algo_walkthrough_number_of_islands/</guid>
       <description>The problem  Given an m x n 2d grid map of &amp;lsquo;1&amp;rsquo;s (land) and &amp;lsquo;0&amp;rsquo;s (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
@@ -24,7 +24,7 @@
     <item>
       <title>Algo walkthrough: longest sequence in unsorted array</title>
       <link>/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</link>
-      <pubDate>Wed, 25 Nov 2020 00:00:00 +0530</pubDate>
+      <pubDate>Wed, 25 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</guid>
       <description>The setup We have an unsorted array. It may or may not have a sequence of numbers. We have to find the length of the longest sequence.
@@ -34,7 +34,7 @@ Hints  They hint at a \(O(n)\) solution. This can be useful at a later point. Th
     <item>
       <title>Algo walkthrough: swapping elements to find max score</title>
       <link>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</link>
-      <pubDate>Mon, 23 Nov 2020 00:00:00 +0530</pubDate>
+      <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</guid>
       <description>Problem statement Given an array of size \(n\), the beauty of this array is defined as sum of \(abs(index-value)\) for each element. Swapping two elements of this array, what is the maximum beauty possible?
