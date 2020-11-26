@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Algo walkthrough, number of islands</title>
+      <title>Algo walkthrough: number of islands</title>
       <link>/posts/20201125100541-algo_walkthrough_number_of_islands/</link>
       <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
       
@@ -22,7 +22,7 @@
     </item>
     
     <item>
-      <title>Algo walkthrough, longest sequence in unsorted array</title>
+      <title>Algo walkthrough: longest sequence in unsorted array</title>
       <link>/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</link>
       <pubDate>Wed, 25 Nov 2020 00:00:00 +0530</pubDate>
       
@@ -32,7 +32,7 @@ Hints  They hint at a \(O(n)\) solution. This can be useful at a later point. Th
     </item>
     
     <item>
-      <title>Algo walkthrough, swapping elements to find max score</title>
+      <title>Algo walkthrough: swapping elements to find max score</title>
       <link>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</link>
       <pubDate>Mon, 23 Nov 2020 00:00:00 +0530</pubDate>
       
