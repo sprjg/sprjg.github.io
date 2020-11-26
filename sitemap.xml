@@ -14,27 +14,17 @@
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2020-11-25T18:15:27+05:30</lastmod>
+    <lastmod>2020-11-26T17:19:48+05:30</lastmod>
   </url>
   
   <url>
     <loc>/posts/</loc>
-    <lastmod>2020-11-25T18:15:27+05:30</lastmod>
+    <lastmod>2020-11-26T17:19:48+05:30</lastmod>
   </url>
   
   <url>
     <loc>/</loc>
-    <lastmod>2020-11-25T18:15:27+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</loc>
-    <lastmod>2020-11-25T13:51:37+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/notes/</loc>
-    <lastmod>2020-11-25T13:51:37+05:30</lastmod>
+    <lastmod>2020-11-26T17:19:48+05:30</lastmod>
   </url>
   
   <url>
@@ -48,13 +38,23 @@
   </url>
   
   <url>
+    <loc>/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</loc>
+    <lastmod>2020-11-26T17:19:48+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/notes/</loc>
+    <lastmod>2020-11-26T17:19:48+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>/posts/20200524030032-pubnotes_ddse_fourier/</loc>
-    <lastmod>2020-07-11T21:24:15+05:30</lastmod>
+    <lastmod>2020-11-26T17:18:08+05:30</lastmod>
   </url>
   
   <url>
     <loc>/posts/20200624220142-lassoplot_in_python/</loc>
-    <lastmod>2020-07-11T20:53:09+05:30</lastmod>
+    <lastmod>2020-11-26T17:10:14+05:30</lastmod>
   </url>
   
   <url>

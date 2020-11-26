@@ -1,11 +1,17 @@
 #searcher {
-    background: #eee;
-    max-width: 800px;
-    width: 100%;
-    text-align: center;
-    border: black;
-    border-width: 2px;
-    border-style: solid;
+    /*! background: #eee; */
+    /*! max-width: 800px; */
+    /*! text-align: center; */
+    /*! border: black; */
+    /*! border-width: 2px; */
+    /*! border-style: solid; */
+    /*! border-radius: 10px; */
+    position: absolute;
+    z-index: 1;
+    /*! display: grid; */
+    /*! align-items: center; */
+    left: 0;
+    right: 0;
 }
 
 .MathJax {
@@ -13,31 +19,49 @@
 }
 
 #searcher input {
-    font-size: 25pt;
-    margin-top: 20pt;
-    width: 90%;
+    /*! font-size: 25pt; */
+    margin: 0 auto;
+    /*! width: 100%; */
+    background: #eeeeee;
+    /*! align-content: center; */
+    display: block;
+    width: 50%;
+    font-size: 20pt;
+    padding: 10px;
+    border-radius: 10px;
+    /*! border-color: gray; */
+    border: solid gray;
 }
 
-#results {
+#searcher-results {
+    list-style-type: none;
+    background: #eeeeee;
+    width: 50%;
+    margin: 0 auto;
+    padding-top: 0;
+    padding: 8px;
+    display: table;
     list-style-type: none;
 }
 
-#results > li {
+#searcher-results > li {
     text-align: left;
     text-
 }
 
 #posts-list {
     padding-top: 20%;
+    float: top;
 }
 
 h1, h2, h3, h4, h5, h6  {
+    padding: 10px;
     margin-block-start: 0em;
     margin-block-end: 0em;
 }
 
 body {
-  max-width: 800px;
+  max-width: 600px;
   margin: auto;
   padding: 1em;
   line-height: 1.5em;
@@ -73,22 +97,22 @@ h6:before {
 }
 
 h4 {
-  text-indent: 30px;
+/*  text-indent: 30px; */
   font-size: 14pt;
 }
 
 h5 {
-  text-indent: 60px;
+/*  text-indent: 60px; */
   font-size: 14pt;
 }
 
 h6 {
-  text-indent: 90px;
+/*  text-indent: 90px; */
   font-size: 14pt;
 }
 
 h6 + ul, ul + ul {
-  text-indent: 120px;
+/*  text-indent: 120px; */
 }
 
 /* header and footer areas */
@@ -96,7 +120,6 @@ h6 + ul, ul + ul {
 .menu li { display: inline-block; }
 .article-meta, .menu a {
   text-decoration: none;
-  background: #eee;
   padding: 5px;
   border-radius: 5px;
 }
@@ -114,9 +137,18 @@ pre {
   box-shadow: 5px 5px 5px #eee;
   padding: 1em;
   overflow-x: auto;
+  border-radius: 10px;
 }
-code { background: #f9f9f9; }
-pre code { background: none; }
+
+code { 
+    background: lightcyan; 
+    border-radius: 2px;
+    border: solid lightcyan 2px;    
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.highlight pre code { background: none; border: none}
 
 /* misc elements */
 img, iframe, video { max-width: 100%; }

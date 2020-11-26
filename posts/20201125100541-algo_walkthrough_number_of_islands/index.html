@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head> 
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Algo walkthrough: number of islands | Prasanna</title>
@@ -9,8 +9,7 @@
     
     <div id="searcher">
     <input id="search" type="text" placeholder="search">
-    <br> 
-    <ul id="results">
+    <ul id="searcher-results">
     </ul>
     </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
@@ -55,7 +54,7 @@
 
     
     function initUI() {
-        $results = $("#results");
+        $results = $("#searcher-results");
         $("#search").keyup(function() {
             $results.empty();
 
@@ -120,6 +119,16 @@
     <div id="posts-list">
     <nav>
     <ul class="menu">
+      
+      <li><a href="/posts/">Main</a></li>
+      
+      <li><a href="/categories/">Categories</a></li>
+      
+      <li><a href="/tags/">Tags</a></li>
+      
+      <li><a href="/">About</a></li>
+      
+      <li><a href="/index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -1626,6 +1635,9 @@ Memory Usage: 18.5 MB, less than 16.70% of Python3 online submissions for Number
 
 <script async src="//yihui.name/js/center-img.js"></script>
 
+  
+  <hr/>
+  © <a href="https://sprjg.github.io">SPR</a> 2019 &ndash; 2020 | <a href="https://github.com/sprajagopal">Github</a>
   
   </footer>
   </body>
