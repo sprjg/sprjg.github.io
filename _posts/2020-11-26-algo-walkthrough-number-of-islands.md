@@ -5,8 +5,9 @@ author: sprajagopal
 post_excerpt: ""
 layout: post
 permalink: >
-  https://notes-3dfd54.ingress-baronn.easywp.com/?p=9
-published: false
+  https://notes-3dfd54.ingress-baronn.easywp.com/algo-walkthrough-number-of-islands/
+published: true
+post_date: 2020-11-26 06:20:17
 ---
 ## [The problem](https://leetcode.com/problems/number-of-islands/) {#the-problem}
 
