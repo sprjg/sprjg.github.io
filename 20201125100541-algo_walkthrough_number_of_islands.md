@@ -1,5 +1,5 @@
 ---
-post_title : Algo walkthrough: number of islands
+post_title : Algo walkthrough, number of islands
 layout: post
 published : false
 ---
