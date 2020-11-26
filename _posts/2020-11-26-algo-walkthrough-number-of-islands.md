@@ -2,7 +2,8 @@
 ID: 9
 post_title: Algo walkthrough, number of islands
 author: sprajagopal
-post_excerpt: ""
+post_excerpt: "Given an m x n 2d grid map of '1's (land) and '0's (water), return the number of islands.
+An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water."
 layout: post
 permalink: >
   https://notes-3dfd54.ingress-baronn.easywp.com/algo-walkthrough-number-of-islands/
