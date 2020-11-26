@@ -1,9 +1,13 @@
 ---
-post_title : Algo walkthrough, number of islands
+ID: 9
+post_title: Algo walkthrough, number of islands
+author: sprajagopal
+post_excerpt: ""
 layout: post
-published : false
+permalink: >
+  https://notes-3dfd54.ingress-baronn.easywp.com/?p=9
+published: false
 ---
-
 ## [The problem](https://leetcode.com/problems/number-of-islands/) {#the-problem}
 
 > Given an m x n 2d grid map of '1's (land) and '0's (water), return the number of islands.
@@ -314,9 +318,9 @@ Let's try this on:
 | 1 | 0 | 0 | 0 | 1 |
 | 1 | 1 | 1 | 1 | 1 |
 
-We encounter an unnamed land block (the current block is denoted by \*) and name it `i1`.
+We encounter an unnamed land block (the current block is denoted by *) and name it `i1`.
 
-| i1\* | 0 | 0 | 0 | 1 |
+| i1* | 0 | 0 | 0 | 1 |
 |------|---|---|---|---|
 | 1    | 0 | 0 | 0 | 1 |
 | 1    | 0 | 0 | 0 | 1 |
@@ -324,7 +328,7 @@ We encounter an unnamed land block (the current block is denoted by \*) and name
 
 After this, we name its neighbour also `i1`:
 
-| i1\* | 0 | 0 | 0 | 1 |
+| i1* | 0 | 0 | 0 | 1 |
 |------|---|---|---|---|
 | i1   | 0 | 0 | 0 | 1 |
 | 1    | 0 | 0 | 0 | 1 |
@@ -334,7 +338,7 @@ No more neighbours left. Let's choose one neighbour from the available (we have 
 
 | i1   | 0 | 0 | 0 | 1 |
 |------|---|---|---|---|
-| i1\* | 0 | 0 | 0 | 1 |
+| i1* | 0 | 0 | 0 | 1 |
 | 1    | 0 | 0 | 0 | 1 |
 | 1    | 1 | 1 | 1 | 1 |
 
@@ -356,7 +360,7 @@ In this case, we did not have multiple neighbours at any point. Let's try an exa
 
 We start with the first land block, name the block and the neighbours `i1`. Let's also mark the available neighbours with `-`
 
-| i1\* | 0 | 0 | 0 | 1 |
+| i1* | 0 | 0 | 0 | 1 |
 |------|---|---|---|---|
 | i1-  | 1 | 1 | 0 | 1 |
 | 1    | 0 | 0 | 0 | 1 |
@@ -366,7 +370,7 @@ Mark the current as done `#`. Now we move to one of the blocks marked with `-` (
 
 | i1#  | 0 | 0 | 0 | 1 |
 |------|---|---|---|---|
-| i1\* | 1 | 1 | 0 | 1 |
+| i1* | 1 | 1 | 0 | 1 |
 | 1    | 0 | 0 | 0 | 1 |
 | 1    | 1 | 1 | 1 | 1 |
 
@@ -374,7 +378,7 @@ We name it `i1` and all its neighbours too. We also mark the unvisited neighbour
 
 | i1#  | 0   | 0 | 0 | 1 |
 |------|-----|---|---|---|
-| i1\* | i1- | 1 | 0 | 1 |
+| i1* | i1- | 1 | 0 | 1 |
 | i1-  | 0   | 0 | 0 | 1 |
 | 1    | 1   | 1 | 1 | 1 |
 
@@ -382,13 +386,13 @@ We have two unvisited neighbours now. We can choose either as current:
 
 | i1# | 0    | 0  | 0 | 1 |
 |-----|------|----|---|---|
-| i1# | i1\* | i1 | 0 | 1 |
+| i1# | i1* | i1 | 0 | 1 |
 | i1- | 0    | 0  | 0 | 1 |
 | 1   | 1    | 1  | 1 | 1 |
 
 | i1# | 0   | 0    | 0 | 1 |
 |-----|-----|------|---|---|
-| i1# | i1# | i1\* | 0 | 1 |
+| i1# | i1# | i1* | 0 | 1 |
 | i1- | 0   | 0    | 0 | 1 |
 | 1   | 1   | 1    | 1 | 1 |
 
@@ -405,7 +409,7 @@ We have pending blocks with `-`. We'll make one of them current:
 | i1#  | 0   | 0   | 0 | 1 |
 |------|-----|-----|---|---|
 | i1#  | i1# | i1# | 0 | 1 |
-| i1\* | 0   | 0   | 0 | 1 |
+| i1* | 0   | 0   | 0 | 1 |
 | 1    | 1   | 1   | 1 | 1 |
 
 | i1# | 0   | 0   | 0 | 1 |
@@ -576,7 +580,7 @@ def generate(length, breadth):
 [generate(300, 300) for i in range(0, 1)]
 with open("leetcode_test_num_islands.txt", "w") as file:
     for array in tests:
-        file.write(str(array) + "\n")
+        file.write(str(array) + "n")
 ```
 
 
