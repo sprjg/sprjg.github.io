@@ -50,7 +50,6 @@
 }
 
 #posts-list {
-    padding-top: 20%;
     float: top;
 }
 
@@ -167,3 +166,11 @@ table {
 table thead th { border-bottom: 1px solid #ddd; }
 th, td { padding: 5px; }
 thead, tfoot, tr:nth-child(even) { background: #eee; }
+
+.site-title {
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    font-size: 28pt;
+    font-weight: bolder;
+}
