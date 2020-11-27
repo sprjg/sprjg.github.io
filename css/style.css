@@ -68,28 +68,28 @@ body {
 
 h2:before,
 h3:before {
-  content: '■   ';
+/*  content: '■   '; */
     position: relative;
     bottom: .1em;
     color: #666;
 }
 
 h4:before {
-  content: '›  ';
+/*  content: '›  '; */
   position: relative;
   bottom: .1em;
   color: #666;
 }
 
 h5:before {
-  content: '➤  ';
+/*  content: '➤  '; */
   position: relative;
   bottom: .1em;
   color: #666;
 }
 
 h6:before {
-  content: 'ᐅ ';
+/*  content: 'ᐅ '; */
   position: relative;
   bottom: .1em;
   color: #666;

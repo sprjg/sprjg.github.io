@@ -1463,13 +1463,9 @@ array <span style="color:#f92672">=</span> [[random<span style="color:#f92672">.
     length <span style="color:#f92672">=</span> len(grid[<span style="color:#ae81ff">0</span>])
     vertices <span style="color:#f92672">=</span> set()
     waiting <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span>Queue()
-<span style="color:#75715e">#    grid.append([0] * (length + 2))</span>
-<span style="color:#75715e">#    grid = [[0] * (length + 2)] + grid</span>
     length <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>
     breadth <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>
     <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, breadth<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
-  <span style="color:#75715e">#      grid[i].append(&#34;0&#34;)</span>
-   <span style="color:#75715e">#     grid[i] = [&#34;0&#34;] + grid[i]</span>
         <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, length<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
             <span style="color:#66d9ef">if</span> grid[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;0&#39;</span>:
                 <span style="color:#75715e"># a land block</span>
@@ -1509,18 +1505,107 @@ array <span style="color:#f92672">=</span> [[random<span style="color:#f92672">.
     <span style="color:#66d9ef">return</span> num_islands
 
 <span style="color:#66d9ef">print</span>(main(array))
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[&#39;1&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;1&#39;]
-[&#39;1&#39;, &#39;1&#39;, &#39;0&#39;, &#39;0&#39;, &#39;1&#39;]
-[&#39;0&#39;, &#39;0&#39;, &#39;1&#39;, &#39;1&#39;, &#39;0&#39;]
-[&#39;1&#39;, &#39;0&#39;, &#39;0&#39;, &#39;1&#39;, &#39;0&#39;]
-[&#39;1&#39;, &#39;1&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;]
-4
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[&#39;1&#39;, &#39;1&#39;, &#39;1&#39;, &#39;0&#39;, &#39;1&#39;]
+[&#39;0&#39;, &#39;1&#39;, &#39;0&#39;, &#39;0&#39;, &#39;1&#39;]
+[&#39;0&#39;, &#39;0&#39;, &#39;1&#39;, &#39;0&#39;, &#39;1&#39;]
+[&#39;0&#39;, &#39;1&#39;, &#39;0&#39;, &#39;1&#39;, &#39;0&#39;]
+[&#39;1&#39;, &#39;1&#39;, &#39;1&#39;, &#39;0&#39;, &#39;1&#39;]
+6
 </code></pre></div><h4 id="results">Results</h4>
 <blockquote>
 <p>Runtime: 212 ms, faster than 5.14% of Python3 online submissions for Number of Islands.
 Memory Usage: 18.5 MB, less than 16.70% of Python3 online submissions for Number of Islands.</p>
 </blockquote>
 <p>That&rsquo;s exactly the same as before. So no luck here.</p>
+<h3 id="retaining-the-grid-instead-of-using-the-set">Retaining the grid instead of using the set</h3>
+<p>Let&rsquo;s use the grid as it is without creating the additional set.</p>
+<ul>
+<li>every time we encounter a water block, ignore it</li>
+<li>every time we encounter a land block, start tagging it with the symbol <code>#</code> and all the neighbours too, then their neighbours until there are no more blocks to be explored. Basically a BFS starting from the land block to tag as <code>#</code>
+<ul>
+<li>increment the counter when no more blocks are left to be explored in this island</li>
+</ul>
+</li>
+<li>every time we encounter a visited block i.e. <code>#</code>, ignore it</li>
+<li>by the end of the single pass, we should have the number of islands in the counter</li>
+</ul>
+<h4 id="implementation">Implementation</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> random
+<span style="color:#f92672">import</span> queue
+
+length <span style="color:#f92672">=</span> <span style="color:#ae81ff">300</span>
+breadth <span style="color:#f92672">=</span> <span style="color:#ae81ff">300</span>
+array <span style="color:#f92672">=</span> [[random<span style="color:#f92672">.</span>choice([<span style="color:#e6db74">&#34;0&#34;</span>,<span style="color:#e6db74">&#34;1&#34;</span>]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, length)] <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, breadth)]
+<span style="color:#75715e"># [print(row) for row in array]</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_adjacents</span>(i, j, grid, length, breadth):
+    adjacents<span style="color:#f92672">=</span> []
+    <span style="color:#75715e"># first column, no left side adjacent</span>
+    <span style="color:#66d9ef">if</span> j <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+        adjacents<span style="color:#f92672">.</span>append([i, j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+
+    <span style="color:#75715e"># last column, no right side adjacent</span>
+    <span style="color:#66d9ef">if</span> j <span style="color:#f92672">!=</span> length <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>:
+        adjacents<span style="color:#f92672">.</span>append([i, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>])
+
+    <span style="color:#75715e"># first row, no upper adjacent</span>
+    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+        adjacents<span style="color:#f92672">.</span>append([i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, j])
+
+    <span style="color:#75715e"># last row, no lower adjacent</span>
+    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">!=</span> breadth <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>:
+        adjacents<span style="color:#f92672">.</span>append([i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j])
+
+    <span style="color:#66d9ef">return</span> adjacents
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bfs</span>(i, j, grid, length, breadth):
+    q <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span>Queue()
+    q<span style="color:#f92672">.</span>put([i,j])
+    <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> q<span style="color:#f92672">.</span>empty():
+        i_now, j_now <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span>get_nowait()
+        adjacents <span style="color:#f92672">=</span> get_adjacents(i_now, j_now, grid, length, breadth)
+        <span style="color:#66d9ef">for</span> ia, ja <span style="color:#f92672">in</span> adjacents:
+            <span style="color:#66d9ef">if</span> grid[ia][ja] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;#&#39;</span> <span style="color:#f92672">and</span> grid[ia][ja] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;0&#39;</span>:
+                q<span style="color:#f92672">.</span>put([ia, ja])
+        grid[i_now][j_now] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;#&#39;</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(grid):
+    length <span style="color:#f92672">=</span> len(grid[<span style="color:#ae81ff">0</span>])
+    breadth <span style="color:#f92672">=</span> len(grid)
+    islands <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#75715e"># a single pass of the grid</span>
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, breadth):
+        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, length):
+            <span style="color:#75715e"># if visited or water, ignore</span>
+            <span style="color:#66d9ef">if</span> grid[i][j] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;#&#39;</span> <span style="color:#f92672">or</span> grid[i][j] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;0&#39;</span>:
+                <span style="color:#66d9ef">pass</span>
+            <span style="color:#66d9ef">else</span>:
+                bfs(i, j, grid, length, breadth)
+                islands <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">return</span> islands
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Number of islands: </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span>(main(array)))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Traceback (most recent call last):
+  File &#34;&lt;stdin&gt;&#34;, line 1, in &lt;module&gt;
+  File &#34;/tmp/babel-9MaVVj/python-mCvQAz&#34;, line 55, in &lt;module&gt;
+    print(&#34;Number of islands: %d&#34; %(main(array)))
+  File &#34;/tmp/babel-9MaVVj/python-mCvQAz&#34;, line 52, in main
+    bfs(i, j, grid)
+  File &#34;/tmp/babel-9MaVVj/python-mCvQAz&#34;, line 37, in bfs
+    if grid[ia][ja] != &#39;#&#39; and grid[ia][ja] != &#39;0&#39;:
+IndexError: list index out of range
+</code></pre></div><p>The helper functions <code>bfs</code> and <code>get_adjacents</code> help organize the code. Let&rsquo;s see if removing the <code>set</code> saved us any time.</p>
+<blockquote>
+<p>Note that we have no mod function in the above implementation because we have a 2d array. We no longer need the mod function to check if we are at the boundary.</p>
+</blockquote>
+<h4 id="result">Result</h4>
+<p>This is unexpected:</p>
+<blockquote>
+<p>Time Limit Exceeded</p>
+</blockquote>
+<p>Shouldn&rsquo;t this be faster because we are doing a single pass? Leetcode allows you to view the input for which the code failed. Turns out this array based implementation takes excessive time when there are few water blocks and mostly land blocks i.e. one single &ldquo;island&rdquo; with bits of water in it.
+This could be because of the use of <code>get_adjacents</code> function which now has to fetch read from the array 4 times. In the <code>set</code> implementation this was an optimized <em>membership</em> test.</p>
+<h3 id="faster-way-to-add-to-the-set">Faster way to add to the set?</h3>
+<p>We are back to the set implementation now. Let&rsquo;s try and improve our set implementation.</p>
 
 </main>
 
