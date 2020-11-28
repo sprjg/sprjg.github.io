@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>Algo walkthrough: course schedule</title>
+      <link>/posts/20201127172735-algo_walkthrough_course_schedule/</link>
+      <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
+      
+      <guid>/posts/20201127172735-algo_walkthrough_course_schedule/</guid>
+      <description>The problem  There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1. Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1] Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
+ First impressions It seems every course has pre-requisites.</description>
+    </item>
+    
+    <item>
       <title>Algo walkthrough: number of islands</title>
       <link>/posts/20201125100541-algo_walkthrough_number_of_islands/</link>
       <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
