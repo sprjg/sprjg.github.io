@@ -39,7 +39,7 @@
     <aside>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#the-problem"><a href="https://leetcode.com/problems/course-schedule/">The problem</a></a></li>
+    <li><a href="#the-problem">The problem</a></li>
     <li><a href="#first-impressions">First impressions</a></li>
     <li><a href="#input">Input</a></li>
     <li><a href="#cycle-detection-for-a-directed-graph">Cycle detection for a directed graph</a></li>
@@ -65,12 +65,13 @@
   </ul>
 </nav>
     </aside>
-    <h2 id="the-problem"><a href="https://leetcode.com/problems/course-schedule/">The problem</a></h2>
+    <h2 id="the-problem">The problem</h2>
 <blockquote>
 <p>There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1.
 Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
 Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?</p>
 </blockquote>
+<p><a href="https://leetcode.com/problems/course-schedule/">Link to the problem</a></p>
 <h2 id="first-impressions">First impressions</h2>
 <p>It seems every course has pre-requisites. A course <code>c</code> would have the following pre-requisites: <code>[c, p1], [c, p2], ...</code>. First we finish all the pre-requisites then we can finish the course <code>c</code>. The pre-requisites will obviously have their own pre-requisites&hellip; and so on.
 The question says &ldquo;is it possible?&rdquo; which means the inputs may have a situation where this chain of pre-requisites can never be completed because everything depends on everything else i.e. a cycle!</p>
