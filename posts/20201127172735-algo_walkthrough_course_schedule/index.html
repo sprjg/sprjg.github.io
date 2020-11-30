@@ -36,7 +36,36 @@
 </div>
 
 <main>
-<h2 id="the-problem"><a href="https://leetcode.com/problems/course-schedule/">The problem</a></h2>
+    <aside>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-problem"><a href="https://leetcode.com/problems/course-schedule/">The problem</a></a></li>
+    <li><a href="#first-impressions">First impressions</a></li>
+    <li><a href="#input">Input</a></li>
+    <li><a href="#cycle-detection-for-a-directed-graph">Cycle detection for a directed graph</a></li>
+    <li><a href="#approach">Approach</a>
+      <ul>
+        <li><a href="#independence">Independence</a></li>
+        <li><a href="#data-structures">Data structures</a></li>
+        <li><a href="#implementation">Implementation</a></li>
+        <li><a href="#random-tests">Random tests</a></li>
+      </ul>
+    </li>
+    <li><a href="#observations">Observations</a>
+      <ul>
+        <li><a href="#possible-edge-cases">Possible edge cases</a></li>
+        <li><a href="#corrections">Corrections</a></li>
+      </ul>
+    </li>
+    <li><a href="#test-results-from-leetcode">Test results from leetcode</a>
+      <ul>
+        <li><a href="#profiling">Profiling</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </aside>
+    <h2 id="the-problem"><a href="https://leetcode.com/problems/course-schedule/">The problem</a></h2>
 <blockquote>
 <p>There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1.
 Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]

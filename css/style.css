@@ -97,17 +97,17 @@ h6:before {
 
 h4 {
 /*  text-indent: 30px; */
-  font-size: 14pt;
+  /* font-size: 14pt; */
 }
 
 h5 {
 /*  text-indent: 60px; */
-  font-size: 14pt;
+  /* font-size: 14pt; */
 }
 
 h6 {
 /*  text-indent: 90px; */
-  font-size: 14pt;
+  /* font-size: 14pt; */
 }
 
 h6 + ul, ul + ul {
@@ -174,3 +174,35 @@ thead, tfoot, tr:nth-child(even) { background: #eee; }
     font-size: 28pt;
     font-weight: bolder;
 }
+
+@media (min-width: 1100px) {
+    aside {
+      float: left;
+      position: fixed;
+      z-index: 99;
+      right: 0;
+      left: 0;
+      max-width: 300px;
+    }
+    
+    #TableOfContents li {
+      list-style: none;
+    }
+    
+    #TableOfContents a{
+      text-decoration: none;
+      color: grey;
+    }
+    
+    #TableOfContents a:hover{
+      color: black;
+      font-style: bold;
+      font-style: italic
+    }
+  /* CSS that should be displayed if width is equal to or less than 800px goes here */
+}
+
+aside {}
+#TableOfContents a {}
+#TableOfContents a:hover{}
+

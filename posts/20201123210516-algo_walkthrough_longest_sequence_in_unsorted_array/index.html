@@ -36,7 +36,50 @@
 </div>
 
 <main>
-<h2 id="the-setup"><a href="https://leetcode.com/problems/longest-consecutive-sequence/">The setup</a></h2>
+    <aside>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-setup"><a href="https://leetcode.com/problems/longest-consecutive-sequence/">The setup</a></a>
+      <ul>
+        <li><a href="#hints">Hints</a></li>
+      </ul>
+    </li>
+    <li><a href="#variations-to-the-setup">Variations to the setup</a>
+      <ul>
+        <li><a href="#sorted-sequence-within-noise">Sorted sequence within noise</a></li>
+      </ul>
+    </li>
+    <li><a href="#observations-from-our-detour">Observations from our detour</a>
+      <ul>
+        <li><a href="#o1---lookup">\(O(1)\) lookup</a></li>
+      </ul>
+    </li>
+    <li><a href="#intuitions">Intuitions</a>
+      <ul>
+        <li><a href="#our-first-approach">Our first approach</a></li>
+        <li><a href="#a-different-data-structure">A different data structure?</a></li>
+        <li><a href="#intervals">Intervals?</a></li>
+        <li><a href="#nothing-but-dictionaries">Nothing but dictionaries</a></li>
+      </ul>
+    </li>
+    <li><a href="#testing">Testing</a></li>
+    <li><a href="#improvements">Improvements</a>
+      <ul>
+        <li><a href="#maintaining-the-maximum-length-in-the-same-iteration">Maintaining the maximum length in the same iteration</a></li>
+      </ul>
+    </li>
+    <li><a href="#understanding-the-best-solution">Understanding the best solution</a>
+      <ul>
+        <li><a href="#handling-duplicates">Handling duplicates</a></li>
+        <li><a href="#the-loop">The loop</a></li>
+        <li><a href="#the-set">The set</a></li>
+        <li><a href="#takeaways-and-observations">Takeaways and observations</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </aside>
+    <h2 id="the-setup"><a href="https://leetcode.com/problems/longest-consecutive-sequence/">The setup</a></h2>
 <p>We have an unsorted array. It may or may not have a sequence of numbers. We have to find the <em>length</em> of the longest sequence.</p>
 <h3 id="hints">Hints</h3>
 <ul>

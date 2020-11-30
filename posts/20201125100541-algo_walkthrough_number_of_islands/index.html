@@ -36,7 +36,45 @@
 </div>
 
 <main>
-<h2 id="the-problem"><a href="https://leetcode.com/problems/number-of-islands/">The problem</a></h2>
+    <aside>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-problem"><a href="https://leetcode.com/problems/number-of-islands/">The problem</a></a></li>
+    <li><a href="#exploration">Exploration</a>
+      <ul>
+        <li><a href="#counting-naming">Counting = naming</a></li>
+        <li><a href="#connected-blocks-get-same-name">Connected blocks get same name</a></li>
+      </ul>
+    </li>
+    <li><a href="#back-to-2d">Back to 2D</a>
+      <ul>
+        <li><a href="#checking-neighbours-explicitly">Checking neighbours explicitly</a></li>
+        <li><a href="#implementation">Implementation</a></li>
+      </ul>
+    </li>
+    <li><a href="#a-new-approach">A new approach</a>
+      <ul>
+        <li><a href="#naming-neighbours-too">Naming neighbours too</a></li>
+        <li><a href="#bft">BFT</a></li>
+        <li><a href="#a-new-representation">A new representation</a></li>
+        <li><a href="#implementation">Implementation</a></li>
+      </ul>
+    </li>
+    <li><a href="#testing">Testing</a>
+      <ul>
+        <li><a href="#fail-1-edge-case-of-all-water">Fail 1 - edge case of all water</a></li>
+        <li><a href="#result">Result</a></li>
+      </ul>
+    </li>
+    <li><a href="#improvements">Improvements</a>
+      <ul>
+        <li><a href="#profiling">Profiling</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </aside>
+    <h2 id="the-problem"><a href="https://leetcode.com/problems/number-of-islands/">The problem</a></h2>
 <blockquote>
 <p>Given an m x n 2d grid map of &lsquo;1&rsquo;s (land) and &lsquo;0&rsquo;s (water), return the number of islands.
 An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.</p>
