@@ -64,7 +64,7 @@
 </div>
 
 <main>
-    <aside>
+    <aside class="toc">
         <nav id="TableOfContents">
   <ul>
     <li><a href="#problem-statement">Problem statement</a></li>
@@ -131,7 +131,7 @@ So initially we may have multiple elements in the same bin but now that they hav
 <h3 id="the-score">The score</h3>
 <p>Now we can think of the score for each element as the amount it has moved from their original bins.</p>
 <h3 id="the-problem">The problem</h3>
-<p>The question for us is to swap the position of two elements in this array so that we increase the total score of the the whole array. This might have multiple possible solutions so instead we are looking for the pair of elements when swapped will increase the total score <!-- raw HTML omitted -->the most<!-- raw HTML omitted -->.</p>
+<p>The question for us is to swap the position of two elements in this array so that we increase the total score of the the whole array. This might have multiple possible solutions so instead we are looking for the pair of elements when swapped will increase the total score <span class="underline">the most</span>.</p>
 <h4 id="details-of-the-question">Details of the question</h4>
 <h5 id="increasing-the-score-of-one-element">Increasing the score of one element</h5>
 <p>Is there a way to increase the score of just one element? The score for an element is <code>|i -e|</code>. The element&rsquo;s value <code>e</code> is fixed. The <code>i</code> can be changed but not in isolation. Because we are using an array, we are assuming that the indices are running contiguously. So every index must be occupied by some valid element and there cannot be any gaps. So we definitely need another element which can take this element&rsquo;s place</p>
@@ -217,7 +217,7 @@ Some immediate observations:</p>
 </ul>
 <h5 id="reverse-of-above-cases">Reverse of above cases</h5>
 <p>For each of the cases above, notice that the reverse causes the opposite effect (for a zero change in score, the opposite is also zero change in score).
-The second case is interesting. The decrease in score on removal of the overlap implies that causing an overlap increases score. We&rsquo;ll come back to this. <!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+The second case is interesting. The decrease in score on removal of the overlap implies that causing an overlap increases score. We&rsquo;ll come back to this. <a id="orgb64025f"></a></p>
 <h4 id="fallacy-no-benefit-in-crossing-the-blue-line">[Fallacy] No benefit in crossing the blue line</h4>
 <p>This seems to be a fallacy in our previous observation. Notice how element at <code>15</code>, could in fact move down all the way, crossing the blue line, and achieve a better score (assuming we can have a partner who wants to move up).</p>
 <h4 id="summary">Summary</h4>
@@ -493,11 +493,11 @@ Polynomial solution:
 </main>
 
   <footer>
-  <script src="//yihui.name/js/math-code.js"></script>
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="/js/math-code.js"></script>
+<script async src="/MathJax/es5/tex-chtml.js"></script>
 
 
-<script async src="//yihui.name/js/center-img.js"></script>
+<script async src="/js/center-img.js"></script>
 
   
   <hr/>

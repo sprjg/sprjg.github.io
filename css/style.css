@@ -176,15 +176,32 @@ thead, tfoot, tr:nth-child(even) { background: #eee; }
 }
 
 @media (min-width: 1100px) {
-    aside {
+     aside {
+      position: absolute;
+      margin-left: 50%;
+     }
+    
+    .toc {
       float: left;
       position: fixed;
       z-index: 99;
       right: 0;
       left: 0;
       max-width: 300px;
+      margin-left: 0;
     }
-    
+
+    .footnotes {
+        position: fixed;
+        left: 0;
+        right: 0;
+        max-width: 300px;
+        z-index: 99;
+        float: right;
+        top: 50%;
+        left: 75%;
+    }
+
     #TableOfContents li {
       list-style: none;
     }
@@ -203,6 +220,8 @@ thead, tfoot, tr:nth-child(even) { background: #eee; }
 }
 
 aside {}
+.toc {}
+.footnotes {}
 #TableOfContents a {}
 #TableOfContents a:hover{}
 
