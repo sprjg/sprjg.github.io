@@ -216,12 +216,68 @@ thead, tfoot, tr:nth-child(even) { background: #eee; }
       font-style: bold;
       font-style: italic
     }
+    
+    .sidenote-content {
+        display: block;
+        position: absolute;
+        width: 200px;
+        box-sizing: border-box;
+        margin-top: -1.5em;
+        right: 0;
+        margin-right: 100px;   
+    }
+
+    .sidenote-checkbox {
+        display: none;
+    }
+
+    .sidenote-label {
+        text-decoration: underline;
+    }
+
+    .sidenote:hover .sidenote-label { 
+        border-block-style: dotted;
+        border-color: blueviolet;
+        border-block-width: 2px;
+    }
+
+
+    .sidenote:hover .sidenote-content { 
+        border-color: blueviolet;
+        border-block-style:dotted;
+        border-block-width: 2px;       
+    }
+
   /* CSS that should be displayed if width is equal to or less than 800px goes here */
 }
 
-aside {}
-.toc {}
-.footnotes {}
-#TableOfContents a {}
-#TableOfContents a:hover{}
+@media screen and (max-width: 1100px) {
+    aside {}
+    .toc {}
+    .footnotes {}
+    #TableOfContents a {}
+    #TableOfContents a:hover{}
 
+    .sidenote-content {
+        position: static;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+        display: none;
+        border-color: none;
+        border-block-style: none;
+    }
+
+    .sidenote-label {
+        border-block-style: none;
+        border-color: none;
+    }
+    .sidenote-checkbox:checked ~ .sidenote-content {
+        display: block;
+    }
+
+    .sidenote-content {
+        margin-right: 0px;
+    }
+
+}

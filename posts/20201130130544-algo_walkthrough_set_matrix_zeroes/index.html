@@ -14,7 +14,7 @@
     "articleSection" : "posts",
     "name" : "Algo walkthrough: set matrix zeroes",
     "headline" : "Algo walkthrough: set matrix zeroes",
-    "description" : "The problem Given an m x n matrix, if an element is 0, set its row and column to 0\u0027s. Link to the problem.\nHints  A straight forward solution using O(mn) space is probably a bad idea.\nA simple improvement uses O(m \u002b n) space, but still not the best solution.\nCould you devise a constant space solution1?\n Intuitions It seems obvious that a single pass through the matrix would work.",
+    "description" : "The problem Given an m x n matrix, if an element is 0, set its row and column to 0\u0027s. Link to the problem.\nHints  A straight forward solution using O(mn) space is probably a bad idea.\nA simple improvement uses O(m \u002b n) space, but still not the best solution.\nCould you devise a constant space solution?  So this problem is more about space than time.    Intuitions It seems obvious that a single pass through the matrix would work.",
     "inLanguage" : "en-US",
     "author" : "",
     "creator" : "",
@@ -25,7 +25,7 @@
     "datePublished": "2020-12-01 00:00:00 \u002b0530 IST",
     "dateModified" : "2020-12-01 00:00:00 \u002b0530 IST",
     "url" : "\/posts\/20201130130544-algo_walkthrough_set_matrix_zeroes\/",
-    "wordCount" : "1659",
+    "wordCount" : "1657",
     "keywords" : [ "Blog" ]
 }
 </script>
@@ -105,7 +105,14 @@
 <blockquote>
 <p>A straight forward solution using O(mn) space is probably a bad idea.</p>
 <p>A simple improvement uses O(m + n) space, but still not the best solution.</p>
-<p>Could you devise a constant space solution<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>?</p>
+<span class="sidenote">
+<label class="sidenote-label" for="fn1">Could you devise a constant space solution?</label>
+<input class="sidenote-checkbox" type="checkbox" id="fn1"></input>
+<span class="sidenote-content">
+ So this problem is more about space than time. 
+</span>
+</span>
+
 </blockquote>
 <h2 id="intuitions">Intuitions</h2>
 <p>It seems obvious that a single pass through the matrix would work.
@@ -270,7 +277,14 @@ Both the approaches lead to the same single pass, followed by a &ldquo;mutation&
 </code></pre></div><p>We&rsquo;re avoiding changes to this repurposed space until we are done with modifying the whole matrix. Finally we set these to zero.
 But because we can&rsquo;t modify them, we have to clumsily add a special condition.</p>
 <h3 id="mutation-pass">Mutation pass</h3>
-<p>This is a big difference. We don&rsquo;t have to check row and column separately<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+<p>This is a big difference. <span class="sidenote">
+<label class="sidenote-label" for="fn2">We don&#39;t have to check row and column separately.</label>
+<input class="sidenote-checkbox" type="checkbox" id="fn2"></input>
+<span class="sidenote-content">
+ Because we do, this is actually two passes in our implementation. 
+</span>
+</span>
+</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">        <span style="color:#66d9ef">for</span> row <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, breadth):
             <span style="color:#66d9ef">if</span> row <span style="color:#f92672">==</span> r0:
                 <span style="color:#66d9ef">continue</span>
@@ -291,18 +305,7 @@ But because we can&rsquo;t modify them, we have to clumsily add a special condit
         <span style="color:#66d9ef">if</span> matrix[row][c0] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> matrix[r0][col] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
             <span style="color:#75715e"># this has been marked for zero setting</span>
             matrix[row][col] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</code></pre></div><section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1" role="doc-endnote">
-<p>So this problem is more about space than time. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:2" role="doc-endnote">
-<p>Because we do, this is actually two passes in our implementation. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</section>
-
+</code></pre></div>
 </main>
 
   <footer>
