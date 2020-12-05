@@ -65,7 +65,7 @@ Exploration The first instinct is to lower the dimension of the problem and see 
       <pubDate>Wed, 25 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</guid>
-      <description>The setup We have an unsorted array. It may or may not have a sequence of numbers. We have to find the length of the longest sequence.
+      <description>The problem We have an unsorted array. It may or may not have a sequence of numbers. We have to find the length of the longest sequence. Link to the problem.
 Hints  They hint at a \(O(n)\) solution. This can be useful at a later point. They also say the length of the array can be between \(1, 10000\). This means we can a small array of size \(10\) and manually try out solutions.</description>
     </item>
     

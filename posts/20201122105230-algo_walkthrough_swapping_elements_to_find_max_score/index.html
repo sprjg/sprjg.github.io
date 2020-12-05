@@ -26,7 +26,7 @@
     "dateModified" : "2020-11-23 00:00:00 \u002b0000 \u002b0000",
     "url" : "\/posts\/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score\/",
     "wordCount" : "3884",
-    "keywords" : [ "Blog" ]
+    "keywords" : [ "arrays","intervals","Blog" ]
 }
 </script>
 
@@ -217,11 +217,11 @@ Some immediate observations:</p>
 </ul>
 <h5 id="reverse-of-above-cases">Reverse of above cases</h5>
 <p>For each of the cases above, notice that the reverse causes the opposite effect (for a zero change in score, the opposite is also zero change in score).
-The second case is interesting. The decrease in score on removal of the overlap implies that causing an overlap increases score. We&rsquo;ll come back to this. <a id="orgb64025f"></a></p>
+The second case is interesting. The decrease in score on removal of the overlap implies that causing an overlap increases score. We&rsquo;ll come back to this. <a id="orgc24782b"></a></p>
 <h4 id="fallacy-no-benefit-in-crossing-the-blue-line">[Fallacy] No benefit in crossing the blue line</h4>
 <p>This seems to be a fallacy in our previous observation. Notice how element at <code>15</code>, could in fact move down all the way, crossing the blue line, and achieve a better score (assuming we can have a partner who wants to move up).</p>
 <h4 id="summary">Summary</h4>
-<p>On swapping, one element moves up, one element moves down. We want an increase in score and we have seen <a href="#orgb64025f">that</a> causing an overlap increases score.
+<p>On swapping, one element moves up, one element moves down. We want an increase in score and we have seen <a href="#orgc24782b">that</a> causing an overlap increases score.
 We also see that an element can cross the blue line to increase its own score.
 Together with the above two observations, we can say that if we pick any two non-overlapping score lines and swap them, there is a definite increase in total score:</p>
 <ul>

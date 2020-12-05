@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>matrix on Notes on engineering math</title>
+    <link>/tags/matrix/</link>
+    <description>Recent content in matrix on Notes on engineering math</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 01 Dec 2020 00:00:00 +0530</lastBuildDate>
+    
+	<atom:link href="/tags/matrix/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Algo walkthrough: set matrix zeroes</title>
+      <link>/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0530</pubDate>
+      
+      <guid>/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/</guid>
+      <description>The problem Given an m x n matrix, if an element is 0, set its row and column to 0&#39;s. Link to the problem.
+Hints  A straight forward solution using O(mn) space is probably a bad idea.
+A simple improvement uses O(m + n) space, but still not the best solution.
+Could you devise a constant space solution?  So this problem is more about space than time.    Intuitions It seems obvious that a single pass through the matrix would work.</description>
+    </item>
+    
+  </channel>
+</rss>

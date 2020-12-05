@@ -21,11 +21,20 @@
     </item>
     
     <item>
-      <title>notes</title>
-      <link>/categories/notes/</link>
+      <title>math</title>
+      <link>/categories/math/</link>
       <pubDate>Sat, 25 Apr 2020 00:00:00 +0530</pubDate>
       
-      <guid>/categories/notes/</guid>
+      <guid>/categories/math/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tools</title>
+      <link>/categories/tools/</link>
+      <pubDate>Thu, 26 Mar 2020 00:00:00 +0530</pubDate>
+      
+      <guid>/categories/tools/</guid>
       <description></description>
     </item>
     

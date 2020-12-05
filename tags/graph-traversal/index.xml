@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>graph-traversal on Notes on engineering math</title>
+    <link>/tags/graph-traversal/</link>
+    <description>Recent content in graph-traversal on Notes on engineering math</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 26 Nov 2020 00:00:00 +0530</lastBuildDate>
+    
+	<atom:link href="/tags/graph-traversal/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Algo walkthrough: course schedule</title>
+      <link>/posts/20201127172735-algo_walkthrough_course_schedule/</link>
+      <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
+      
+      <guid>/posts/20201127172735-algo_walkthrough_course_schedule/</guid>
+      <description>The problem  There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1. Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1] Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
+ Link to the problem</description>
+    </item>
+    
+    <item>
+      <title>Algo walkthrough: number of islands</title>
+      <link>/posts/20201125100541-algo_walkthrough_number_of_islands/</link>
+      <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
+      
+      <guid>/posts/20201125100541-algo_walkthrough_number_of_islands/</guid>
+      <description>The problem  Given an m x n 2d grid map of &amp;lsquo;1&amp;rsquo;s (land) and &amp;lsquo;0&amp;rsquo;s (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+ Link to the problem.
+Exploration The first instinct is to lower the dimension of the problem and see what that looks like.</description>
+    </item>
+    
+  </channel>
+</rss>

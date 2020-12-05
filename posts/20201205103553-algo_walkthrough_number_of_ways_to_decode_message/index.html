@@ -26,7 +26,7 @@
     "dateModified" : "2020-12-05 00:00:00 \u002b0530 IST",
     "url" : "\/posts\/20201205103553-algo_walkthrough_number_of_ways_to_decode_message\/",
     "wordCount" : "2199",
-    "keywords" : [ "Blog" ]
+    "keywords" : [ "strings","dynamic-programming","Blog" ]
 }
 </script>
 
@@ -242,7 +242,7 @@ We also know that an input code of length 1 has exactly 1 decoding: <code>D(1) =
 <li>For each new additional number, we have to start a counter <code>Dnow</code>. By the end of the processing/iteration for this additional number, we change <code>Dnow = D0</code> and <code>D0 = D1</code></li>
 <li>Every new addition number is <code>e</code> and the previous number was <code>eprev</code>. We have to check if <code>f&quot;{e}{eprev}&quot;</code> is less than or equal to <code>26</code>. If it is only then do we take the second path i.e. combining with <code>D(k-1)</code></li>
 <li>For sake of convenience we&rsquo;ll avoid processing the rightmost number; instead we&rsquo;ll account for it by setting initial value of <code>D(k)</code> with <code>D(k)=1</code></li>
-<li><code>D(k-1)</code> initial value logically should be zero. But <a id="org536888f"></a> &hellip;
+<li><code>D(k-1)</code> initial value logically should be zero. But <a id="orgaaa1d2b"></a> &hellip;
 <ul>
 <li>Take the example of <code>26</code>. When the new additional number combined with old additional number (point 4), is less than 26, we have one more decoding possible along with <code>2,6</code>. But if we added <code>D(k-1) = 0</code> we&rsquo;d have the wrong result i.e. just decoding</li>
 <li>For the sake of making this work, we can set initial value of <code>D(k-1)=1</code>. Anyway it will get overwritten by the end of the first additional number</li>
@@ -372,7 +372,7 @@ Let&rsquo;s make corrections for each of the edge cases we discussed.</p>
 </span>
  <a href="https://leetcode.com/submissions/detail/427395128/">is this one</a>. If the solution is small enough to fit in a playing card, it&rsquo;s worth understanding more.</p>
 <h3 id="an-array-instead-of-previous-two-variables">An array instead of previous two variables</h3>
-<p>This implementation uses an array <code>dp</code> to store the results of each new number addition. <code>dp[0]</code> is set to <code>1</code> for <a href="#org536888f">the same reason</a> we set <code>D1 = 1</code>. Note also that the array is offset by 1 i.e. result of including one number is at <code>dp[1]</code> not <code>dp[0]</code>. Thus the final result is at <code>dp[len(s)]</code>.
+<p>This implementation uses an array <code>dp</code> to store the results of each new number addition. <code>dp[0]</code> is set to <code>1</code> for <a href="#orgaaa1d2b">the same reason</a> we set <code>D1 = 1</code>. Note also that the array is offset by 1 i.e. result of including one number is at <code>dp[1]</code> not <code>dp[0]</code>. Thus the final result is at <code>dp[len(s)]</code>.
 So <code>dp[i]</code> here is the number of decodings possible for <code>s[:i]</code>. This is a crucial point to understand for the rest to make sense.</p>
 <h3 id="processing-direction">Processing direction</h3>
 <p>The processing is from left to right. This is a significant change to understand. Because everything is <em>mirrored</em> in a way, it&rsquo;s a bit confusing at first. But let&rsquo;s track down the places where <code>dp[i]</code> is changed.</p>
