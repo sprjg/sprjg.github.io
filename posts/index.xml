@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 05 Dec 2020 16:44:04 +0530</lastBuildDate>
+    <lastBuildDate>Sat, 05 Dec 2020 00:00:00 +0530</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Algo walkthrough: number of ways to decode message</title>
       <link>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</link>
-      <pubDate>Sat, 05 Dec 2020 16:44:04 +0530</pubDate>
+      <pubDate>Sat, 05 Dec 2020 00:00:00 +0530</pubDate>
       
       <guid>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</guid>
       <description>The problem  A message containing letters from A-Z is being encoded to numbers using the following mapping:
