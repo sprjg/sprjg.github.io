@@ -6,10 +6,25 @@
     <description>Recent content on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Dec 2020 00:00:00 +0530</lastBuildDate>
+    <lastBuildDate>Sat, 05 Dec 2020 16:44:04 +0530</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Algo walkthrough: number of ways to decode message</title>
+      <link>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</link>
+      <pubDate>Sat, 05 Dec 2020 16:44:04 +0530</pubDate>
+      
+      <guid>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</guid>
+      <description>The problem  A message containing letters from A-Z is being encoded to numbers using the following mapping:
+&amp;lsquo;A&amp;rsquo; -&amp;gt; 1
+&amp;lsquo;B&amp;rsquo; -&amp;gt; 2
+&amp;hellip;
+&amp;lsquo;Z&amp;rsquo; -&amp;gt; 26
+Given a non-empty string  Removes one if block at least   containing only digits, determine the total number of ways to decode it.
+The answer is guaranteed to fit in a 32-bit integer  This seems to be a hint at storage of the answer rather than a hint towards the solution   .</description>
+    </item>
     
     <item>
       <title>Algo walkthrough: set matrix zeroes</title>
