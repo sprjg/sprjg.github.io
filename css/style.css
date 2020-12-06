@@ -197,6 +197,7 @@ thead, tfoot, tr:nth-child(even) { background: #eee; }
       left: 0;
       max-width: 300px;
       margin-left: 0;
+      top: 0;
     }
 
     .footnotes {
