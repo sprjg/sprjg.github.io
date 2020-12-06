@@ -171,6 +171,7 @@ thead, tfoot, tr:nth-child(even) { background: #eee; }
     text-align: center;
     font-size: 28pt;
     font-weight: bolder;
+    line-height: 1em;
 }
 
 @media (min-width: 1100px) {
@@ -235,6 +236,7 @@ thead, tfoot, tr:nth-child(even) { background: #eee; }
         border-left: black solid;
         padding-left: 20px;
         margin-left: 0px;
+        padding-right: 50px;
     }
 
     .sidenote-checkbox {
