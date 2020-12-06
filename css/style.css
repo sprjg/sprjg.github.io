@@ -53,6 +53,11 @@
     float: top;
 }
 
+p {
+    text-align: justify;
+    text-justify: auto;
+}
+
 h1, h2, h3, h4, h5, h6  {
     padding: 10px;
     margin-block-start: 0em;
@@ -259,7 +264,7 @@ thead, tfoot, tr:nth-child(even) { background: #eee; }
 @media screen and (max-width: 1100px) {
 
     body {
-        max-width: 80%;
+        max-width: 60%;
         margin: auto;
         padding: 1em;
         line-height: 1.5em;
@@ -273,22 +278,31 @@ thead, tfoot, tr:nth-child(even) { background: #eee; }
     #TableOfContents a:hover{}
 
     .sidenote-content {
+        font-style: italic;
         position: static;
         margin-top: 10px;
         margin-bottom: 10px;
         width: 100%;
-        display: none;
         border-color: none;
         border-block-style: none;
+    }
+
+    .sidenote-content::before {
+        content:  "(";
+    }
+
+    .sidenote-content::after {
+        content:  ")";
     }
 
     .sidenote-label {
         border-block-style: none;
         border-color: none;
     }
-    .sidenote-checkbox:checked ~ .sidenote-content {
-        display: block;
-    }
+
+  /*  .sidenote-checkbox:checked ~ .sidenote-content {
+  /*      display: none;
+  /*  } */
 
     .sidenote-content {
         margin-right: 0px;

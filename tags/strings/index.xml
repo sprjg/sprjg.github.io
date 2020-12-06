@@ -22,8 +22,8 @@
 &amp;lsquo;B&amp;rsquo; -&amp;gt; 2
 &amp;hellip;
 &amp;lsquo;Z&amp;rsquo; -&amp;gt; 26
-Given a non-empty string  Removes one if block at least   containing only digits, determine the total number of ways to decode it.
-The answer is guaranteed to fit in a 32-bit integer  This seems to be a hint at storage of the answer rather than a hint towards the solution   .</description>
+Given a non-empty string containing only digits, determine the total number of ways to decode it.
+The answer is guaranteed to fit in a 32-bit integer. This seems to be a hint at storage of the answer rather than a hint towards the solution   Link to the problem</description>
     </item>
     
   </channel>

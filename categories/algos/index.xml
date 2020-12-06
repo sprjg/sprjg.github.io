@@ -22,8 +22,8 @@
 &amp;lsquo;B&amp;rsquo; -&amp;gt; 2
 &amp;hellip;
 &amp;lsquo;Z&amp;rsquo; -&amp;gt; 26
-Given a non-empty string  Removes one if block at least   containing only digits, determine the total number of ways to decode it.
-The answer is guaranteed to fit in a 32-bit integer  This seems to be a hint at storage of the answer rather than a hint towards the solution   .</description>
+Given a non-empty string containing only digits, determine the total number of ways to decode it.
+The answer is guaranteed to fit in a 32-bit integer. This seems to be a hint at storage of the answer rather than a hint towards the solution   Link to the problem</description>
     </item>
     
     <item>
@@ -35,7 +35,7 @@ The answer is guaranteed to fit in a 32-bit integer  This seems to be a hint at 
       <description>The problem Given an m x n matrix, if an element is 0, set its row and column to 0&#39;s. Link to the problem.
 Hints  A straight forward solution using O(mn) space is probably a bad idea.
 A simple improvement uses O(m + n) space, but still not the best solution.
-Could you devise a constant space solution?  So this problem is more about space than time.    Intuitions It seems obvious that a single pass through the matrix would work.</description>
+Could you devise a constant space solution? So this problem is more about space than time.   Intuitions It seems obvious that a single pass through the matrix would work.</description>
     </item>
     
     <item>
