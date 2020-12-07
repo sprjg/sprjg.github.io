@@ -14,7 +14,7 @@
     "articleSection" : "posts",
     "name" : "Algo walkthrough: spiral matrix",
     "headline" : "Algo walkthrough: spiral matrix",
-    "description" : "The problem  Given an m x n matrix, return all elements of the matrix in spiral order. Example 1: Input: matrix = [[1,2,3],[4,5,6],[7,8,9]] Output: [1,2,3,6,9,8,7,4,5]\n Link to the problem.\nIntuitions Track the spiral literally  I can definitely think of at least one solution involving 4 pointers. The 4 pointers track the size of the matrix as the spiral closes inwards.\n  But how to track the current location?",
+    "description" : "The problem  Given an m x n matrix, return all elements of the matrix in spiral order. Example 1: Input: matrix = [[1,2,3],[4,5,6],[7,8,9]] Output: [1,2,3,6,9,8,7,4,5]\n Link to the problem.\nIntuitions Track the spiral literally I can definitely think of at least one solution involving 4 pointers . The 4 pointers track the size of the matrix as the spiral closes inwards.\n  But how to track the current location?",
     "inLanguage" : "en-US",
     "author" : "",
     "creator" : "",
@@ -25,7 +25,7 @@
     "datePublished": "2020-12-06 00:00:00 \u002b0530 IST",
     "dateModified" : "2020-12-06 00:00:00 \u002b0530 IST",
     "url" : "\/posts\/20201205201509-algo_walkthrough_spiral_matrix\/",
-    "wordCount" : "2759",
+    "wordCount" : "2762",
     "keywords" : [ "Blog" ]
 }
 </script>
@@ -70,10 +70,10 @@
     <li><a href="#the-problem">The problem</a></li>
     <li><a href="#intuitions">Intuitions</a>
       <ul>
-        <li><a href="#track-the-spiral-literally">Track the spiral <em>literally</em> <a id="orgc453848"></a></a></li>
-        <li><a href="#rotating-to-avoid-direction-change">Rotating to avoid direction change <a id="org2866873"></a></a></li>
+        <li><a href="#track-the-spiral-literally">Track the spiral <em>literally</em></a></li>
+        <li><a href="#rotating-to-avoid-direction-change">Rotating to avoid direction change</a></li>
         <li><a href="#swapping-within-the-matrix">Swapping within the matrix</a></li>
-        <li><a href="#pyramid">Pyramid <a id="orgbd540ba"></a></a></li>
+        <li><a href="#pyramid">Pyramid</a></li>
         <li><a href="#a-loop-for-each-pyramid">A loop for each pyramid?</a></li>
         <li><a href="#finding-a-better-pattern">Finding a better pattern</a></li>
       </ul>
@@ -90,7 +90,7 @@
     <li><a href="#understanding-the-best-solution">Understanding the best solution</a>
       <ul>
         <li><a href="#approach">Approach</a></li>
-        <li><a href="#takeaways">Takeaways <a id="org86feb64"></a></a></li>
+        <li><a href="#takeaways">Takeaways</a></li>
       </ul>
     </li>
     <li><a href="#another-interesting-solution">Another interesting solution</a>
@@ -112,21 +112,21 @@ Output: [1,2,3,6,9,8,7,4,5]</p>
 </blockquote>
 <p><a href="https://leetcode.com/problems/spiral-matrix/">Link to the problem.</a></p>
 <h2 id="intuitions">Intuitions</h2>
-<h3 id="track-the-spiral-literally">Track the spiral <em>literally</em> <a id="orgc453848"></a></h3>
-<p>I can definitely think of at least one solution involving 4 pointers. The 4 pointers track the size of the matrix as the spiral closes inwards.</p>
+<h3 id="track-the-spiral-literally">Track the spiral <em>literally</em></h3>
+<p>I can definitely think of at least one solution involving 4 pointers <a id="org7fb76e8"></a>. The 4 pointers track the size of the matrix as the spiral closes inwards.</p>
 <figure>
     <img src="/ox-hugo/screenshot2020-12-05_20-24-49_.png"/> 
 </figure>
 
 <p>But how to track the current location? A tuple with row and column numbers? At first we set direction to move towards right. When the column number reaches a value equal to <code>right</code> we change direction to move downwards. We also decrement <code>right</code> to reflect that we have traversed the last column.
 This becomes a pretty complex state machine. Different things being tracked, mutations, and along with all this probably a lot of edge cases. Most importantly, this approach does not exploit any innate property of this problem. It&rsquo;s a literal translation of the given problem statement into code.</p>
-<h3 id="rotating-to-avoid-direction-change">Rotating to avoid direction change <a id="org2866873"></a></h3>
+<h3 id="rotating-to-avoid-direction-change">Rotating to avoid direction change</h3>
 <p>Another way to <span class="sidenote">
 <label class="sidenote-label" for="fn-prev">extend the previous solution</label>
 
 <span class="sidenote-content">and arguably reduce the complexity</span>
 </span>
- is by using matrix transposes.
+ is by using matrix rotations <a id="orgaee7d2c"></a>.
 Instead of moving in horizontal and vertical directions, we could fix our movement direction as horizontal only.
 For a given matrix, we trace the top row, then rotate the matrix anti-clockwise one turn and recursively call the same operation on it.
 This is pretty neat in theory. We need only the size of the matrix.</p>
@@ -151,8 +151,8 @@ This is pretty neat in theory. We need only the size of the matrix.</p>
 
 <h4 id="dimensions-will-never-match">Dimensions will never match</h4>
 <p>Even if something so absurd works for a square matrix, it simply doesn&rsquo;t make sense for a rectangular matrix. A column cannot swapped into a row.</p>
-<h3 id="pyramid">Pyramid <a id="orgbd540ba"></a></h3>
-<p>This is an extension of the previous idea but more promising. Let&rsquo;s first trace through a full spiral manually for a matrix. But let&rsquo;s colour the cells based on the direction we move.
+<h3 id="pyramid">Pyramid</h3>
+<p>This <a id="org17d99fb"></a> is an extension of the previous idea but more promising. Let&rsquo;s first trace through a full spiral manually for a matrix. But let&rsquo;s colour the cells based on the direction we move.
 4 directions = 4 colours.
 The slant arrows mark the cells where we change direction.</p>
 <figure>
@@ -327,7 +327,7 @@ From [3, 2] to [3, 0]
 From [2, 0] to [1, 0]
 From [1, 1] to [1, 2]
 From [2, 2] to [2, 2]
-</code></pre></div><p>We have come full circle and we have implemented <a href="#orgc453848">this solution</a>. Our initial worry with this approach of tracking the spiral literally was the complexity of maintaining the state machine. But note that we found a pattern in the lengths which allowed us to eliminate a big chunk of that original state machine!</p>
+</code></pre></div><p>We have come full circle and we have implemented <a href="#org7fb76e8">this solution</a>. Our initial worry with this approach of tracking the spiral literally was the complexity of maintaining the state machine. But note that we found a pattern in the lengths which allowed us to eliminate a big chunk of that original state machine!</p>
 <h3 id="finding-a-better-pattern">Finding a better pattern</h3>
 <p>One issue is that we have to track both lengths and start points. We do have a pattern that reduces some complexity. But could we do better?
 The qualities of a good pattern:</p>
@@ -445,9 +445,9 @@ matrix <span style="color:#f92672">=</span> numpy<span style="color:#f92672">.</
 <h2 id="understanding-the-best-solution">Understanding the best solution</h2>
 <p>Let&rsquo;s see the <a href="https://leetcode.com/submissions/detail/428162662/">best performing solution in python</a>. This runs at \(8\) ms.</p>
 <h3 id="approach">Approach</h3>
-<p>It&rsquo;s a loop that <a href="#orgc453848">traverses the matrix</a> literally. The visited elements are mutated so that they are not revisited.</p>
-<h3 id="takeaways">Takeaways <a id="org86feb64"></a></h3>
-<p>I have learned that the most elegant solutions are not the fastest.</p>
+<p>It&rsquo;s a loop that <a href="#org7fb76e8">traverses the matrix</a> literally. The visited elements are mutated so that they are not revisited.</p>
+<h3 id="takeaways">Takeaways</h3>
+<p>I have learned that the most elegant solutions are not the fastest <a id="org3c0714c"></a>.</p>
 <h2 id="another-interesting-solution">Another interesting solution</h2>
 <p><a href="https://leetcode.com/submissions/detail/428162662/">This one</a> runs at \(16\) ms but is far more interesting.</p>
 <h3 id="approach">Approach</h3>
@@ -471,16 +471,16 @@ matrix <span style="color:#f92672">=</span> numpy<span style="color:#f92672">.</
 </code></pre></div><p>After the result is reversed i.e. the last column first:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">print</span>(list(zip(<span style="color:#f92672">*</span>sample_matrix))[::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[(55, 39), (64, 43), (48, -73)]
-</code></pre></div><p>Note that this is a <a href="#org2866873">form of rotating</a> where the result gets rotated \(90^\circ\) anti-clockwise. This rotation is crucial because the column we needed to traverse i.e the last column is now the first row.
+</code></pre></div><p>Note that this is a <a href="#orgaee7d2c">form of rotating</a> where the result gets rotated \(90^\circ\) anti-clockwise. This rotation is crucial because the column we needed to traverse i.e the last column is now the first row.
 The resulting matrix is then recursively passed on to <code>spiralOrder</code> which removes the row, then rotates, and calls recursively on the resulting matrix.</p>
 <h3 id="takeaways">Takeaways</h3>
 <ul>
 <li>Using <code>zip</code> to transform a matrix is super intuitive once I saw it</li>
 <li>Rotating a matrix is not as performance heavy as I thought</li>
-<li>The most elegant solutions can <a href="#org86feb64">sometimes be the fastest</a> too</li>
+<li>The most elegant solutions can <a href="#org3c0714c">sometimes be the fastest</a> too</li>
 </ul>
 <h2 id="post-script-the-bad-solution">Post-script: the bad solution</h2>
-<p>This is the implementation of the <a href="#orgbd540ba">first pattern</a>. Extremely complex and does not do justice to the essence of the problem. It&rsquo;s neither fast nor elegant.</p>
+<p>This is the implementation of the <a href="#org17d99fb">first pattern</a>. Extremely complex and does not do justice to the essence of the problem. It&rsquo;s neither fast nor elegant.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">spiral</span>(matrix):
     m <span style="color:#f92672">=</span> len(matrix)
     n <span style="color:#f92672">=</span> len(matrix[<span style="color:#ae81ff">0</span>])
