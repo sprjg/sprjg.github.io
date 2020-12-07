@@ -6,10 +6,22 @@
     <description>Recent content in matrix on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Dec 2020 00:00:00 +0530</lastBuildDate>
+    <lastBuildDate>Sun, 06 Dec 2020 00:00:00 +0530</lastBuildDate>
     
 	<atom:link href="/tags/matrix/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Algo walkthrough: spiral matrix</title>
+      <link>/posts/20201205201509-algo_walkthrough_spiral_matrix/</link>
+      <pubDate>Sun, 06 Dec 2020 00:00:00 +0530</pubDate>
+      
+      <guid>/posts/20201205201509-algo_walkthrough_spiral_matrix/</guid>
+      <description>The problem  Given an m x n matrix, return all elements of the matrix in spiral order. Example 1: Input: matrix = [[1,2,3],[4,5,6],[7,8,9]] Output: [1,2,3,6,9,8,7,4,5]
+ Link to the problem.
+Intuitions Track the spiral literally I can definitely think of at least one solution involving 4 pointers . The 4 pointers track the size of the matrix as the spiral closes inwards.
+  But how to track the current location?</description>
+    </item>
     
     <item>
       <title>Algo walkthrough: set matrix zeroes</title>
