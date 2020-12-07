@@ -14,7 +14,7 @@
     "articleSection" : "posts",
     "name" : "lassoPlot in python",
     "headline" : "lassoPlot in python",
-    "description" : "A comparison of python vs matlab\n`lassoPlot` in matlab In matlab, lasso regression\u0026rsquo;s MSE is easily visualized using the command `lassoPlot`. The following is from Prof. Steve Brunton\u0026rsquo;s uwdatabook page. In the zip file, the exact file is `CH03_SEC05_2_LASSO.m`. The most relevant parts to create the plot are picked out here:\nA = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors b = A*x \u002b 2*randn(100,1); % Observations (with noise) xL2 = pinv(A)*b [XL1 FitInfo] = lasso(A,b,\u0026#39;CV\u0026#39;,10); lassoPlot(XL1,FitInfo,\u0026#39;PlotType\u0026#39;,\u0026#39;CV\u0026#39;) save See output below:",
+    "description" : "A comparison of python vs matlab\nlassoPlot in matlab In matlab, lasso regression\u0026rsquo;s MSE is easily visualized using the command lassoPlot. The following is from Prof. Steve Brunton\u0026rsquo;s uwdatabook page. In the zip file, the exact file is CH03_SEC05_2_LASSO.m. The most relevant parts to create the plot are picked out here:\nA = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors b = A*x \u002b 2*randn(100,1); % Observations (with noise) xL2 = pinv(A)*b [XL1 FitInfo] = lasso(A,b,\u0026#39;CV\u0026#39;,10); lassoPlot(XL1,FitInfo,\u0026#39;PlotType\u0026#39;,\u0026#39;CV\u0026#39;) save See output below:",
     "inLanguage" : "en-US",
     "author" : "",
     "creator" : "",
@@ -25,7 +25,7 @@
     "datePublished": "2020-03-26 00:00:00 \u002b0530 IST",
     "dateModified" : "2020-03-26 00:00:00 \u002b0530 IST",
     "url" : "\/posts\/20200624220142-lassoplot_in_python\/",
-    "wordCount" : "984",
+    "wordCount" : "716",
     "keywords" : [ "matlab","python","plotting","Blog" ]
 }
 </script>
@@ -67,7 +67,7 @@
     <aside class="toc">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#lassoplot-in-matlab">`lassoPlot` in matlab</a></li>
+    <li><a href="#lassoplot-in-matlab"><code>lassoPlot</code> in matlab</a></li>
     <li><a href="#equivalent-command-in-python">Equivalent command in python</a>
       <ul>
         <li><a href="#important-differences">Important differences</a></li>
@@ -77,11 +77,11 @@
 </nav>
     </aside>
     <p>A comparison of python vs matlab</p>
-<h2 id="lassoplot-in-matlab">`lassoPlot` in matlab</h2>
+<h2 id="lassoplot-in-matlab"><code>lassoPlot</code> in matlab</h2>
 <p>In matlab, lasso regression&rsquo;s MSE is easily visualized using the command
-`lassoPlot`. The following is from Prof. Steve Brunton&rsquo;s
+<code>lassoPlot</code>. The following is from Prof. Steve Brunton&rsquo;s
 <a href="http:uwdatabook.com">uwdatabook page</a>. In the zip file, the exact file is
-`CH03_SEC05_2_LASSO.m`. The most relevant parts to create the plot are
+<code>CH03_SEC05_2_LASSO.m</code>. The most relevant parts to create the plot are
 picked out here:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-matlab" data-lang="matlab">A = randn(<span style="color:#ae81ff">100</span>,<span style="color:#ae81ff">10</span>);                   <span style="color:#75715e">% Matrix of possible predictors</span>
 x = [<span style="color:#ae81ff">0</span>; <span style="color:#ae81ff">0</span>; <span style="color:#ae81ff">1</span>; <span style="color:#ae81ff">0</span>; <span style="color:#ae81ff">0</span>; <span style="color:#ae81ff">0</span>; <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; <span style="color:#ae81ff">0</span>; <span style="color:#ae81ff">0</span>; <span style="color:#ae81ff">0</span>]; <span style="color:#75715e">% Two nonzero predictors</span>
@@ -100,9 +100,9 @@ save
 <h2 id="equivalent-command-in-python">Equivalent command in python</h2>
 <p>In python the function calls are completely different. In fact there&rsquo;
 no direct way to mention 10-fold cross validation like in
-`lasso(A,b,&lsquo;CV&rsquo;,10)`.
-<a href="https://stackoverflow.com/questions/12746479/why-are-lasso-in-sklearn-python-and-matlab-statistical-package-different/20457402#20457402">This answer</a> shows how to create the `KFold` cross validation model
-first and then use it in `LassoCV`.
+<code>lasso(A,b,'CV',10)</code>.
+<a href="https://stackoverflow.com/questions/12746479/why-are-lasso-in-sklearn-python-and-matlab-statistical-package-different/20457402#20457402">This answer</a> shows how to create the <code>KFold</code> cross validation model
+first and then use it in <code>LassoCV</code>.
 In the previous matlab code sample I saved the variables so as to
 recreate the exact plot in python.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
@@ -218,39 +218,14 @@ plt_save(<span style="color:#e6db74">&#39;python lasso demo, LassoCV show error 
 <span style="color:#75715e">#     ),</span>
 <span style="color:#75715e"># ])</span>
 
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">/home/p/.local/lib/python3.6/site-packages/sklearn/utils/validation.py:73: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  return f(**kwargs)
-[2.51 2.5  2.45 2.4  2.36 2.33 2.31 2.29 2.28 2.26 2.25 2.24 2.24 2.24
- 2.24 2.24 2.24 2.25 2.25 2.26 2.27 2.27 2.28 2.28 2.29 2.3  2.3  2.31
- 2.32 2.33 2.34 2.35 2.36 2.37 2.38 2.38 2.39 2.4  2.4  2.41 2.42 2.42
- 2.43 2.44 2.45 2.45 2.46 2.47 2.48 2.48 2.49 2.49 2.5  2.5  2.51 2.51
- 2.51 2.52 2.52 2.52 2.53 2.53 2.53 2.54 2.54 2.54 2.54 2.54 2.55 2.55
- 2.55 2.55 2.55 2.55 2.56 2.56 2.56 2.56 2.56 2.56 2.56 2.56 2.56 2.56
- 2.56 2.57 2.57 2.57 2.57 2.57 2.57 2.57 2.57 2.57 2.57 2.57 2.57 2.57
- 2.57 2.57]
-mean_mses: [5.54 5.5  5.43 5.36 5.3  5.26 5.23 5.2  5.18 5.16 5.14 5.1  5.08 5.06
- 5.04 5.03 5.02 5.01 5.01 5.02 5.04 5.06 5.08 5.11 5.14 5.17 5.2  5.22
- 5.25 5.27 5.29 5.32 5.34 5.36 5.39 5.41 5.43 5.44 5.46 5.48 5.49 5.51
- 5.52 5.54 5.56 5.57 5.59 5.6  5.61 5.62 5.63 5.65 5.65 5.66 5.67 5.68
- 5.69 5.7  5.7  5.71 5.72 5.72 5.73 5.73 5.74 5.74 5.75 5.75 5.75 5.76
- 5.76 5.76 5.76 5.77 5.77 5.77 5.77 5.78 5.78 5.78 5.78 5.78 5.78 5.78
- 5.79 5.79 5.79 5.79 5.79 5.79 5.79 5.79 5.79 5.79 5.79 5.79 5.8  5.8
- 5.8  5.8 ]
-dev: 2.25
-idxs_sparse_alpha_candidates: (array([], dtype=int64),)
-Traceback (most recent call last):
-  File &#34;&lt;stdin&gt;&#34;, line 1, in &lt;module&gt;
-  File &#34;/tmp/babel-Ng5Fd9/python-tkuHOj&#34;, line 69, in &lt;module&gt;
-    idx_sparsest_alpha = idxs_sparse_alpha_candidates[0][0]
-IndexError: index 0 is out of bounds for axis 0 with size 0
 </code></pre></div><figure>
     <img src="/ox-hugo/python%20lasso%20demo,%20LassoCV%20show%20error%20spread.png"/> 
 </figure>
 
 <h3 id="important-differences">Important differences</h3>
 <h4 id="not-the-same-cost-function">Not the same cost function</h4>
-<p>The python function call `LassoCV` and matlab function call `lasso` do
-not solve the same optimization problem. `LassoCV` solves a normalized
+<p>The python function call <code>LassoCV</code> and matlab function call <code>lasso</code> do
+not solve the same optimization problem. <code>LassoCV</code> solves a normalized
 version of the problem by diving the cost function by the number of
 samples. This changes the resulting penalty values being used in the
 two versions. In matlab, using \(\lambda \in [a,b]\) is equivalent to
