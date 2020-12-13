@@ -264,7 +264,7 @@ thead, tfoot, tr:nth-child(even) { background: #eee; }
   /* CSS that should be displayed if width is equal to or less than 800px goes here */
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (min-width: 600px) and (max-width: 1100px) {
 
     body {
         max-width: 60%;
@@ -304,8 +304,56 @@ thead, tfoot, tr:nth-child(even) { background: #eee; }
     }
 
   /*  .sidenote-checkbox:checked ~ .sidenote-content {
-  /*      display: none;
-  /*  } */
+ *    /*      display: none;
+ *      /*  } */
+
+    .sidenote-content {
+        margin-right: 0px;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+
+    body {
+        margin: auto;
+        padding: 1em;
+        line-height: 1.5em;
+    }
+
+
+    aside {}
+    .toc {}
+    .footnotes {}
+    #TableOfContents a {}
+    #TableOfContents a:hover{}
+
+    .sidenote-content {
+        font-style: italic;
+        position: static;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+        border-color: none;
+        border-block-style: none;
+    }
+
+    .sidenote-content::before {
+        content:  "(";
+    }
+
+    .sidenote-content::after {
+        content:  ")";
+    }
+
+    .sidenote-label {
+        border-block-style: none;
+        border-color: none;
+    }
+
+  /*  .sidenote-checkbox:checked ~ .sidenote-content {
+ *    /*      display: none;
+ *      /*  } */
 
     .sidenote-content {
         margin-right: 0px;

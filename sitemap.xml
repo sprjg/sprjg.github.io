@@ -3,12 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/posts/20201205201509-algo_walkthrough_spiral_matrix/</loc>
-    <lastmod>2020-12-07T19:07:36+05:30</lastmod>
+    <loc>/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</loc>
+    <lastmod>2020-12-12T22:25:33+05:30</lastmod>
   </url>
   
   <url>
     <loc>/categories/algos/</loc>
+    <lastmod>2020-12-12T22:25:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2020-12-12T22:25:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2020-12-12T22:25:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/</loc>
+    <lastmod>2020-12-12T22:25:33+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/20201205201509-algo_walkthrough_spiral_matrix/</loc>
     <lastmod>2020-12-07T19:07:36+05:30</lastmod>
   </url>
   
@@ -18,22 +38,7 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2020-12-07T19:07:36+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/matrix/</loc>
-    <lastmod>2020-12-07T19:07:36+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2020-12-07T19:07:36+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>/posts/</loc>
     <lastmod>2020-12-07T19:07:36+05:30</lastmod>
   </url>
   
