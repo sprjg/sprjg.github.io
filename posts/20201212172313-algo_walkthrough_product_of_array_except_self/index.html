@@ -22,10 +22,10 @@
     "accountablePerson" : "",
     "copyrightHolder" : "",
     "copyrightYear" : "2020",
-    "datePublished": "2020-12-12 22:25:33 \u002b0530 IST",
-    "dateModified" : "2020-12-12 22:25:33 \u002b0530 IST",
+    "datePublished": "2020-12-13 12:41:29 \u002b0530 IST",
+    "dateModified" : "2020-12-13 12:41:29 \u002b0530 IST",
     "url" : "\/posts\/20201212172313-algo_walkthrough_product_of_array_except_self\/",
-    "wordCount" : "1108",
+    "wordCount" : "1629",
     "keywords" : [ "Blog" ]
 }
 </script>
@@ -86,6 +86,14 @@
     <li><a href="#second-try">Second try</a>
       <ul>
         <li><a href="#results">Results</a></li>
+      </ul>
+    </li>
+    <li><a href="#understanding-the-best-solution">Understanding the best solution</a>
+      <ul>
+        <li><a href="#constant-space">Constant space</a></li>
+        <li><a href="#operator"><code>~</code> operator</a></li>
+        <li><a href="#the-single-iteration">The single iteration</a></li>
+        <li><a href="#takeaways">Takeaways</a></li>
       </ul>
     </li>
   </ul>
@@ -184,7 +192,7 @@ Could you solve it with constant space complexity? (The output array does not co
 </blockquote>
 <p>Using two extra arrays counts as \(O(n)\) space. Could we do this without creating intermediate arrays?</p>
 <h2 id="second-try">Second try</h2>
-<p>The follow up says that a result array does not count as extra space. So we are allowed at most one extra array. What if we used the same approach but changed our memory storage to accommodate this new constraint?
+<p><a id="orgc7cdb00"></a> The follow up says that a result array does not count as extra space. So we are allowed at most one extra array. What if we used the same approach but changed our memory storage to accommodate this new constraint?
 Say we have a single <code>result</code> array. We first calculate and store the left products for each element in this array:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">productExceptSelf</span>(nums):
     n <span style="color:#f92672">=</span> len(nums)
@@ -213,6 +221,53 @@ Say we have a single <code>result</code> array. We first calculate and store the
 <p>Runtime: 232 ms, faster than 73.80% of Python3 online submissions for Product of Array Except Self.</p>
 <p>Memory Usage: 21.8 MB, less than 34.77% of Python3 online submissions for Product of Array Except Self.</p>
 </blockquote>
+<h4 id="a-single-iteration">A single iteration?</h4>
+<p>Is there a solution to this using only a single pass of the array?</p>
+<h2 id="understanding-the-best-solution">Understanding the best solution</h2>
+<p><a id="org20debcb"></a> This is the <a href="https://leetcode.com/submissions/detail/429914350/">best solution</a> at 200ms. It&rsquo;s amazing how this solution uses the best algorithm and also ends up being super readable.</p>
+<h3 id="constant-space">Constant space</h3>
+<p>This part is something we have already seen. We don&rsquo;t need two extra arrays. Instead keep a cumulative product from both ends. But this algorithm calculates the cumulative left and right product in a single iteration by using the <code>~</code> operator.</p>
+<h3 id="operator"><code>~</code> operator</h3>
+<p>This operator indexes in the reverse from the end of the array. So <code>~0</code> is equivalent to <code>-1</code> in array indexing. It makes code more readable because the offset in <code>~</code> operator is the same in forward and reverse direction unlike negative indexing.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">array <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>]
+<span style="color:#66d9ef">print</span>(array[<span style="color:#ae81ff">0</span>])
+<span style="color:#66d9ef">print</span>(array[<span style="color:#f92672">~</span><span style="color:#ae81ff">0</span>])
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">1
+6
+</code></pre></div><h3 id="the-single-iteration">The single iteration</h3>
+<p>Our implementation: goes forward once, calculates left products. After this, goes in reverse, calculating the right products and also the final result for every element.
+Instead this algorithm uses a single iteration to do all three of the above. To understand how this is even possible, let&rsquo;s see look at a single element.</p>
+<h4 id="operations-for-an-element">Operations for an element</h4>
+<p>For a single element, we need two quantities: left and right product:</p>
+<p>\(p_{\text{left}} \times p_{\text{right}}\)</p>
+<p>The final result for this element is the product of left and right products. Say we aim to do this in-place. We need either left product or right product occupying the result space:</p>
+<p>\(\text{res} = p_{\text{left}}\) or \(\text{res} = p_{\text{right}}\)</p>
+<p>After this, when we calculate the other product:</p>
+<p>\(\text{res} = \text{res} * p_{\text{right}}\) or \(\text{res} = \text{res} * p_{\text{left}}\)</p>
+<h4 id="half-iteration">Half iteration</h4>
+<p>Notice that the result for all elements is set to <code>1</code> initially.
+Now we can look at the first half of this algorithm&rsquo;s iteration as:</p>
+<ul>
+<li>calculating left products for the left half of the array</li>
+<li>calculating right products for the right half of the array</li>
+</ul>
+<p>The second half of the algorithm is calculating the final result! For each element:</p>
+<ul>
+<li>calculates left products for the right half of the array, and sets result to <code>res[i]*=left</code></li>
+<li>calculates right products for the left half of the array, and sets result to <code>res[~i]*=right</code></li>
+</ul>
+<p>So this single iteration is actually 4 half iterations. That&rsquo;s the ingenuity of this algorithm. By using <code>~</code> we have a cumulative right product, but it&rsquo;s only useful if we can use it immediately. For the right half, we store this right product. For the left half, we multiply this right product with the existing left product to find the final result.</p>
+<h3 id="takeaways">Takeaways</h3>
+<p>Why was it so hard to figure out this final piece? Instead of using the <code>~i</code>, I could have used <code>n-i</code> which is functionally the same result. But what makes <a href="#org20debcb">this algorithm</a> a hard leap from <a href="#orgc7cdb00">this</a>?</p>
+<ul>
+<li>Intuitively a loop does &ldquo;one thing&rdquo; for every element in the array
+<ul>
+<li>Calculating two different quantities for the two halves of the array is a super confusing concept</li>
+</ul>
+</li>
+<li>The symmetry is so hard to see the first time here. But once it&rsquo;s there, it&rsquo;s hard to unsee it</li>
+</ul>
+<p>This is one of the most elegant algorithms ever!</p>
 
 </main>
 
