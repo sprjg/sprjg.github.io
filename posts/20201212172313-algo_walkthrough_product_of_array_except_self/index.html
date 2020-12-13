@@ -22,8 +22,8 @@
     "accountablePerson" : "",
     "copyrightHolder" : "",
     "copyrightYear" : "2020",
-    "datePublished": "2020-12-13 12:41:29 \u002b0530 IST",
-    "dateModified" : "2020-12-13 12:41:29 \u002b0530 IST",
+    "datePublished": "2020-12-13 12:42:31 \u002b0530 IST",
+    "dateModified" : "2020-12-13 12:42:31 \u002b0530 IST",
     "url" : "\/posts\/20201212172313-algo_walkthrough_product_of_array_except_self\/",
     "wordCount" : "1629",
     "keywords" : [ "Blog" ]
@@ -111,7 +111,7 @@ Output: [24,12,8,6]</p>
 <h2 id="what-not-to-do">What not to do</h2>
 <p>Let&rsquo;s ignore the <em>note</em> for now.</p>
 <h3 id="using-division">Using division</h3>
-<p>If we use division, how would we solve this problem? We could start with a single pass over the array. In this pass, we multiply all the elements and calculate <code>complete_product</code>. For each element <code>e</code>, we can now calculate \(\frac{complete_product}{e}\). This, stored in an array, is our final result.</p>
+<p>If we use division, how would we solve this problem? We could start with a single pass over the array. In this pass, we multiply all the elements and calculate <code>complete_product</code>. For each element <code>e</code>, we can now calculate \(\frac{complete-product}{e}\). This, stored in an array, is our final result.</p>
 <h3 id="more-than-o--n">More than O(n)</h3>
 <p>What if we had no time constraints? What&rsquo;s our worst brute-force solution?
 We could iterate over the array. For each element <code>e</code>, we perform a nested iteration of all the other elements. During this nested iteration, we calculate the product of all the other elements. This is a \(O(n^2)\) solution.</p>
@@ -192,7 +192,7 @@ Could you solve it with constant space complexity? (The output array does not co
 </blockquote>
 <p>Using two extra arrays counts as \(O(n)\) space. Could we do this without creating intermediate arrays?</p>
 <h2 id="second-try">Second try</h2>
-<p><a id="orgc7cdb00"></a> The follow up says that a result array does not count as extra space. So we are allowed at most one extra array. What if we used the same approach but changed our memory storage to accommodate this new constraint?
+<p><a id="org0b1c58e"></a> The follow up says that a result array does not count as extra space. So we are allowed at most one extra array. What if we used the same approach but changed our memory storage to accommodate this new constraint?
 Say we have a single <code>result</code> array. We first calculate and store the left products for each element in this array:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">productExceptSelf</span>(nums):
     n <span style="color:#f92672">=</span> len(nums)
@@ -224,7 +224,7 @@ Say we have a single <code>result</code> array. We first calculate and store the
 <h4 id="a-single-iteration">A single iteration?</h4>
 <p>Is there a solution to this using only a single pass of the array?</p>
 <h2 id="understanding-the-best-solution">Understanding the best solution</h2>
-<p><a id="org20debcb"></a> This is the <a href="https://leetcode.com/submissions/detail/429914350/">best solution</a> at 200ms. It&rsquo;s amazing how this solution uses the best algorithm and also ends up being super readable.</p>
+<p><a id="orgea25fed"></a> This is the <a href="https://leetcode.com/submissions/detail/429914350/">best solution</a> at 200ms. It&rsquo;s amazing how this solution uses the best algorithm and also ends up being super readable.</p>
 <h3 id="constant-space">Constant space</h3>
 <p>This part is something we have already seen. We don&rsquo;t need two extra arrays. Instead keep a cumulative product from both ends. But this algorithm calculates the cumulative left and right product in a single iteration by using the <code>~</code> operator.</p>
 <h3 id="operator"><code>~</code> operator</h3>
@@ -258,7 +258,7 @@ Now we can look at the first half of this algorithm&rsquo;s iteration as:</p>
 </ul>
 <p>So this single iteration is actually 4 half iterations. That&rsquo;s the ingenuity of this algorithm. By using <code>~</code> we have a cumulative right product, but it&rsquo;s only useful if we can use it immediately. For the right half, we store this right product. For the left half, we multiply this right product with the existing left product to find the final result.</p>
 <h3 id="takeaways">Takeaways</h3>
-<p>Why was it so hard to figure out this final piece? Instead of using the <code>~i</code>, I could have used <code>n-i</code> which is functionally the same result. But what makes <a href="#org20debcb">this algorithm</a> a hard leap from <a href="#orgc7cdb00">this</a>?</p>
+<p>Why was it so hard to figure out this final piece? Instead of using the <code>~i</code>, I could have used <code>n-i</code> which is functionally the same result. But what makes <a href="#orgea25fed">this algorithm</a> a hard leap from <a href="#org0b1c58e">this</a>?</p>
 <ul>
 <li>Intuitively a loop does &ldquo;one thing&rdquo; for every element in the array
 <ul>

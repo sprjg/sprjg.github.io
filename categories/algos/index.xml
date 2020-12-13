@@ -6,7 +6,7 @@
     <description>Recent content in algos on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 13 Dec 2020 12:41:29 +0530</lastBuildDate>
+    <lastBuildDate>Sun, 13 Dec 2020 12:42:31 +0530</lastBuildDate>
     
 	<atom:link href="/categories/algos/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Algo walkthrough: product of array except self</title>
       <link>/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</link>
-      <pubDate>Sun, 13 Dec 2020 12:41:29 +0530</pubDate>
+      <pubDate>Sun, 13 Dec 2020 12:42:31 +0530</pubDate>
       
       <guid>/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</guid>
       <description>The problem  Given an array nums of n integers where n &amp;gt; 1, return an array output such that output[i] is equal to the product of all the elements of nums except nums[i].
