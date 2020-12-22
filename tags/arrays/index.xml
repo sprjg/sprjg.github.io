@@ -29,10 +29,9 @@ More than O(n) What if we had no time constraints?</description>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0530</pubDate>
       
       <guid>/posts/20201205201509-algo_walkthrough_spiral_matrix/</guid>
-      <description>The problem  Given an m x n matrix, return all elements of the matrix in spiral order. Example 1: Input: matrix = [[1,2,3],[4,5,6],[7,8,9]] Output: [1,2,3,6,9,8,7,4,5]
- Link to the problem.
+      <description>Link to the problem.
 Intuitions Track the spiral literally I can definitely think of at least one solution involving 4 pointers . The 4 pointers track the size of the matrix as the spiral closes inwards.
-  But how to track the current location?</description>
+  But how to track the current location? A tuple with row and column numbers? At first we set direction to move towards right. When the column number reaches a value equal to right we change direction to move downwards.</description>
     </item>
     
     <item>
@@ -41,8 +40,8 @@ Intuitions Track the spiral literally I can definitely think of at least one sol
       <pubDate>Wed, 25 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</guid>
-      <description>The problem We have an unsorted array. It may or may not have a sequence of numbers. We have to find the length of the longest sequence. Link to the problem.
-Hints  They hint at a \(O(n)\) solution. This can be useful at a later point. They also say the length of the array can be between \(1, 10000\). This means we can a small array of size \(10\) and manually try out solutions.</description>
+      <description>Link to the problem.
+Hints  They hint at a \(O(n)\) solution. This can be useful at a later point. They also say the length of the array can be between \(1, 10000\). This means we can a small array of size \(10\) and manually try out solutions. This would probably scale fine. Each element can be huge! \(-10^9, 10^9\). Note that the value is higher than the length of the array.</description>
     </item>
     
     <item>
@@ -51,9 +50,8 @@ Hints  They hint at a \(O(n)\) solution. This can be useful at a later point. Th
       <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</guid>
-      <description>Problem statement Given an array of size \(n\), the beauty of this array is defined as sum of \(abs(index-value)\) for each element. Swapping two elements of this array, what is the maximum beauty possible?
-Initial setup The initial setup consists of an unsorted array. Each element has a score defined as the absolute value of the difference the element&amp;rsquo;s value and its index.
-The absolute value The metric for each element gives us a sense of displacement.</description>
+      <description>Initial setup The initial setup consists of an unsorted array. Each element has a score defined as the absolute value of the difference the element&amp;rsquo;s value and its index.
+The absolute value The metric for each element gives us a sense of displacement. For example, if an element at index `4` is of value `10` the score for this is `6`. If the element was at index `5` and of value `11`, the score is still `6`.</description>
     </item>
     
   </channel>

@@ -9,15 +9,22 @@
 
 <meta property="og:title" content="Algo walkthrough: number of ways to decode message" />
 
-<meta property="og:image" content="https://sprjg.github.io/ox-hugo/" />
+<meta property="og:image" content="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_10-56-42_.png" />
 
-<meta property="og:description" content="The problem  A message containing letters from A-Z is being encoded to numbers using the following mapping:
-&lsquo;A&rsquo; -&gt; 1
-&lsquo;B&rsquo; -&gt; 2
-&hellip;
-&lsquo;Z&rsquo; -&gt; 26
-Given a non-empty string containing only digits, determine the total number of ways to decode it.
-The answer is guaranteed to fit in a 32-bit integer. This seems to be a hint at storage of the answer rather than a hint towards the solution   Link to the problem" />
+<meta property="og:description" content="  A message containing letters from A-Z is being encoded to numbers using the following mapping:
+
+  &#39;A&#39; -&gt; 1
+
+  &#39;B&#39; -&gt; 2
+
+  ...
+
+  &#39;Z&#39; -&gt; 26
+
+  Given a non-empty string containing only digits, determine the total number of ways to decode it.
+
+  The answer is guaranteed to fit in a {{&lt; sidenote &#34;fn2&#34; &#34;32-bit integer.&#34; &gt;}} This seems to be a hint at storage of the answer rather than a hint towards the solution {{&lt; /sidenote &gt;}}
+  " />
 
 <meta name="twitter:card" content="summary_large_image">
 
@@ -27,15 +34,22 @@ The answer is guaranteed to fit in a 32-bit integer. This seems to be a hint at 
 
 <meta name="twitter:title" content="Algo walkthrough: number of ways to decode message" />
 
-<meta name="twitter:description" content="The problem  A message containing letters from A-Z is being encoded to numbers using the following mapping:
-&lsquo;A&rsquo; -&gt; 1
-&lsquo;B&rsquo; -&gt; 2
-&hellip;
-&lsquo;Z&rsquo; -&gt; 26
-Given a non-empty string containing only digits, determine the total number of ways to decode it.
-The answer is guaranteed to fit in a 32-bit integer. This seems to be a hint at storage of the answer rather than a hint towards the solution   Link to the problem" />
+<meta name="twitter:description" content="  A message containing letters from A-Z is being encoded to numbers using the following mapping:
 
-<meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/" />
+  &#39;A&#39; -&gt; 1
+
+  &#39;B&#39; -&gt; 2
+
+  ...
+
+  &#39;Z&#39; -&gt; 26
+
+  Given a non-empty string containing only digits, determine the total number of ways to decode it.
+
+  The answer is guaranteed to fit in a {{&lt; sidenote &#34;fn2&#34; &#34;32-bit integer.&#34; &gt;}} This seems to be a hint at storage of the answer rather than a hint towards the solution {{&lt; /sidenote &gt;}}
+  " />
+
+<meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_10-56-42_.png" />
 
 <script type="application/ld+json">
 {
@@ -48,7 +62,7 @@ The answer is guaranteed to fit in a 32-bit integer. This seems to be a hint at 
     "articleSection" : "posts",
     "name" : "Algo walkthrough: number of ways to decode message",
     "headline" : "Algo walkthrough: number of ways to decode message",
-    "description" : "The problem  A message containing letters from A-Z is being encoded to numbers using the following mapping:\n\u0026lsquo;A\u0026rsquo; -\u0026gt; 1\n\u0026lsquo;B\u0026rsquo; -\u0026gt; 2\n\u0026hellip;\n\u0026lsquo;Z\u0026rsquo; -\u0026gt; 26\nGiven a non-empty string containing only digits, determine the total number of ways to decode it.\nThe answer is guaranteed to fit in a 32-bit integer. This seems to be a hint at storage of the answer rather than a hint towards the solution   Link to the problem",
+    "description" : "  A message containing letters from A-Z is being encoded to numbers using the following mapping:\n\n  \u0027A\u0027 -\u003e 1\n\n  \u0027B\u0027 -\u003e 2\n\n  ...\n\n  \u0027Z\u0027 -\u003e 26\n\n  Given a non-empty string containing only digits, determine the total number of ways to decode it.\n\n  The answer is guaranteed to fit in a {{\u003c sidenote \u0022fn2\u0022 \u002232-bit integer.\u0022 \u003e}} This seems to be a hint at storage of the answer rather than a hint towards the solution {{\u003c \/sidenote \u003e}}\n  ",
     "inLanguage" : "en-US",
     "author" : "",
     "creator" : "",
@@ -59,7 +73,7 @@ The answer is guaranteed to fit in a 32-bit integer. This seems to be a hint at 
     "datePublished": "2020-12-05 00:00:00 \u002b0530 IST",
     "dateModified" : "2020-12-05 00:00:00 \u002b0530 IST",
     "url" : "\/posts\/20201205103553-algo_walkthrough_number_of_ways_to_decode_message\/",
-    "wordCount" : "2191",
+    "wordCount" : "2120",
     "keywords" : [ "strings","dynamic-programming","Blog" ]
 }
 </script>
@@ -101,7 +115,6 @@ The answer is guaranteed to fit in a 32-bit integer. This seems to be a hint at 
     <aside class="toc">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#the-problem">The problem</a></li>
     <li><a href="#intuitions">Intuitions</a>
       <ul>
         <li><a href="#variable-code-length">Variable code length</a></li>
@@ -144,23 +157,21 @@ The answer is guaranteed to fit in a 32-bit integer. This seems to be a hint at 
   </ul>
 </nav>
     </aside>
-    
-    <h2 id="the-problem">The problem</h2>
-<blockquote>
-<p>A message containing letters from A-Z is being encoded to numbers using the following mapping:</p>
-<p>&lsquo;A&rsquo; -&gt; 1</p>
-<p>&lsquo;B&rsquo; -&gt; 2</p>
-<p>&hellip;</p>
-<p>&lsquo;Z&rsquo; -&gt; 26</p>
-<p>Given a non-empty string containing only digits, determine the total number of ways to decode it.</p>
-<p>The answer is guaranteed to fit in a <span class="sidenote">
-<label class="sidenote-label" for="fn2">32-bit integer.</label>
+      A message containing letters from A-Z is being encoded to numbers using the following mapping:
 
-<span class="sidenote-content">This seems to be a hint at storage of the answer rather than a hint towards the solution</span>
-</span>
-</p>
-</blockquote>
-<p><a href="https://leetcode.com/problems/decode-ways/description/">Link to the problem</a></p>
+  &#39;A&#39; -&gt; 1
+
+  &#39;B&#39; -&gt; 2
+
+  ...
+
+  &#39;Z&#39; -&gt; 26
+
+  Given a non-empty string containing only digits, determine the total number of ways to decode it.
+
+  The answer is guaranteed to fit in a {{&lt; sidenote &#34;fn2&#34; &#34;32-bit integer.&#34; &gt;}} This seems to be a hint at storage of the answer rather than a hint towards the solution {{&lt; /sidenote &gt;}}
+  
+    <p><a href="https://leetcode.com/problems/decode-ways/description/">Link to the problem</a></p>
 <h2 id="intuitions">Intuitions</h2>
 <h3 id="variable-code-length">Variable code length</h3>
 <p>The root of the issue is variable code length. Some codes are length-1 (a-i), some are length-2 (j-z). This <span class="sidenote">
@@ -260,7 +271,7 @@ We also know that an input code of length 1 has exactly 1 decoding: <code>D(1) =
 <li>For each new additional number, we have to start a counter <code>Dnow</code>. By the end of the processing/iteration for this additional number, we change <code>Dnow = D0</code> and <code>D0 = D1</code></li>
 <li>Every new addition number is <code>e</code> and the previous number was <code>eprev</code>. We have to check if <code>f&quot;{e}{eprev}&quot;</code> is less than or equal to <code>26</code>. If it is only then do we take the second path i.e. combining with <code>D(k-1)</code></li>
 <li>For sake of convenience we&rsquo;ll avoid processing the rightmost number; instead we&rsquo;ll account for it by setting initial value of <code>D(k)</code> with <code>D(k)=1</code></li>
-<li><code>D(k-1)</code> initial value logically should be zero. But <a id="orgdcb78d1"></a> &hellip;
+<li><code>D(k-1)</code> initial value logically should be zero. But <a id="org02eae40"></a> &hellip;
 <ul>
 <li>Take the example of <code>26</code>. When the new additional number combined with old additional number (point 4), is less than 26, we have one more decoding possible along with <code>2,6</code>. But if we added <code>D(k-1) = 0</code> we&rsquo;d have the wrong result i.e. just decoding</li>
 <li>For the sake of making this work, we can set initial value of <code>D(k-1)=1</code>. Anyway it will get overwritten by the end of the first additional number</li>
@@ -388,7 +399,7 @@ Let&rsquo;s make corrections for each of the edge cases we discussed.</p>
 </span>
  <a href="https://leetcode.com/submissions/detail/427395128/">is this one</a>. If the solution is small enough to fit in a playing card, it&rsquo;s worth understanding more.</p>
 <h3 id="an-array-instead-of-previous-two-variables">An array instead of previous two variables</h3>
-<p>This implementation uses an array <code>dp</code> to store the results of each new number addition. <code>dp[0]</code> is set to <code>1</code> for <a href="#orgdcb78d1">the same reason</a> we set <code>D1 = 1</code>. Note also that the array is offset by 1 i.e. result of including one number is at <code>dp[1]</code> not <code>dp[0]</code>. Thus the final result is at <code>dp[len(s)]</code>.
+<p>This implementation uses an array <code>dp</code> to store the results of each new number addition. <code>dp[0]</code> is set to <code>1</code> for <a href="#org02eae40">the same reason</a> we set <code>D1 = 1</code>. Note also that the array is offset by 1 i.e. result of including one number is at <code>dp[1]</code> not <code>dp[0]</code>. Thus the final result is at <code>dp[len(s)]</code>.
 So <code>dp[i]</code> here is the number of decodings possible for <code>s[:i]</code>. This is a crucial point to understand for the rest to make sense.</p>
 <h3 id="processing-direction">Processing direction</h3>
 <p>The processing is from left to right. This is a significant change to understand. Because everything is <em>mirrored</em> in a way, it&rsquo;s a bit confusing at first. But let&rsquo;s track down the places where <code>dp[i]</code> is changed.</p>

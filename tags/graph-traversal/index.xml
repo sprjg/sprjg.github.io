@@ -17,8 +17,8 @@
       <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
       
       <guid>/posts/20201127172735-algo_walkthrough_course_schedule/</guid>
-      <description>The problem  There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1. Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1] Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
- Link to the problem</description>
+      <description>Link to the problem
+First impressions It seems every course has pre-requisites. A course c would have the following pre-requisites: [c, p1], [c, p2], .... First we finish all the pre-requisites then we can finish the course c. The pre-requisites will obviously have their own pre-requisites&amp;hellip; and so on. The question says &amp;ldquo;is it possible?&amp;rdquo; which means the inputs may have a situation where this chain of pre-requisites can never be completed because everything depends on everything else i.</description>
     </item>
     
     <item>
@@ -27,9 +27,9 @@
       <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
       
       <guid>/posts/20201125100541-algo_walkthrough_number_of_islands/</guid>
-      <description>The problem  Given an m x n 2d grid map of &amp;lsquo;1&amp;rsquo;s (land) and &amp;lsquo;0&amp;rsquo;s (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
- Link to the problem.
-Exploration The first instinct is to lower the dimension of the problem and see what that looks like.</description>
+      <description>Link to the problem.
+Exploration The first instinct is to lower the dimension of the problem and see what that looks like. A 1D world with stretches of land and water:
+                 1 0 0 0 1 1 1 0 0 1    In this case, there are 3 islands. We can count this in a single pass of the array.</description>
     </item>
     
   </channel>

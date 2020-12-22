@@ -11,8 +11,10 @@
 
 <meta property="og:image" content="https://sprjg.github.io/ox-hugo/" />
 
-<meta property="og:description" content="The problem  There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1. Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1] Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
- Link to the problem" />
+<meta property="og:description" content="  There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1.
+  Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
+  Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
+  " />
 
 <meta name="twitter:card" content="summary_large_image">
 
@@ -22,8 +24,10 @@
 
 <meta name="twitter:title" content="Algo walkthrough: course schedule" />
 
-<meta name="twitter:description" content="The problem  There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1. Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1] Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
- Link to the problem" />
+<meta name="twitter:description" content="  There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1.
+  Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
+  Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
+  " />
 
 <meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/" />
 
@@ -38,7 +42,7 @@
     "articleSection" : "posts",
     "name" : "Algo walkthrough: course schedule",
     "headline" : "Algo walkthrough: course schedule",
-    "description" : "The problem  There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1. Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1] Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?\n Link to the problem",
+    "description" : "  There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1.\n  Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]\n  Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?\n  ",
     "inLanguage" : "en-US",
     "author" : "",
     "creator" : "",
@@ -49,7 +53,7 @@
     "datePublished": "2020-11-26 00:00:00 \u002b0530 IST",
     "dateModified" : "2020-11-26 00:00:00 \u002b0530 IST",
     "url" : "\/posts\/20201127172735-algo_walkthrough_course_schedule\/",
-    "wordCount" : "2059",
+    "wordCount" : "1995",
     "keywords" : [ "graph-traversal","cycle-detection","Blog" ]
 }
 </script>
@@ -91,7 +95,6 @@
     <aside class="toc">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#the-problem">The problem</a></li>
     <li><a href="#first-impressions">First impressions</a></li>
     <li><a href="#input">Input</a></li>
     <li><a href="#cycle-detection-for-a-directed-graph">Cycle detection for a directed graph</a></li>
@@ -117,14 +120,11 @@
   </ul>
 </nav>
     </aside>
-    
-    <h2 id="the-problem">The problem</h2>
-<blockquote>
-<p>There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1.
-Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
-Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?</p>
-</blockquote>
-<p><a href="https://leetcode.com/problems/course-schedule/">Link to the problem</a></p>
+      There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1.
+  Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
+  Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
+  
+    <p><a href="https://leetcode.com/problems/course-schedule/">Link to the problem</a></p>
 <h2 id="first-impressions">First impressions</h2>
 <p>It seems every course has pre-requisites. A course <code>c</code> would have the following pre-requisites: <code>[c, p1], [c, p2], ...</code>. First we finish all the pre-requisites then we can finish the course <code>c</code>. The pre-requisites will obviously have their own pre-requisites&hellip; and so on.
 The question says &ldquo;is it possible?&rdquo; which means the inputs may have a situation where this chain of pre-requisites can never be completed because everything depends on everything else i.e. a cycle!</p>
