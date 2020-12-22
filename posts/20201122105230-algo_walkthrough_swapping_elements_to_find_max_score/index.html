@@ -11,7 +11,7 @@
 
 <meta property="og:image" content="https://sprjg.github.io/ox-hugo/swaps-sample-small-array.png" />
 
-<meta property="og:description" content="  Given an array of size \\(n\\), the beauty of this array is defined as sum of \\(abs(index-value)\\) for each element.
+<meta property="og:description" content="  Given an array of a particular size, the beauty of this array is defined as sum of absolute difference between each element and its index.
   Swapping two elements of this array, what is the maximum beauty possible?
   " />
 
@@ -23,7 +23,7 @@
 
 <meta name="twitter:title" content="Algo walkthrough: swapping elements to find max score" />
 
-<meta name="twitter:description" content="  Given an array of size \\(n\\), the beauty of this array is defined as sum of \\(abs(index-value)\\) for each element.
+<meta name="twitter:description" content="  Given an array of a particular size, the beauty of this array is defined as sum of absolute difference between each element and its index.
   Swapping two elements of this array, what is the maximum beauty possible?
   " />
 
@@ -40,7 +40,7 @@
     "articleSection" : "posts",
     "name" : "Algo walkthrough: swapping elements to find max score",
     "headline" : "Algo walkthrough: swapping elements to find max score",
-    "description" : "  Given an array of size \\\\(n\\\\), the beauty of this array is defined as sum of \\\\(abs(index-value)\\\\) for each element.\n  Swapping two elements of this array, what is the maximum beauty possible?\n  ",
+    "description" : "  Given an array of a particular size, the beauty of this array is defined as sum of absolute difference between each element and its index.\n  Swapping two elements of this array, what is the maximum beauty possible?\n  ",
     "inLanguage" : "en-US",
     "author" : "",
     "creator" : "",
@@ -139,7 +139,7 @@
   </ul>
 </nav>
     </aside>
-      Given an array of size \\(n\\), the beauty of this array is defined as sum of \\(abs(index-value)\\) for each element.
+      Given an array of a particular size, the beauty of this array is defined as sum of absolute difference between each element and its index.
   Swapping two elements of this array, what is the maximum beauty possible?
   
     <h2 id="initial-setup">Initial setup</h2>
@@ -242,11 +242,11 @@ Some immediate observations:</p>
 </ul>
 <h5 id="reverse-of-above-cases">Reverse of above cases</h5>
 <p>For each of the cases above, notice that the reverse causes the opposite effect (for a zero change in score, the opposite is also zero change in score).
-The second case is interesting. The decrease in score on removal of the overlap implies that causing an overlap increases score. We&rsquo;ll come back to this. <a id="org001b409"></a></p>
+The second case is interesting. The decrease in score on removal of the overlap implies that causing an overlap increases score. We&rsquo;ll come back to this. <a id="orga38948f"></a></p>
 <h4 id="fallacy-no-benefit-in-crossing-the-blue-line">[Fallacy] No benefit in crossing the blue line</h4>
 <p>This seems to be a fallacy in our previous observation. Notice how element at <code>15</code>, could in fact move down all the way, crossing the blue line, and achieve a better score (assuming we can have a partner who wants to move up).</p>
 <h4 id="summary">Summary</h4>
-<p>On swapping, one element moves up, one element moves down. We want an increase in score and we have seen <a href="#org001b409">that</a> causing an overlap increases score.
+<p>On swapping, one element moves up, one element moves down. We want an increase in score and we have seen <a href="#orga38948f">that</a> causing an overlap increases score.
 We also see that an element can cross the blue line to increase its own score.
 Together with the above two observations, we can say that if we pick any two non-overlapping score lines and swap them, there is a definite increase in total score:</p>
 <ul>
