@@ -27,7 +27,7 @@ A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0;
 lassoPlot in matlab In matlab, lasso regression&rsquo;s MSE is easily visualized using the command lassoPlot. The following is from Prof. Steve Brunton&rsquo;s uwdatabook page. In the zip file, the exact file is CH03_SEC05_2_LASSO.m. The most relevant parts to create the plot are picked out here:
 A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors b = A*x &#43; 2*randn(100,1); % Observations (with noise) xL2 = pinv(A)*b [XL1 FitInfo] = lasso(A,b,&#39;CV&#39;,10); lassoPlot(XL1,FitInfo,&#39;PlotType&#39;,&#39;CV&#39;) save See output below:" />
 
-<meta name="twitter:image" content="" />
+<meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/" />
 
 <script type="application/ld+json">
 {
