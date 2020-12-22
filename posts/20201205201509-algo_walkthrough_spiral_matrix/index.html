@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:type" content="article" />
 
-<meta property="og:url" content="sprjg.github.io/posts/20201205201509-algo_walkthrough_spiral_matrix/" />
+<meta property="og:url" content="/posts/20201205201509-algo_walkthrough_spiral_matrix/" />
 
 <meta property="og:title" content="Algo walkthrough: spiral matrix" />
 
-<meta property="og:image" content="sprjg.github.io/ox-hugo/" />
+<meta property="og:image" content="/ox-hugo/" />
 
 <meta property="og:description" content="The problem  Given an m x n matrix, return all elements of the matrix in spiral order. Example 1: Input: matrix = [[1,2,3],[4,5,6],[7,8,9]] Output: [1,2,3,6,9,8,7,4,5]
  Link to the problem.
@@ -37,7 +37,7 @@ Intuitions Track the spiral literally I can definitely think of at least one sol
     "@type" : "BlogPosting",
     "mainEntityOfPage": {
          "@type": "WebPage",
-         "@id": "sprjg.github.io"
+         "@id": ""
     },
     "articleSection" : "posts",
     "name" : "Algo walkthrough: spiral matrix",
@@ -52,7 +52,7 @@ Intuitions Track the spiral literally I can definitely think of at least one sol
     "copyrightYear" : "2020",
     "datePublished": "2020-12-06 00:00:00 \u002b0530 IST",
     "dateModified" : "2020-12-06 00:00:00 \u002b0530 IST",
-    "url" : "sprjg.github.io\/posts\/20201205201509-algo_walkthrough_spiral_matrix\/",
+    "url" : "\/posts\/20201205201509-algo_walkthrough_spiral_matrix\/",
     "wordCount" : "2762",
     "keywords" : [ "arrays","matrix","Blog" ]
 }
@@ -60,8 +60,8 @@ Intuitions Track the spiral literally I can definitely think of at least one sol
 
 
     <title>Algo walkthrough: spiral matrix | Notes on engineering math</title>
-    <link rel="stylesheet" href="sprjg.github.io/css/style.css" />
-    <link rel="stylesheet" href="sprjg.github.io/css/fonts.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
         <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
 
   </head>
@@ -72,15 +72,15 @@ Intuitions Track the spiral literally I can definitely think of at least one sol
     <nav>
     <ul class="menu">
       
-      <li><a href="sprjg.github.io/posts/">Main</a></li>
+      <li><a href="/posts/">Main</a></li>
       
-      <li><a href="sprjg.github.io/categories/">Categories</a></li>
+      <li><a href="/categories/">Categories</a></li>
       
-      <li><a href="sprjg.github.io/tags/">Tags</a></li>
+      <li><a href="/tags/">Tags</a></li>
       
-      <li><a href="sprjg.github.io/">About</a></li>
+      <li><a href="/">About</a></li>
       
-      <li><a href="sprjg.github.io/index.xml">Subscribe</a></li>
+      <li><a href="/index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -88,7 +88,7 @@ Intuitions Track the spiral literally I can definitely think of at least one sol
     </div>
 
 <div class="article-meta">
-<a href="sprjg.github.io/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: spiral matrix</span></h1></a>
+<a href="/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: spiral matrix</span></h1></a>
 </div>
 
 <main>
@@ -144,7 +144,7 @@ Output: [1,2,3,6,9,8,7,4,5]</p>
 <h3 id="track-the-spiral-literally">Track the spiral <em>literally</em></h3>
 <p>I can definitely think of at least one solution involving 4 pointers <a id="org46c9306"></a>. The 4 pointers track the size of the matrix as the spiral closes inwards.</p>
 <figure>
-    <img src="sprjg.github.io/ox-hugo/screenshot2020-12-05_20-24-49_.png"/> 
+    <img src="/ox-hugo/screenshot2020-12-05_20-24-49_.png"/> 
 </figure>
 
 <p>But how to track the current location? A tuple with row and column numbers? At first we set direction to move towards right. When the column number reaches a value equal to <code>right</code> we change direction to move downwards. We also decrement <code>right</code> to reflect that we have traversed the last column.
@@ -175,7 +175,7 @@ This is pretty neat in theory. We need only the size of the matrix.</p>
 <h3 id="swapping-within-the-matrix">Swapping within the matrix</h3>
 <p>This is a shot in the dark but is there a pattern we can exploit in this spiral? Could we swap certain pairs of elements so that the resulting matrix can be flattened to get the spiral path result?</p>
 <figure>
-    <img src="sprjg.github.io/ox-hugo/screenshot2020-12-05_20-45-59_.png"/> 
+    <img src="/ox-hugo/screenshot2020-12-05_20-45-59_.png"/> 
 </figure>
 
 <h4 id="dimensions-will-never-match">Dimensions will never match</h4>
@@ -185,7 +185,7 @@ This is pretty neat in theory. We need only the size of the matrix.</p>
 4 directions = 4 colours.
 The slant arrows mark the cells where we change direction.</p>
 <figure>
-    <img src="sprjg.github.io/ox-hugo/screenshot2020-12-05_20-58-32_.png"/> 
+    <img src="/ox-hugo/screenshot2020-12-05_20-58-32_.png"/> 
 </figure>
 
 <p>This is extremely promising because of the obvious pattern that has emerged. For a matrix with \(n\) columns, about the blue elements, we can say:</p>
@@ -202,7 +202,7 @@ A similar line of reasoning for red and brown but here their heights are equal. 
 <h4 id="putting-it-all-together">Putting it all together</h4>
 <p>For this particular matrix, how would our progression look like? Let&rsquo;s label the start and end index for the blue pyramid.</p>
 <figure>
-    <img src="sprjg.github.io/ox-hugo/screenshot2020-12-06_19-03-46_.png"/> 
+    <img src="/ox-hugo/screenshot2020-12-06_19-03-46_.png"/> 
 </figure>
 
 <p>We could similarly number the other pyramids also. This means we can extract these pyramids from a 2D array without actually tracing the spiral path.</p>
@@ -255,14 +255,14 @@ Lengths:             [3, 1]
 <h5 id="red-exhausted">Red exhausted</h5>
 <p>If we have a single row in the matrix, the red pyramid is exhausted at the start.</p>
 <figure>
-    <img src="sprjg.github.io/ox-hugo/screenshot2020-12-06_20-10-29_.png"/> 
+    <img src="/ox-hugo/screenshot2020-12-06_20-10-29_.png"/> 
 </figure>
 
 <p>The entire spiral is just one row of blue. Once red is exhausted we don&rsquo;t have to continue the cycle towards green, brown.</p>
 <h5 id="green-exhausted">Green exhausted</h5>
 <p>Here we have a blue, red, green, brown, blue, red cycle. This spiral ends because we have no more the green pyramid.</p>
 <figure>
-    <img src="sprjg.github.io/ox-hugo/screenshot2020-12-06_20-15-00_.png"/> 
+    <img src="/ox-hugo/screenshot2020-12-06_20-15-00_.png"/> 
 </figure>
 
 <h5 id="termination-condition">Termination condition</h5>
@@ -368,7 +368,7 @@ The qualities of a good pattern:</p>
 <h4 id="essence">Essence</h4>
 <p>A spiral is a form of recursion. It reaches inward until there&rsquo;s no more depth to cover. But our current pattern does not capture this <em>fully</em>. We can think of the blue lengths as the start of a new layer. So every perimeter is actually a layer.</p>
 <figure>
-    <img src="sprjg.github.io/ox-hugo/screenshot2020-12-07_14-53-10_.png"/> 
+    <img src="/ox-hugo/screenshot2020-12-07_14-53-10_.png"/> 
 </figure>
 
 <p>So every start point is simply the first element of an inner matrix once the outer layer is peeled off. This is a nice and easy pattern.</p>
@@ -376,7 +376,7 @@ The qualities of a good pattern:</p>
 <p>But looping is still hard because the lengths for each layer is \(n, m-1, n-1, m-2\). This is a weird pattern. Note that because the lengths within a layer don&rsquo;t follow an easy pattern, the end points within a layer also won&rsquo;t.
 With all this in mind, let&rsquo;s try to partition our layer i.e. perimeter in a different way so that the lengths follow an easier pattern. Note that we cannot expect the four lengths within a layer to be equal simply because \(m, n\) are outside our control. But we can do this:</p>
 <figure>
-    <img src="sprjg.github.io/ox-hugo/screenshot2020-12-07_16-01-54_.png"/> 
+    <img src="/ox-hugo/screenshot2020-12-07_16-01-54_.png"/> 
 </figure>
 
 <p>Note how the outer layers have equal blue, green lengths and equal red, brown lengths: \(n-1, m-1, n-1, m-1\). This is a nice and easy pattern to loop over. Also note that the innermost layer in light red cannot be traversed with such a pattern. A row or column matrix will fail in this pattern. So we have to handle these specially.
@@ -535,11 +535,11 @@ The resulting matrix is then recursively passed on to <code>spiralOrder</code> w
 </main>
 
   <footer>
-  <script src="sprjg.github.io/js/math-code.js"></script>
-<script async src="sprjg.github.io/MathJax/es5/tex-chtml.js"></script>
+  <script src="/js/math-code.js"></script>
+<script async src="/MathJax/es5/tex-chtml.js"></script>
 
 
-<script async src="sprjg.github.io/js/center-img.js"></script>
+<script async src="/js/center-img.js"></script>
 
   
   <hr/>

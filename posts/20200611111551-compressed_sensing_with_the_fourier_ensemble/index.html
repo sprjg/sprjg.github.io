@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:type" content="article" />
 
-<meta property="og:url" content="sprjg.github.io/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/" />
+<meta property="og:url" content="/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/" />
 
 <meta property="og:title" content="Compressed Sensing with the Fourier Ensemble" />
 
-<meta property="og:image" content="sprjg.github.io/ox-hugo/" />
+<meta property="og:image" content="/ox-hugo/" />
 
 <meta property="og:description" content="I&rsquo;m reading the topic of compressed sensing and I find it extremely dense with a lot of historical perspective. This video is a great start to the topic.
 Reproducing the example The example at 14:05 in the video uses a DCT. The cosamp function used below is from this repository. The code here is slightly modified from the jupyter notebook available here.
@@ -35,7 +35,7 @@ stx = 0 end = 1 n = 4096 Fs = int( n/(end - stx)) from math import pi from numpy
     "@type" : "BlogPosting",
     "mainEntityOfPage": {
          "@type": "WebPage",
-         "@id": "sprjg.github.io"
+         "@id": ""
     },
     "articleSection" : "posts",
     "name" : "Compressed Sensing with the Fourier Ensemble",
@@ -50,7 +50,7 @@ stx = 0 end = 1 n = 4096 Fs = int( n/(end - stx)) from math import pi from numpy
     "copyrightYear" : "2020",
     "datePublished": "2020-04-25 00:00:00 \u002b0530 IST",
     "dateModified" : "2020-04-25 00:00:00 \u002b0530 IST",
-    "url" : "sprjg.github.io\/posts\/20200611111551-compressed_sensing_with_the_fourier_ensemble\/",
+    "url" : "\/posts\/20200611111551-compressed_sensing_with_the_fourier_ensemble\/",
     "wordCount" : "889",
     "keywords" : [ "fourier","compressed-sensing","Blog" ]
 }
@@ -58,8 +58,8 @@ stx = 0 end = 1 n = 4096 Fs = int( n/(end - stx)) from math import pi from numpy
 
 
     <title>Compressed Sensing with the Fourier Ensemble | Notes on engineering math</title>
-    <link rel="stylesheet" href="sprjg.github.io/css/style.css" />
-    <link rel="stylesheet" href="sprjg.github.io/css/fonts.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
         <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
 
   </head>
@@ -70,15 +70,15 @@ stx = 0 end = 1 n = 4096 Fs = int( n/(end - stx)) from math import pi from numpy
     <nav>
     <ul class="menu">
       
-      <li><a href="sprjg.github.io/posts/">Main</a></li>
+      <li><a href="/posts/">Main</a></li>
       
-      <li><a href="sprjg.github.io/categories/">Categories</a></li>
+      <li><a href="/categories/">Categories</a></li>
       
-      <li><a href="sprjg.github.io/tags/">Tags</a></li>
+      <li><a href="/tags/">Tags</a></li>
       
-      <li><a href="sprjg.github.io/">About</a></li>
+      <li><a href="/">About</a></li>
       
-      <li><a href="sprjg.github.io/index.xml">Subscribe</a></li>
+      <li><a href="/index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -86,7 +86,7 @@ stx = 0 end = 1 n = 4096 Fs = int( n/(end - stx)) from math import pi from numpy
     </div>
 
 <div class="article-meta">
-<a href="sprjg.github.io/posts" style="text-decoration:none;color:black;"><h1><span class="title">Compressed Sensing with the Fourier Ensemble</span></h1></a>
+<a href="/posts" style="text-decoration:none;color:black;"><h1><span class="title">Compressed Sensing with the Fourier Ensemble</span></h1></a>
 </div>
 
 <main>
@@ -147,15 +147,15 @@ plt_save(<span style="color:#e6db74">&#39;zoom in inverse fourier check compress
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">/home/p/.local/lib/python3.6/site-packages/numpy/core/_asarray.py:85: ComplexWarning: Casting complex values to real discards the imaginary part
   return array(a, dtype, copy=False, order=order)
 </code></pre></div><figure>
-    <img src="sprjg.github.io/ox-hugo/audio%20reconstruction%20compressed%20sensing.png"/> 
+    <img src="/ox-hugo/audio%20reconstruction%20compressed%20sensing.png"/> 
 </figure>
 
 <figure>
-    <img src="sprjg.github.io/ox-hugo/inverse%20fourier%20check%20compressed%20sensing.png"/> 
+    <img src="/ox-hugo/inverse%20fourier%20check%20compressed%20sensing.png"/> 
 </figure>
 
 <figure>
-    <img src="sprjg.github.io/ox-hugo/zoom%20in%20inverse%20fourier%20check%20compressed%20sensing.png"/> 
+    <img src="/ox-hugo/zoom%20in%20inverse%20fourier%20check%20compressed%20sensing.png"/> 
 </figure>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">p <span style="color:#f92672">=</span> <span style="color:#ae81ff">128</span>
@@ -192,23 +192,23 @@ plt_save(<span style="color:#e6db74">&#39;compare original signal with recovered
 To use the future default and silence this warning we advise to pass `rcond=None`, to keep using the old, explicitly pass `rcond=-1`.
 Score estimation 1.0002591450121945
 </code></pre></div><figure>
-    <img src="sprjg.github.io/ox-hugo/marked%20measurements%20of%20original%20signal%20for%20compressed%20sensing%20cosamp.png"/> 
+    <img src="/ox-hugo/marked%20measurements%20of%20original%20signal%20for%20compressed%20sensing%20cosamp.png"/> 
 </figure>
 
 <figure>
-    <img src="sprjg.github.io/ox-hugo/compare%20original%20signal%20with%20recovered%20signal%20from%20cvxopt,%20dct%20cosamp.png"/> 
+    <img src="/ox-hugo/compare%20original%20signal%20with%20recovered%20signal%20from%20cvxopt,%20dct%20cosamp.png"/> 
 </figure>
 
 <figure>
-    <img src="sprjg.github.io/ox-hugo/Psi%20matrix%20heatmap%20cosamp.png"/> 
+    <img src="/ox-hugo/Psi%20matrix%20heatmap%20cosamp.png"/> 
 </figure>
 
 <figure>
-    <img src="sprjg.github.io/ox-hugo/Theta%20matrix%20heatmap%20cosamp.png"/> 
+    <img src="/ox-hugo/Theta%20matrix%20heatmap%20cosamp.png"/> 
 </figure>
 
 <figure>
-    <img src="sprjg.github.io/ox-hugo/result%20heatmap%20dct%20cosamp.png"/> 
+    <img src="/ox-hugo/result%20heatmap%20dct%20cosamp.png"/> 
 </figure>
 
 <p>While I can reproduce the result from the video, I find the selection
@@ -280,15 +280,15 @@ To use the future default and silence this warning we advise to pass `rcond=None
 /home/p/.local/lib/python3.6/site-packages/numpy/core/_asarray.py:85: ComplexWarning: Casting complex values to real discards the imaginary part
   return array(a, dtype, copy=False, order=order)
 </code></pre></div><figure>
-    <img src="sprjg.github.io/ox-hugo/compare%20original%20signal%20with%20recovered%20signal%20from%20cosamp,%20dft.png"/> 
+    <img src="/ox-hugo/compare%20original%20signal%20with%20recovered%20signal%20from%20cosamp,%20dft.png"/> 
 </figure>
 
 <figure>
-    <img src="sprjg.github.io/ox-hugo/Theta%20heatmap%20for%20fft%20basis.png"/> 
+    <img src="/ox-hugo/Theta%20heatmap%20for%20fft%20basis.png"/> 
 </figure>
 
 <figure>
-    <img src="sprjg.github.io/ox-hugo/resulting%20sparse%20in%20FFT%20basis.png"/> 
+    <img src="/ox-hugo/resulting%20sparse%20in%20FFT%20basis.png"/> 
 </figure>
 
 <h3 id="results">Results</h3>
@@ -304,11 +304,11 @@ also shows the spikes at the right frequencies</p>
 </main>
 
   <footer>
-  <script src="sprjg.github.io/js/math-code.js"></script>
-<script async src="sprjg.github.io/MathJax/es5/tex-chtml.js"></script>
+  <script src="/js/math-code.js"></script>
+<script async src="/MathJax/es5/tex-chtml.js"></script>
 
 
-<script async src="sprjg.github.io/js/center-img.js"></script>
+<script async src="/js/center-img.js"></script>
 
   
   <hr/>

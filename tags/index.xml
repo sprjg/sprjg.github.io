@@ -2,120 +2,120 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Notes on engineering math</title>
-    <link>sprjg.github.io/tags/</link>
+    <link>/tags/</link>
     <description>Recent content in Tags on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 12 Dec 2020 00:00:00 +0530</lastBuildDate>
     
-	<atom:link href="sprjg.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>arrays</title>
-      <link>sprjg.github.io/tags/arrays/</link>
+      <link>/tags/arrays/</link>
       <pubDate>Sat, 12 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>sprjg.github.io/tags/arrays/</guid>
+      <guid>/tags/arrays/</guid>
       <description></description>
     </item>
     
     <item>
       <title>dynamic-programming</title>
-      <link>sprjg.github.io/tags/dynamic-programming/</link>
+      <link>/tags/dynamic-programming/</link>
       <pubDate>Sat, 12 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>sprjg.github.io/tags/dynamic-programming/</guid>
+      <guid>/tags/dynamic-programming/</guid>
       <description></description>
     </item>
     
     <item>
       <title>matrix</title>
-      <link>sprjg.github.io/tags/matrix/</link>
+      <link>/tags/matrix/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>sprjg.github.io/tags/matrix/</guid>
+      <guid>/tags/matrix/</guid>
       <description></description>
     </item>
     
     <item>
       <title>strings</title>
-      <link>sprjg.github.io/tags/strings/</link>
+      <link>/tags/strings/</link>
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>sprjg.github.io/tags/strings/</guid>
+      <guid>/tags/strings/</guid>
       <description></description>
     </item>
     
     <item>
       <title>cycle-detection</title>
-      <link>sprjg.github.io/tags/cycle-detection/</link>
+      <link>/tags/cycle-detection/</link>
       <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
       
-      <guid>sprjg.github.io/tags/cycle-detection/</guid>
+      <guid>/tags/cycle-detection/</guid>
       <description></description>
     </item>
     
     <item>
       <title>graph-traversal</title>
-      <link>sprjg.github.io/tags/graph-traversal/</link>
+      <link>/tags/graph-traversal/</link>
       <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
       
-      <guid>sprjg.github.io/tags/graph-traversal/</guid>
+      <guid>/tags/graph-traversal/</guid>
       <description></description>
     </item>
     
     <item>
       <title>intervals</title>
-      <link>sprjg.github.io/tags/intervals/</link>
+      <link>/tags/intervals/</link>
       <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>sprjg.github.io/tags/intervals/</guid>
+      <guid>/tags/intervals/</guid>
       <description></description>
     </item>
     
     <item>
       <title>compressed-sensing</title>
-      <link>sprjg.github.io/tags/compressed-sensing/</link>
+      <link>/tags/compressed-sensing/</link>
       <pubDate>Sat, 25 Apr 2020 00:00:00 +0530</pubDate>
       
-      <guid>sprjg.github.io/tags/compressed-sensing/</guid>
+      <guid>/tags/compressed-sensing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>fourier</title>
-      <link>sprjg.github.io/tags/fourier/</link>
+      <link>/tags/fourier/</link>
       <pubDate>Sat, 25 Apr 2020 00:00:00 +0530</pubDate>
       
-      <guid>sprjg.github.io/tags/fourier/</guid>
+      <guid>/tags/fourier/</guid>
       <description></description>
     </item>
     
     <item>
       <title>matlab</title>
-      <link>sprjg.github.io/tags/matlab/</link>
+      <link>/tags/matlab/</link>
       <pubDate>Thu, 26 Mar 2020 00:00:00 +0530</pubDate>
       
-      <guid>sprjg.github.io/tags/matlab/</guid>
+      <guid>/tags/matlab/</guid>
       <description></description>
     </item>
     
     <item>
       <title>plotting</title>
-      <link>sprjg.github.io/tags/plotting/</link>
+      <link>/tags/plotting/</link>
       <pubDate>Thu, 26 Mar 2020 00:00:00 +0530</pubDate>
       
-      <guid>sprjg.github.io/tags/plotting/</guid>
+      <guid>/tags/plotting/</guid>
       <description></description>
     </item>
     
     <item>
       <title>python</title>
-      <link>sprjg.github.io/tags/python/</link>
+      <link>/tags/python/</link>
       <pubDate>Thu, 26 Mar 2020 00:00:00 +0530</pubDate>
       
-      <guid>sprjg.github.io/tags/python/</guid>
+      <guid>/tags/python/</guid>
       <description></description>
     </item>
     
