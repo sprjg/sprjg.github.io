@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>intervals on Notes on engineering math</title>
-    <link>/tags/intervals/</link>
+    <link>sprjg.github.io/tags/intervals/</link>
     <description>Recent content in intervals on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 23 Nov 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/intervals/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="sprjg.github.io/tags/intervals/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Algo walkthrough: swapping elements to find max score</title>
-      <link>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</link>
+      <link>sprjg.github.io/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</link>
       <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</guid>
+      <guid>sprjg.github.io/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</guid>
       <description>Problem statement Given an array of size \(n\), the beauty of this array is defined as sum of \(abs(index-value)\) for each element. Swapping two elements of this array, what is the maximum beauty possible?
 Initial setup The initial setup consists of an unsorted array. Each element has a score defined as the absolute value of the difference the element&amp;rsquo;s value and its index.
 The absolute value The metric for each element gives us a sense of displacement.</description>

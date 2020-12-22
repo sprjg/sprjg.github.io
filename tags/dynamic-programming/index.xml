@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>dynamic-programming on Notes on engineering math</title>
-    <link>/tags/dynamic-programming/</link>
+    <link>sprjg.github.io/tags/dynamic-programming/</link>
     <description>Recent content in dynamic-programming on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 12 Dec 2020 00:00:00 +0530</lastBuildDate>
     
-	<atom:link href="/tags/dynamic-programming/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="sprjg.github.io/tags/dynamic-programming/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Algo walkthrough: product of array except self</title>
-      <link>/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</link>
+      <link>sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</link>
       <pubDate>Sat, 12 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</guid>
+      <guid>sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</guid>
       <description>Link to the problem.
 What not to do Let&amp;rsquo;s ignore the note for now.
 Using division If we use division, how would we solve this problem? We could start with a single pass over the array. In this pass, we multiply all the elements and calculate complete_product. For each element e, we can now calculate \(\frac{complete-product}{e}\). This, stored in an array, is our final result.
@@ -25,10 +25,10 @@ More than O(n) What if we had no time constraints?</description>
     
     <item>
       <title>Algo walkthrough: number of ways to decode message</title>
-      <link>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</link>
+      <link>sprjg.github.io/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</link>
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</guid>
+      <guid>sprjg.github.io/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</guid>
       <description>The problem  A message containing letters from A-Z is being encoded to numbers using the following mapping:
 &amp;lsquo;A&amp;rsquo; -&amp;gt; 1
 &amp;lsquo;B&amp;rsquo; -&amp;gt; 2

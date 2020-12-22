@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Notes on engineering math</title>
-    <link>/categories/</link>
+    <link>sprjg.github.io/categories/</link>
     <description>Recent content in Categories on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 12 Dec 2020 00:00:00 +0530</lastBuildDate>
     
-	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="sprjg.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>algos</title>
-      <link>/categories/algos/</link>
+      <link>sprjg.github.io/categories/algos/</link>
       <pubDate>Sat, 12 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/categories/algos/</guid>
+      <guid>sprjg.github.io/categories/algos/</guid>
       <description></description>
     </item>
     
     <item>
       <title>math</title>
-      <link>/categories/math/</link>
+      <link>sprjg.github.io/categories/math/</link>
       <pubDate>Sat, 25 Apr 2020 00:00:00 +0530</pubDate>
       
-      <guid>/categories/math/</guid>
+      <guid>sprjg.github.io/categories/math/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tools</title>
-      <link>/categories/tools/</link>
+      <link>sprjg.github.io/categories/tools/</link>
       <pubDate>Thu, 26 Mar 2020 00:00:00 +0530</pubDate>
       
-      <guid>/categories/tools/</guid>
+      <guid>sprjg.github.io/categories/tools/</guid>
       <description></description>
     </item>
     

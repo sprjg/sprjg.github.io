@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>arrays on Notes on engineering math</title>
-    <link>/tags/arrays/</link>
+    <link>sprjg.github.io/tags/arrays/</link>
     <description>Recent content in arrays on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 12 Dec 2020 00:00:00 +0530</lastBuildDate>
     
-	<atom:link href="/tags/arrays/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="sprjg.github.io/tags/arrays/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Algo walkthrough: product of array except self</title>
-      <link>/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</link>
+      <link>sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</link>
       <pubDate>Sat, 12 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</guid>
+      <guid>sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</guid>
       <description>Link to the problem.
 What not to do Let&amp;rsquo;s ignore the note for now.
 Using division If we use division, how would we solve this problem? We could start with a single pass over the array. In this pass, we multiply all the elements and calculate complete_product. For each element e, we can now calculate \(\frac{complete-product}{e}\). This, stored in an array, is our final result.
@@ -25,10 +25,10 @@ More than O(n) What if we had no time constraints?</description>
     
     <item>
       <title>Algo walkthrough: spiral matrix</title>
-      <link>/posts/20201205201509-algo_walkthrough_spiral_matrix/</link>
+      <link>sprjg.github.io/posts/20201205201509-algo_walkthrough_spiral_matrix/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201205201509-algo_walkthrough_spiral_matrix/</guid>
+      <guid>sprjg.github.io/posts/20201205201509-algo_walkthrough_spiral_matrix/</guid>
       <description>The problem  Given an m x n matrix, return all elements of the matrix in spiral order. Example 1: Input: matrix = [[1,2,3],[4,5,6],[7,8,9]] Output: [1,2,3,6,9,8,7,4,5]
  Link to the problem.
 Intuitions Track the spiral literally I can definitely think of at least one solution involving 4 pointers . The 4 pointers track the size of the matrix as the spiral closes inwards.
@@ -37,20 +37,20 @@ Intuitions Track the spiral literally I can definitely think of at least one sol
     
     <item>
       <title>Algo walkthrough: longest sequence in unsorted array</title>
-      <link>/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</link>
+      <link>sprjg.github.io/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</link>
       <pubDate>Wed, 25 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</guid>
+      <guid>sprjg.github.io/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</guid>
       <description>The problem We have an unsorted array. It may or may not have a sequence of numbers. We have to find the length of the longest sequence. Link to the problem.
 Hints  They hint at a \(O(n)\) solution. This can be useful at a later point. They also say the length of the array can be between \(1, 10000\). This means we can a small array of size \(10\) and manually try out solutions.</description>
     </item>
     
     <item>
       <title>Algo walkthrough: swapping elements to find max score</title>
-      <link>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</link>
+      <link>sprjg.github.io/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</link>
       <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</guid>
+      <guid>sprjg.github.io/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</guid>
       <description>Problem statement Given an array of size \(n\), the beauty of this array is defined as sum of \(abs(index-value)\) for each element. Swapping two elements of this array, what is the maximum beauty possible?
 Initial setup The initial setup consists of an unsorted array. Each element has a score defined as the absolute value of the difference the element&amp;rsquo;s value and its index.
 The absolute value The metric for each element gives us a sense of displacement.</description>

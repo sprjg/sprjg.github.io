@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Notes on engineering math</title>
-    <link>/posts/</link>
+    <link>sprjg.github.io/posts/</link>
     <description>Recent content in Posts on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 12 Dec 2020 00:00:00 +0530</lastBuildDate>
     
-	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="sprjg.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Algo walkthrough: product of array except self</title>
-      <link>/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</link>
+      <link>sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</link>
       <pubDate>Sat, 12 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</guid>
+      <guid>sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</guid>
       <description>Link to the problem.
 What not to do Let&amp;rsquo;s ignore the note for now.
 Using division If we use division, how would we solve this problem? We could start with a single pass over the array. In this pass, we multiply all the elements and calculate complete_product. For each element e, we can now calculate \(\frac{complete-product}{e}\). This, stored in an array, is our final result.
@@ -25,10 +25,10 @@ More than O(n) What if we had no time constraints?</description>
     
     <item>
       <title>Algo walkthrough: spiral matrix</title>
-      <link>/posts/20201205201509-algo_walkthrough_spiral_matrix/</link>
+      <link>sprjg.github.io/posts/20201205201509-algo_walkthrough_spiral_matrix/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201205201509-algo_walkthrough_spiral_matrix/</guid>
+      <guid>sprjg.github.io/posts/20201205201509-algo_walkthrough_spiral_matrix/</guid>
       <description>The problem  Given an m x n matrix, return all elements of the matrix in spiral order. Example 1: Input: matrix = [[1,2,3],[4,5,6],[7,8,9]] Output: [1,2,3,6,9,8,7,4,5]
  Link to the problem.
 Intuitions Track the spiral literally I can definitely think of at least one solution involving 4 pointers . The 4 pointers track the size of the matrix as the spiral closes inwards.
@@ -37,10 +37,10 @@ Intuitions Track the spiral literally I can definitely think of at least one sol
     
     <item>
       <title>Algo walkthrough: number of ways to decode message</title>
-      <link>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</link>
+      <link>sprjg.github.io/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</link>
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</guid>
+      <guid>sprjg.github.io/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</guid>
       <description>The problem  A message containing letters from A-Z is being encoded to numbers using the following mapping:
 &amp;lsquo;A&amp;rsquo; -&amp;gt; 1
 &amp;lsquo;B&amp;rsquo; -&amp;gt; 2
@@ -52,10 +52,10 @@ The answer is guaranteed to fit in a 32-bit integer. This seems to be a hint at 
     
     <item>
       <title>Algo walkthrough: set matrix zeroes</title>
-      <link>/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/</link>
+      <link>sprjg.github.io/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/</link>
       <pubDate>Tue, 01 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/</guid>
+      <guid>sprjg.github.io/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/</guid>
       <description>The problem Given an m x n matrix, if an element is 0, set its row and column to 0&#39;s. Link to the problem.
 Hints  A straight forward solution using O(mn) space is probably a bad idea.
 A simple improvement uses O(m + n) space, but still not the best solution.
@@ -64,20 +64,20 @@ Could you devise a constant space solution? So this problem is more about space 
     
     <item>
       <title>Algo walkthrough: course schedule</title>
-      <link>/posts/20201127172735-algo_walkthrough_course_schedule/</link>
+      <link>sprjg.github.io/posts/20201127172735-algo_walkthrough_course_schedule/</link>
       <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201127172735-algo_walkthrough_course_schedule/</guid>
+      <guid>sprjg.github.io/posts/20201127172735-algo_walkthrough_course_schedule/</guid>
       <description>The problem  There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1. Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1] Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
  Link to the problem</description>
     </item>
     
     <item>
       <title>Algo walkthrough: number of islands</title>
-      <link>/posts/20201125100541-algo_walkthrough_number_of_islands/</link>
+      <link>sprjg.github.io/posts/20201125100541-algo_walkthrough_number_of_islands/</link>
       <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201125100541-algo_walkthrough_number_of_islands/</guid>
+      <guid>sprjg.github.io/posts/20201125100541-algo_walkthrough_number_of_islands/</guid>
       <description>The problem  Given an m x n 2d grid map of &amp;lsquo;1&amp;rsquo;s (land) and &amp;lsquo;0&amp;rsquo;s (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
  Link to the problem.
 Exploration The first instinct is to lower the dimension of the problem and see what that looks like.</description>
@@ -85,20 +85,20 @@ Exploration The first instinct is to lower the dimension of the problem and see 
     
     <item>
       <title>Algo walkthrough: longest sequence in unsorted array</title>
-      <link>/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</link>
+      <link>sprjg.github.io/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</link>
       <pubDate>Wed, 25 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</guid>
+      <guid>sprjg.github.io/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</guid>
       <description>The problem We have an unsorted array. It may or may not have a sequence of numbers. We have to find the length of the longest sequence. Link to the problem.
 Hints  They hint at a \(O(n)\) solution. This can be useful at a later point. They also say the length of the array can be between \(1, 10000\). This means we can a small array of size \(10\) and manually try out solutions.</description>
     </item>
     
     <item>
       <title>Algo walkthrough: swapping elements to find max score</title>
-      <link>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</link>
+      <link>sprjg.github.io/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</link>
       <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</guid>
+      <guid>sprjg.github.io/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</guid>
       <description>Problem statement Given an array of size \(n\), the beauty of this array is defined as sum of \(abs(index-value)\) for each element. Swapping two elements of this array, what is the maximum beauty possible?
 Initial setup The initial setup consists of an unsorted array. Each element has a score defined as the absolute value of the difference the element&amp;rsquo;s value and its index.
 The absolute value The metric for each element gives us a sense of displacement.</description>
@@ -106,10 +106,10 @@ The absolute value The metric for each element gives us a sense of displacement.
     
     <item>
       <title>Compressed Sensing with the Fourier Ensemble</title>
-      <link>/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</link>
+      <link>sprjg.github.io/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</link>
       <pubDate>Sat, 25 Apr 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</guid>
+      <guid>sprjg.github.io/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</guid>
       <description>I&amp;rsquo;m reading the topic of compressed sensing and I find it extremely dense with a lot of historical perspective. This video is a great start to the topic.
 Reproducing the example The example at 14:05 in the video uses a DCT. The cosamp function used below is from this repository. The code here is slightly modified from the jupyter notebook available here.
 stx = 0 end = 1 n = 4096 Fs = int( n/(end - stx)) from math import pi from numpy.</description>
@@ -117,20 +117,20 @@ stx = 0 end = 1 n = 4096 Fs = int( n/(end - stx)) from math import pi from numpy
     
     <item>
       <title>Fourier Analysis</title>
-      <link>/posts/20200524030032-pubnotes_ddse_fourier/</link>
+      <link>sprjg.github.io/posts/20200524030032-pubnotes_ddse_fourier/</link>
       <pubDate>Fri, 10 Apr 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20200524030032-pubnotes_ddse_fourier/</guid>
+      <guid>sprjg.github.io/posts/20200524030032-pubnotes_ddse_fourier/</guid>
       <description>This is for my notes for Prof. Steve Brunton&amp;rsquo;s video lectures of Fourier Analysis.
 Real domain to complex domain The first confusion for me was the shift in the sum limits from real domain to complex domain. The real fourier series is expressed as \(\sum_{k=0}^{\infty} \frac{a_0}{2} + a_k \cos kx + b_k \sin kx\). The intuition here is that harmonics can express any function. The constant term accounts for all the different initial phase shifts of each of these harmonics.</description>
     </item>
     
     <item>
       <title>lassoPlot in python</title>
-      <link>/posts/20200624220142-lassoplot_in_python/</link>
+      <link>sprjg.github.io/posts/20200624220142-lassoplot_in_python/</link>
       <pubDate>Thu, 26 Mar 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20200624220142-lassoplot_in_python/</guid>
+      <guid>sprjg.github.io/posts/20200624220142-lassoplot_in_python/</guid>
       <description>A comparison of python vs matlab
 lassoPlot in matlab In matlab, lasso regression&amp;rsquo;s MSE is easily visualized using the command lassoPlot. The following is from Prof. Steve Brunton&amp;rsquo;s uwdatabook page. In the zip file, the exact file is CH03_SEC05_2_LASSO.m. The most relevant parts to create the plot are picked out here:
 A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors b = A*x + 2*randn(100,1); % Observations (with noise) xL2 = pinv(A)*b [XL1 FitInfo] = lasso(A,b,&amp;#39;CV&amp;#39;,10); lassoPlot(XL1,FitInfo,&amp;#39;PlotType&amp;#39;,&amp;#39;CV&amp;#39;) save See output below:</description>

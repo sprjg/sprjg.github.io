@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>strings on Notes on engineering math</title>
-    <link>/tags/strings/</link>
+    <link>sprjg.github.io/tags/strings/</link>
     <description>Recent content in strings on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 05 Dec 2020 00:00:00 +0530</lastBuildDate>
     
-	<atom:link href="/tags/strings/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="sprjg.github.io/tags/strings/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Algo walkthrough: number of ways to decode message</title>
-      <link>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</link>
+      <link>sprjg.github.io/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</link>
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</guid>
+      <guid>sprjg.github.io/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</guid>
       <description>The problem  A message containing letters from A-Z is being encoded to numbers using the following mapping:
 &amp;lsquo;A&amp;rsquo; -&amp;gt; 1
 &amp;lsquo;B&amp;rsquo; -&amp;gt; 2

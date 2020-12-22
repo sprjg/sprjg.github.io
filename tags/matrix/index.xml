@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>matrix on Notes on engineering math</title>
-    <link>/tags/matrix/</link>
+    <link>sprjg.github.io/tags/matrix/</link>
     <description>Recent content in matrix on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 06 Dec 2020 00:00:00 +0530</lastBuildDate>
     
-	<atom:link href="/tags/matrix/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="sprjg.github.io/tags/matrix/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Algo walkthrough: spiral matrix</title>
-      <link>/posts/20201205201509-algo_walkthrough_spiral_matrix/</link>
+      <link>sprjg.github.io/posts/20201205201509-algo_walkthrough_spiral_matrix/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201205201509-algo_walkthrough_spiral_matrix/</guid>
+      <guid>sprjg.github.io/posts/20201205201509-algo_walkthrough_spiral_matrix/</guid>
       <description>The problem  Given an m x n matrix, return all elements of the matrix in spiral order. Example 1: Input: matrix = [[1,2,3],[4,5,6],[7,8,9]] Output: [1,2,3,6,9,8,7,4,5]
  Link to the problem.
 Intuitions Track the spiral literally I can definitely think of at least one solution involving 4 pointers . The 4 pointers track the size of the matrix as the spiral closes inwards.
@@ -25,10 +25,10 @@ Intuitions Track the spiral literally I can definitely think of at least one sol
     
     <item>
       <title>Algo walkthrough: set matrix zeroes</title>
-      <link>/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/</link>
+      <link>sprjg.github.io/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/</link>
       <pubDate>Tue, 01 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/</guid>
+      <guid>sprjg.github.io/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/</guid>
       <description>The problem Given an m x n matrix, if an element is 0, set its row and column to 0&#39;s. Link to the problem.
 Hints  A straight forward solution using O(mn) space is probably a bad idea.
 A simple improvement uses O(m + n) space, but still not the best solution.

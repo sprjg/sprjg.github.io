@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>fourier on Notes on engineering math</title>
-    <link>/tags/fourier/</link>
+    <link>sprjg.github.io/tags/fourier/</link>
     <description>Recent content in fourier on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 25 Apr 2020 00:00:00 +0530</lastBuildDate>
     
-	<atom:link href="/tags/fourier/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="sprjg.github.io/tags/fourier/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Compressed Sensing with the Fourier Ensemble</title>
-      <link>/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</link>
+      <link>sprjg.github.io/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</link>
       <pubDate>Sat, 25 Apr 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</guid>
+      <guid>sprjg.github.io/posts/20200611111551-compressed_sensing_with_the_fourier_ensemble/</guid>
       <description>I&amp;rsquo;m reading the topic of compressed sensing and I find it extremely dense with a lot of historical perspective. This video is a great start to the topic.
 Reproducing the example The example at 14:05 in the video uses a DCT. The cosamp function used below is from this repository. The code here is slightly modified from the jupyter notebook available here.
 stx = 0 end = 1 n = 4096 Fs = int( n/(end - stx)) from math import pi from numpy.</description>
@@ -24,10 +24,10 @@ stx = 0 end = 1 n = 4096 Fs = int( n/(end - stx)) from math import pi from numpy
     
     <item>
       <title>Fourier Analysis</title>
-      <link>/posts/20200524030032-pubnotes_ddse_fourier/</link>
+      <link>sprjg.github.io/posts/20200524030032-pubnotes_ddse_fourier/</link>
       <pubDate>Fri, 10 Apr 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20200524030032-pubnotes_ddse_fourier/</guid>
+      <guid>sprjg.github.io/posts/20200524030032-pubnotes_ddse_fourier/</guid>
       <description>This is for my notes for Prof. Steve Brunton&amp;rsquo;s video lectures of Fourier Analysis.
 Real domain to complex domain The first confusion for me was the shift in the sum limits from real domain to complex domain. The real fourier series is expressed as \(\sum_{k=0}^{\infty} \frac{a_0}{2} + a_k \cos kx + b_k \sin kx\). The intuition here is that harmonics can express any function. The constant term accounts for all the different initial phase shifts of each of these harmonics.</description>
     </item>
