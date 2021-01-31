@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:type" content="article" />
 
-<meta property="og:url" content="/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/" />
+<meta property="og:url" content="https://sprjg.github.io/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/" />
 
 <meta property="og:title" content="Algo walkthrough: set matrix zeroes" />
 
@@ -31,7 +31,7 @@
     "@type" : "BlogPosting",
     "mainEntityOfPage": {
          "@type": "WebPage",
-         "@id": ""
+         "@id": "https:\/\/sprjg.github.io"
     },
     "articleSection" : "posts",
     "name" : "Algo walkthrough: set matrix zeroes",
@@ -46,7 +46,7 @@
     "copyrightYear" : "2020",
     "datePublished": "2020-12-01 00:00:00 \u002b0530 IST",
     "dateModified" : "2020-12-01 00:00:00 \u002b0530 IST",
-    "url" : "\/posts\/20201130130544-algo_walkthrough_set_matrix_zeroes\/",
+    "url" : "https:\/\/sprjg.github.io\/posts\/20201130130544-algo_walkthrough_set_matrix_zeroes\/",
     "wordCount" : "1637",
     "keywords" : [ "matrix","Blog" ]
 }
@@ -54,8 +54,8 @@
 
 
     <title>Algo walkthrough: set matrix zeroes | Notes on engineering math</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="https://sprjg.github.io/css/style.css" />
+    <link rel="stylesheet" href="https://sprjg.github.io/css/fonts.css" />
         <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
 
   </head>
@@ -66,15 +66,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/posts/">Main</a></li>
+      <li><a href="https://sprjg.github.io/posts/">Main</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="https://sprjg.github.io/categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="https://sprjg.github.io/tags/">Tags</a></li>
       
-      <li><a href="/">About</a></li>
+      <li><a href="https://sprjg.github.io/">About</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="https://sprjg.github.io/index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -82,7 +82,7 @@
     </div>
 
 <div class="article-meta">
-<a href="/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: set matrix zeroes</span></h1></a>
+<a href="https://sprjg.github.io/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: set matrix zeroes</span></h1></a>
 </div>
 
 <main>
@@ -164,13 +164,13 @@ We can avoid recursion by writing a convoluted but efficient non-recursive solut
 <p>The image below is a representation of our matrix. The red cells are zeros. As we move through the matrix in a traditional pass (row major, left to right), we encounter the first zero at 2nd row, 3rd column. The light brown indicates those cells that are to be &ldquo;zeroed&rdquo;.
 But since we know this row and column is set to be zeroed, we could use this space for &ldquo;remembering.&rdquo; Once our work is done with the rest of the array, we could set this space to zero. Let&rsquo;s call this particular row and column \(R_0\) and \(C_0\).</p>
 <figure>
-    <img src="/ox-hugo/screenshot2020-11-30_20-14-35_.png"/> 
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-11-30_20-14-35_.png"/> 
 </figure>
 
 <h3 id="remembering">Remembering</h3>
 <p>As we continue after the first zero, whenever we encounter any more zeros, say at row \(r\) and column \(c\), \(r, c\) for short, then we mark \(matrix[R_0][c]\) and \(matrix[r][C_0]\) as a special value. They are marked as dark brown in the image below.</p>
 <figure>
-    <img src="/ox-hugo/screenshot2020-12-01_10-51-33_.png"/> 
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-01_10-51-33_.png"/> 
 </figure>
 
 <h3 id="performing-deletions">Performing deletions</h3>
@@ -325,11 +325,11 @@ But because we can&rsquo;t modify them, we have to clumsily add a special condit
 </main>
 
   <footer>
-  <script src="/js/math-code.js"></script>
-<script async src="/MathJax/es5/tex-chtml.js"></script>
+  <script src="https://sprjg.github.io/js/math-code.js"></script>
+<script async src="https://sprjg.github.io/MathJax/es5/tex-chtml.js"></script>
 
 
-<script async src="/js/center-img.js"></script>
+<script async src="https://sprjg.github.io/js/center-img.js"></script>
 
   
   <hr/>

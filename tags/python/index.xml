@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>python on Notes on engineering math</title>
-    <link>/tags/python/</link>
+    <link>https://sprjg.github.io/tags/python/</link>
     <description>Recent content in python on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 26 Mar 2020 00:00:00 +0530</lastBuildDate>
     
-	<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://sprjg.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>lassoPlot in python</title>
-      <link>/posts/20200624220142-lassoplot_in_python/</link>
+      <link>https://sprjg.github.io/posts/20200624220142-lassoplot_in_python/</link>
       <pubDate>Thu, 26 Mar 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20200624220142-lassoplot_in_python/</guid>
+      <guid>https://sprjg.github.io/posts/20200624220142-lassoplot_in_python/</guid>
       <description>A comparison of python vs matlab
 lassoPlot in matlab In matlab, lasso regression&amp;rsquo;s MSE is easily visualized using the command lassoPlot. The following is from Prof. Steve Brunton&amp;rsquo;s uwdatabook page. In the zip file, the exact file is CH03_SEC05_2_LASSO.m. The most relevant parts to create the plot are picked out here:
 A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors b = A*x + 2*randn(100,1); % Observations (with noise) xL2 = pinv(A)*b [XL1 FitInfo] = lasso(A,b,&amp;#39;CV&amp;#39;,10); lassoPlot(XL1,FitInfo,&amp;#39;PlotType&amp;#39;,&amp;#39;CV&amp;#39;) save See output below:</description>

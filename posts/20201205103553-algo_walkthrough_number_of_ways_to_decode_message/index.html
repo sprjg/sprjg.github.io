@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:type" content="article" />
 
-<meta property="og:url" content="/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/" />
+<meta property="og:url" content="https://sprjg.github.io/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/" />
 
 <meta property="og:title" content="Algo walkthrough: number of ways to decode message" />
 
@@ -57,7 +57,7 @@
     "@type" : "BlogPosting",
     "mainEntityOfPage": {
          "@type": "WebPage",
-         "@id": ""
+         "@id": "https:\/\/sprjg.github.io"
     },
     "articleSection" : "posts",
     "name" : "Algo walkthrough: number of ways to decode message",
@@ -72,7 +72,7 @@
     "copyrightYear" : "2020",
     "datePublished": "2020-12-05 00:00:00 \u002b0530 IST",
     "dateModified" : "2020-12-05 00:00:00 \u002b0530 IST",
-    "url" : "\/posts\/20201205103553-algo_walkthrough_number_of_ways_to_decode_message\/",
+    "url" : "https:\/\/sprjg.github.io\/posts\/20201205103553-algo_walkthrough_number_of_ways_to_decode_message\/",
     "wordCount" : "2120",
     "keywords" : [ "strings","dynamic-programming","Blog" ]
 }
@@ -80,8 +80,8 @@
 
 
     <title>Algo walkthrough: number of ways to decode message | Notes on engineering math</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="https://sprjg.github.io/css/style.css" />
+    <link rel="stylesheet" href="https://sprjg.github.io/css/fonts.css" />
         <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
 
   </head>
@@ -92,15 +92,15 @@
     <nav>
     <ul class="menu">
       
-      <li><a href="/posts/">Main</a></li>
+      <li><a href="https://sprjg.github.io/posts/">Main</a></li>
       
-      <li><a href="/categories/">Categories</a></li>
+      <li><a href="https://sprjg.github.io/categories/">Categories</a></li>
       
-      <li><a href="/tags/">Tags</a></li>
+      <li><a href="https://sprjg.github.io/tags/">Tags</a></li>
       
-      <li><a href="/">About</a></li>
+      <li><a href="https://sprjg.github.io/">About</a></li>
       
-      <li><a href="/index.xml">Subscribe</a></li>
+      <li><a href="https://sprjg.github.io/index.xml">Subscribe</a></li>
       
     </ul>
     <hr/>
@@ -108,7 +108,7 @@
     </div>
 
 <div class="article-meta">
-<a href="/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: number of ways to decode message</span></h1></a>
+<a href="https://sprjg.github.io/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: number of ways to decode message</span></h1></a>
 </div>
 
 <main>
@@ -182,7 +182,7 @@
  multiple correct decodings for the same input code. Let&rsquo;s take a minimal example of <code>25</code> as the input code.
 We could decode it as <code>be</code> or <code>y</code>.</p>
 <figure>
-    <img src="/ox-hugo/screenshot2020-12-05_10-56-42_.png"/> 
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_10-56-42_.png"/> 
 </figure>
 
 <h3 id="variable-code-length-but-limited-variability">Variable code length but limited variability</h3>
@@ -196,21 +196,21 @@ Initially an input code such as <code>1235452621772738</code> may have seemed ch
 <h3 id="multiplicity">Multiplicity</h3>
 <p>Let&rsquo;s think about a length-2 code which has <code>2</code> possible decodings. Now let&rsquo;s add one more number to the code.</p>
 <figure>
-    <img src="/ox-hugo/screenshot2020-12-05_11-11-35_.png"/> 
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_11-11-35_.png"/> 
 </figure>
 
 <p>The gray areas are already &ldquo;computed&rdquo; i.e. we have already counted the number of decodings. We had two options in the grey area: keep <code>25</code> as whole or split it as <code>2,5</code>.
 Adding an additional number <code>1</code> to the code leads to 2 options directly i.e. simply add to the existing decodings as shown in the image above.
 But we have more options too. We could combine the new number <code>1</code> with the <code>2</code> and keep <code>5</code> separate:</p>
 <figure>
-    <img src="/ox-hugo/screenshot2020-12-05_11-23-01_.png"/> 
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_11-23-01_.png"/> 
 </figure>
 
 <p>The combination marked red is new. Giving us a total of 3 decoding ways.</p>
 <h3 id="generalizing">Generalizing</h3>
 <p>Let&rsquo;s assume we have already found the number of decodings <code>D(k)</code>  for an input of length <code>k</code>:</p>
 <figure>
-    <img src="/ox-hugo/screenshot2020-12-05_11-27-50_.png"/> 
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_11-27-50_.png"/> 
 </figure>
 
 <p>Adding one number <code>s[k+1]</code> to this leads to two paths:</p>
@@ -219,7 +219,7 @@ But we have more options too. We could combine the new number <code>1</code> wit
 </ul>
 <p>+Combining the new number <code>s[k+1]</code> with the first number <code>s[k]</code> in the existing code can give us 2 ways to decode. Each of these can combine with <code>D(k-1)</code> decodings of the remaining code</p>
 <figure>
-    <img src="/ox-hugo/screenshot2020-12-05_11-36-07_.png"/> 
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_11-36-07_.png"/> 
 </figure>
 
 <h3 id="base-case">Base case</h3>
@@ -248,7 +248,7 @@ We also know that an input code of length 1 has exactly 1 decoding: <code>D(1) =
 <h3 id="duplicates">Duplicates</h3>
 <p>This is the difficult part. How do we weed out the duplicates? Take the example of an input code <code>2226</code>. The numbers on the right are the labels for each decoding.</p>
 <figure>
-    <img src="/ox-hugo/screenshot2020-12-05_12-59-39_.png"/> 
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_12-59-39_.png"/> 
 </figure>
 
 <p>Checking manually at least, we don&rsquo;t have any duplicates.</p>
@@ -316,20 +316,20 @@ We also know that an input code of length 1 has exactly 1 decoding: <code>D(1) =
 <h6 id="the-next-number-cannot-be-broken">The next number cannot be broken</h6>
 <p>This is more serious. Say the input is <code>320</code>:</p>
 <figure>
-    <img src="/ox-hugo/screenshot2020-12-05_15-22-24_.png"/> 
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_15-22-24_.png"/> 
 </figure>
 
 <p>The <code>3</code> cannot be combined with <code>2</code> because that would create an orphan <code>0</code> which is not decodable.</p>
 <h5 id="zero-in-the-middle">Zero in the middle</h5>
 <p>Say the input is <code>10xxxxx</code> where the <code>x</code> placeholders are already processed:</p>
 <figure>
-    <img src="/ox-hugo/screenshot2020-12-05_15-26-40_.png"/> 
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_15-26-40_.png"/> 
 </figure>
 
 <p>The issue now is that when <code>0</code> is the new number added, we simply have nothing to do. In a bad way. We cannot say whether the current code is valid or not. If the next incoming number can combine with this zero then the code becomes valid, otherwise the entire thing is invalid.
 It gets worse! Say we have another incoming number <code>2</code> to the existing <code>10xxxxx</code>:</p>
 <figure>
-    <img src="/ox-hugo/screenshot2020-12-05_15-30-31_.png"/> 
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_15-30-31_.png"/> 
 </figure>
 
 <p>Now we cannot combine <code>2</code> and <code>1</code> because the <code>0</code> would get orphaned.</p>
@@ -390,7 +390,7 @@ Let&rsquo;s make corrections for each of the edge cases we discussed.</p>
 <p>Runtime: 28 ms, faster than 84.07% of Python3 online submissions for Decode Ways.</p>
 <p>Memory Usage: 14.2 MB, less than 28.54% of Python3 online submissions for Decode Ways.</p>
 </blockquote>
-<p>We&rsquo;re doing alright in terms of time. The space seems high but <a href="/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/#deleting-our-used-objects">I&rsquo;ve seen weird behaviour with space usage before</a>. So I&rsquo;m averse to going down this rabbit hole.</p>
+<p>We&rsquo;re doing alright in terms of time. The space seems high but <a href="https://sprjg.github.io/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/#deleting-our-used-objects">I&rsquo;ve seen weird behaviour with space usage before</a>. So I&rsquo;m averse to going down this rabbit hole.</p>
 <h2 id="understanding-the-best-solution">Understanding the best solution</h2>
 <p>The <span class="sidenote">
 <label class="sidenote-label" for="fn-best">best solution</label>
@@ -461,11 +461,11 @@ The <code>if</code> is simply to avoid this addition when the new number is <cod
 </main>
 
   <footer>
-  <script src="/js/math-code.js"></script>
-<script async src="/MathJax/es5/tex-chtml.js"></script>
+  <script src="https://sprjg.github.io/js/math-code.js"></script>
+<script async src="https://sprjg.github.io/MathJax/es5/tex-chtml.js"></script>
 
 
-<script async src="/js/center-img.js"></script>
+<script async src="https://sprjg.github.io/js/center-img.js"></script>
 
   
   <hr/>

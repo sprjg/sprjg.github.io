@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>cycle-detection on Notes on engineering math</title>
-    <link>/tags/cycle-detection/</link>
+    <link>https://sprjg.github.io/tags/cycle-detection/</link>
     <description>Recent content in cycle-detection on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 26 Nov 2020 00:00:00 +0530</lastBuildDate>
     
-	<atom:link href="/tags/cycle-detection/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://sprjg.github.io/tags/cycle-detection/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Algo walkthrough: course schedule</title>
-      <link>/posts/20201127172735-algo_walkthrough_course_schedule/</link>
+      <link>https://sprjg.github.io/posts/20201127172735-algo_walkthrough_course_schedule/</link>
       <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201127172735-algo_walkthrough_course_schedule/</guid>
+      <guid>https://sprjg.github.io/posts/20201127172735-algo_walkthrough_course_schedule/</guid>
       <description>Link to the problem
 First impressions It seems every course has pre-requisites. A course c would have the following pre-requisites: [c, p1], [c, p2], .... First we finish all the pre-requisites then we can finish the course c. The pre-requisites will obviously have their own pre-requisites&amp;hellip; and so on. The question says &amp;ldquo;is it possible?&amp;rdquo; which means the inputs may have a situation where this chain of pre-requisites can never be completed because everything depends on everything else i.</description>
     </item>

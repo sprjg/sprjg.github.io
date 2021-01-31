@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>strings on Notes on engineering math</title>
-    <link>/tags/strings/</link>
+    <link>https://sprjg.github.io/tags/strings/</link>
     <description>Recent content in strings on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 05 Dec 2020 00:00:00 +0530</lastBuildDate>
     
-	<atom:link href="/tags/strings/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://sprjg.github.io/tags/strings/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Algo walkthrough: number of ways to decode message</title>
-      <link>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</link>
+      <link>https://sprjg.github.io/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</link>
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</guid>
+      <guid>https://sprjg.github.io/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</guid>
       <description>Link to the problem
 Intuitions Variable code length The root of the issue is variable code length. Some codes are length-1 (a-i), some are length-2 (j-z). This leads to may lead to; there are conditions to deal with but we&amp;#39;ll come to that later  multiple correct decodings for the same input code. Let&amp;rsquo;s take a minimal example of 25 as the input code. We could decode it as be or y.</description>
     </item>

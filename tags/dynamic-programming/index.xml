@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>dynamic-programming on Notes on engineering math</title>
-    <link>/tags/dynamic-programming/</link>
+    <link>https://sprjg.github.io/tags/dynamic-programming/</link>
     <description>Recent content in dynamic-programming on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 12 Dec 2020 00:00:00 +0530</lastBuildDate>
     
-	<atom:link href="/tags/dynamic-programming/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://sprjg.github.io/tags/dynamic-programming/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Algo walkthrough: product of array except self</title>
-      <link>/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</link>
+      <link>https://sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</link>
       <pubDate>Sat, 12 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</guid>
+      <guid>https://sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</guid>
       <description>Link to the problem.
 What not to do Let&amp;rsquo;s ignore the note for now.
 Using division If we use division, how would we solve this problem? We could start with a single pass over the array. In this pass, we multiply all the elements and calculate complete_product. For each element e, we can now calculate \(\frac{complete-product}{e}\). This, stored in an array, is our final result.
@@ -25,10 +25,10 @@ More than O(n) What if we had no time constraints?</description>
     
     <item>
       <title>Algo walkthrough: number of ways to decode message</title>
-      <link>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</link>
+      <link>https://sprjg.github.io/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</link>
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</guid>
+      <guid>https://sprjg.github.io/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</guid>
       <description>Link to the problem
 Intuitions Variable code length The root of the issue is variable code length. Some codes are length-1 (a-i), some are length-2 (j-z). This leads to may lead to; there are conditions to deal with but we&amp;#39;ll come to that later  multiple correct decodings for the same input code. Let&amp;rsquo;s take a minimal example of 25 as the input code. We could decode it as be or y.</description>
     </item>
