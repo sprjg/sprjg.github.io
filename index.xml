@@ -119,7 +119,7 @@ stx = 0 end = 1 n = 4096 Fs = int( n/(end - stx)) from math import pi from numpy
       <pubDate>Fri, 10 Apr 2020 00:00:00 +0530</pubDate>
       
       <guid>https://sprjg.github.io/posts/20200524030032-pubnotes_ddse_fourier/</guid>
-      <description>This is for my notes for Prof. Steve Brunton&amp;rsquo;s video lectures of Fourier Analysis.
+      <description>This is my notes for Prof. Steve Brunton&amp;rsquo;s video lectures of Fourier Analysis.
 Real domain to complex domain The first confusion for me was the shift in the sum limits from real domain to complex domain. The real fourier series is expressed as \(\sum_{k=0}^{\infty} \frac{a_0}{2} + a_k \cos kx + b_k \sin kx\). The intuition here is that harmonics can express any function. The constant term accounts for all the different initial phase shifts of each of these harmonics.</description>
     </item>
     
