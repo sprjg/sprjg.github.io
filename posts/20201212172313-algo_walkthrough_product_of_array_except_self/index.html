@@ -47,7 +47,7 @@
     "datePublished": "2020-12-12 00:00:00 \u002b0530 IST",
     "dateModified" : "2020-12-12 00:00:00 \u002b0530 IST",
     "url" : "https:\/\/sprjg.github.io\/posts\/20201212172313-algo_walkthrough_product_of_array_except_self\/",
-    "wordCount" : "1595",
+    "wordCount" : "1594",
     "keywords" : [ "arrays","dynamic-programming","Blog" ]
 }
 </script>
@@ -211,7 +211,7 @@ Could you solve it with constant space complexity? (The output array does not co
 </blockquote>
 <p>Using two extra arrays counts as \(O(n)\) space. Could we do this without creating intermediate arrays?</p>
 <h2 id="second-try">Second try</h2>
-<p><a id="org3cf958c"></a> The follow up says that a result array does not count as extra space. So we are allowed at most one extra array. What if we used the same approach but changed our memory storage to accommodate this new constraint?
+<p><a id="orgf084d64"></a> The follow up says that a result array does not count as extra space. So we are allowed at most one extra array. What if we used the same approach but changed our memory storage to accommodate this new constraint?
 Say we have a single <code>result</code> array. We first calculate and store the left products for each element in this array:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">productExceptSelf</span>(nums):
     n <span style="color:#f92672">=</span> len(nums)
@@ -243,7 +243,7 @@ Say we have a single <code>result</code> array. We first calculate and store the
 <h4 id="a-single-iteration">A single iteration?</h4>
 <p>Is there a solution to this using only a single pass of the array?</p>
 <h2 id="understanding-the-best-solution">Understanding the best solution</h2>
-<p><a id="org3635583"></a> This is the <a href="https://leetcode.com/submissions/detail/429914350/">best solution</a> at 200ms. It&rsquo;s amazing how this solution uses the best algorithm and also ends up being super readable.</p>
+<p><a id="org112e16e"></a> <a href="https://leetcode.com/submissions/detail/460826688/">This one</a> is a creative solution. It&rsquo;s amazing how this solution uses the best algorithm and also ends up being super readable.</p>
 <h3 id="constant-space">Constant space</h3>
 <p>This part is something we have already seen. We don&rsquo;t need two extra arrays. Instead keep a cumulative product from both ends. But this algorithm calculates the cumulative left and right product in a single iteration by using the <code>~</code> operator.</p>
 <h3 id="operator"><code>~</code> operator</h3>
@@ -277,7 +277,7 @@ Now we can look at the first half of this algorithm&rsquo;s iteration as:</p>
 </ul>
 <p>So this single iteration is actually 4 half iterations. That&rsquo;s the ingenuity of this algorithm. By using <code>~</code> we have a cumulative right product, but it&rsquo;s only useful if we can use it immediately. For the right half, we store this right product. For the left half, we multiply this right product with the existing left product to find the final result.</p>
 <h3 id="takeaways">Takeaways</h3>
-<p>Why was it so hard to figure out this final piece? Instead of using the <code>~i</code>, I could have used <code>n-i</code> which is functionally the same result. But what makes <a href="#org3635583">this algorithm</a> a hard leap from <a href="#org3cf958c">this</a>?</p>
+<p>Why was it so hard to figure out this final piece? Instead of using the <code>~i</code>, I could have used <code>n-i</code> which is functionally the same result. But what makes <a href="#org112e16e">this algorithm</a> a hard leap from <a href="#orgf084d64">this</a>?</p>
 <ul>
 <li>Intuitively a loop does &ldquo;one thing&rdquo; for every element in the array
 <ul>
