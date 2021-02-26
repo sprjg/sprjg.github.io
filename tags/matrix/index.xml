@@ -37,5 +37,21 @@ A simple improvement uses O(m + n) space, but still not the best solution.
 Could you devise a constant space solution? So this problem is more about space than time.   Intuitions It seems obvious that a single pass through the matrix would work. Is there a reason even a single pass is not needed?</description>
     </item>
     
+    <item>
+      <title>Algo walkthrough: pacific atlantic water flow</title>
+      <link>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</link>
+      <pubDate>Mon, 10 Feb 2020 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</guid>
+      <description>Note:
+The order of returned grid coordinates does not matter. Both m and n are less than 150.
+Link to the problem.
+ Intuitions The question directly gives us a way to visualize the matrix: as an elevation map. Following is a matrix and the corresponding elevation map:
+ ~ ~ ~ ~ ~
+~ 1 2 2 3 (5) *
+~ 3 2 3 (4) (4) *
+~ 2 4 (5) 3 1 *</description>
+    </item>
+    
   </channel>
 </rss>

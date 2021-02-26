@@ -134,5 +134,21 @@ lassoPlot in matlab In matlab, lasso regression&amp;rsquo;s MSE is easily visual
 A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors b = A*x + 2*randn(100,1); % Observations (with noise) xL2 = pinv(A)*b [XL1 FitInfo] = lasso(A,b,&amp;#39;CV&amp;#39;,10); lassoPlot(XL1,FitInfo,&amp;#39;PlotType&amp;#39;,&amp;#39;CV&amp;#39;) save See output below:</description>
     </item>
     
+    <item>
+      <title>Algo walkthrough: pacific atlantic water flow</title>
+      <link>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</link>
+      <pubDate>Mon, 10 Feb 2020 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</guid>
+      <description>Note:
+The order of returned grid coordinates does not matter. Both m and n are less than 150.
+Link to the problem.
+ Intuitions The question directly gives us a way to visualize the matrix: as an elevation map. Following is a matrix and the corresponding elevation map:
+ ~ ~ ~ ~ ~
+~ 1 2 2 3 (5) *
+~ 3 2 3 (4) (4) *
+~ 2 4 (5) 3 1 *</description>
+    </item>
+    
   </channel>
 </rss>

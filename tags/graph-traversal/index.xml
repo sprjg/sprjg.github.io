@@ -32,5 +32,21 @@ Exploration The first instinct is to lower the dimension of the problem and see 
                  1 0 0 0 1 1 1 0 0 1    In this case, there are 3 islands. We can count this in a single pass of the array.</description>
     </item>
     
+    <item>
+      <title>Algo walkthrough: pacific atlantic water flow</title>
+      <link>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</link>
+      <pubDate>Mon, 10 Feb 2020 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</guid>
+      <description>Note:
+The order of returned grid coordinates does not matter. Both m and n are less than 150.
+Link to the problem.
+ Intuitions The question directly gives us a way to visualize the matrix: as an elevation map. Following is a matrix and the corresponding elevation map:
+ ~ ~ ~ ~ ~
+~ 1 2 2 3 (5) *
+~ 3 2 3 (4) (4) *
+~ 2 4 (5) 3 1 *</description>
+    </item>
+    
   </channel>
 </rss>

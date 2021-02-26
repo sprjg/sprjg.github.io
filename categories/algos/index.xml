@@ -102,5 +102,21 @@ Hints  They hint at a \(O(n)\) solution. This can be useful at a later point. Th
 The absolute value The metric for each element gives us a sense of displacement. For example, if an element at index `4` is of value `10` the score for this is `6`. If the element was at index `5` and of value `11`, the score is still `6`.</description>
     </item>
     
+    <item>
+      <title>Algo walkthrough: pacific atlantic water flow</title>
+      <link>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</link>
+      <pubDate>Mon, 10 Feb 2020 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</guid>
+      <description>Note:
+The order of returned grid coordinates does not matter. Both m and n are less than 150.
+Link to the problem.
+ Intuitions The question directly gives us a way to visualize the matrix: as an elevation map. Following is a matrix and the corresponding elevation map:
+ ~ ~ ~ ~ ~
+~ 1 2 2 3 (5) *
+~ 3 2 3 (4) (4) *
+~ 2 4 (5) 3 1 *</description>
+    </item>
+    
   </channel>
 </rss>

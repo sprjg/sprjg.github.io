@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:type" content="article" />
+
+<meta property="og:url" content="https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/" />
+
+<meta property="og:title" content="Algo walkthrough: pacific atlantic water flow" />
+
+<meta property="og:image" content="https://sprjg.github.io/ox-hugo/screenshot2021-02-03_20-10-45_.png" />
+
+<meta property="og:description" content="  Given an m x n matrix of non-negative integers representing the height of each unit cell in a continent, the &#34;Pacific ocean&#34; touches the left and top edges of the matrix and the &#34;Atlantic ocean&#34; touches the right and bottom edges.
+
+  Water can only flow in four directions (up, down, left, or right) from a cell to another one with height equal or lower.
+
+  Find the list of grid coordinates where water can flow to both the Pacific and Atlantic ocean.
+  " />
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="twitter:site" content="">
+
+<meta name="twitter:creator" content="">
+
+<meta name="twitter:title" content="Algo walkthrough: pacific atlantic water flow" />
+
+<meta name="twitter:description" content="  Given an m x n matrix of non-negative integers representing the height of each unit cell in a continent, the &#34;Pacific ocean&#34; touches the left and top edges of the matrix and the &#34;Atlantic ocean&#34; touches the right and bottom edges.
+
+  Water can only flow in four directions (up, down, left, or right) from a cell to another one with height equal or lower.
+
+  Find the list of grid coordinates where water can flow to both the Pacific and Atlantic ocean.
+  " />
+
+<meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/screenshot2021-02-03_20-10-45_.png" />
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/sprjg.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Algo walkthrough: pacific atlantic water flow",
+    "headline" : "Algo walkthrough: pacific atlantic water flow",
+    "description" : "  Given an m x n matrix of non-negative integers representing the height of each unit cell in a continent, the \u0022Pacific ocean\u0022 touches the left and top edges of the matrix and the \u0022Atlantic ocean\u0022 touches the right and bottom edges.\n\n  Water can only flow in four directions (up, down, left, or right) from a cell to another one with height equal or lower.\n\n  Find the list of grid coordinates where water can flow to both the Pacific and Atlantic ocean.\n  ",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-02-10 00:00:00 \u002b0530 IST",
+    "dateModified" : "2020-02-10 00:00:00 \u002b0530 IST",
+    "url" : "https:\/\/sprjg.github.io\/posts\/20210131201122-algo_walkthrough_pacific_atlantic_water_flow\/",
+    "wordCount" : "3514",
+    "keywords" : [ "graph-traversal","matrix","Blog" ]
+}
+</script>
+
+
+    <title>Algo walkthrough: pacific atlantic water flow | Notes on engineering math</title>
+    <link rel="stylesheet" href="https://sprjg.github.io/css/style.css" />
+    <link rel="stylesheet" href="https://sprjg.github.io/css/fonts.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class='site-title'> <div> Notes on engineering math </div> </div>
+    <div id="posts-list">
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="https://sprjg.github.io/posts/">Archive</a></li>
+      
+      <li><a href="https://sprjg.github.io/categories/">Categories</a></li>
+      
+      <li><a href="https://sprjg.github.io/tags/">Tags</a></li>
+      
+      <li><a href="https://sprjg.github.io/">About</a></li>
+      
+      <li><a href="https://sprjg.github.io/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+    </div>
+
+<div class="article-meta">
+<a href="https://sprjg.github.io/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: pacific atlantic water flow</span></h1></a>
+</div>
+
+<main>
+  <aside class="toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#intuitions">Intuitions</a>
+      <ul>
+        <li><a href="#one-water-body-instead-of-two">One water body instead of two</a></li>
+        <li><a href="#dependence-on-the-size-of-the-matrix">Dependence on the size of the matrix</a></li>
+        <li><a href="#what-did-we-learn">What did we learn?</a></li>
+      </ul>
+    </li>
+    <li><a href="#a-graph-theory-approach">A graph theory approach</a>
+      <ul>
+        <li><a href="#bfs-on-a-matrix">BFS on a matrix</a></li>
+        <li><a href="#validity-of-solution">Validity of solution</a></li>
+        <li><a href="#what-can-we-learn">What can we learn?</a></li>
+      </ul>
+    </li>
+    <li><a href="#bfs-for-multiple-water-bodies-different-start-conditions">BFS for multiple water bodies, different start conditions</a>
+      <ul>
+        <li><a href="#missing-cells">Missing cells</a></li>
+      </ul>
+    </li>
+    <li><a href="#intersection-of-two-bfs">Intersection of two BFS</a>
+      <ul>
+        <li><a href="#correctness">Correctness</a></li>
+        <li><a href="#performance">Performance</a></li>
+      </ul>
+    </li>
+    <li><a href="#yet-to-explore">Yet to explore</a></li>
+  </ul>
+</nav>
+  </aside>
+    Given an m x n matrix of non-negative integers representing the height of each unit cell in a continent, the &#34;Pacific ocean&#34; touches the left and top edges of the matrix and the &#34;Atlantic ocean&#34; touches the right and bottom edges.
+
+  Water can only flow in four directions (up, down, left, or right) from a cell to another one with height equal or lower.
+
+  Find the list of grid coordinates where water can flow to both the Pacific and Atlantic ocean.
+  
+  <blockquote>
+<p>Note:</p>
+<p>The order of returned grid coordinates does not matter.
+Both m and n are less than 150.</p>
+<p><a href="https://leetcode.com/problems/pacific-atlantic-water-flow/">Link to the problem.</a></p>
+</blockquote>
+<h2 id="intuitions">Intuitions</h2>
+<p>The question directly gives us a way to visualize the matrix: as an elevation map. Following is a matrix and the corresponding elevation map:</p>
+<blockquote>
+<p>~   ~   ~   ~   ~</p>
+<p>~  1   2   2   3  (5) *</p>
+<p>~  3   2   3  (4) (4) *</p>
+<p>~  2   4  (5)  3   1  *</p>
+<p>~ (6) (7)  1   4   5  *</p>
+<p>~ (5)  1   1   2   4  *</p>
+<ul>
+<li>*   *   *   *   *   *</li>
+</ul>
+</blockquote>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2021-02-03_20-10-45_.png"/> 
+</figure>
+
+<p>The darker the cell, the higher the elevation. It might be useful to solve an easier problem first.</p>
+<h3 id="one-water-body-instead-of-two">One water body instead of two</h3>
+<p>Let&rsquo;s imagine a single water body surrounds the whole landmass. We&rsquo;ll solve the problem of finding cells from which water can reach the four boundaries.</p>
+<ul>
+<li>We&rsquo;ll assume that the water is at height 0</li>
+<li>We&rsquo;ll assume that all cells in the landmass are above sea level i.e. positive values only (this assumption is also in the original problem)</li>
+</ul>
+<h4 id="python-code-for-this-problem">Python code for this problem</h4>
+<p>First we&rsquo;ll start with the general approach:</p>
+<ul>
+<li>All the cells on the boundaries are obviously close to water and water can flow from all of them (since we assumed water is always at a lower height than a land cell). So we mark all of them as <em>potentials</em></li>
+<li>We go through the cells one by one
+<ul>
+<li>If a current cell, say <em>current</em>, has a <em>potential</em> cell above, below, left, or right of it, say <em>neighbour</em> then we check if the heights are appropriate for water flow i.e. \( \text{height}_\text{current} \geq \text{height}_\text{neighbour} \)</li>
+<li>If the heights are appropriate we add <em>current</em> to the list of <em>potential</em> cells</li>
+</ul>
+</li>
+</ul>
+<h5 id="neighbours-of-current-cell">Neighbours of <em>current</em> cell</h5>
+<p>This function takes in the <em>current</em> cell co-ordinates <code>i,j</code> and a set of potential cells already identified: <code>potentials</code>. It returns <code>True</code> if the <em>current</em> cell can be added to <code>potentials</code> or it returns <code>False</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">neighbours</span>(i, j, potentials):
+    <span style="color:#66d9ef">for</span> ni, nj <span style="color:#f92672">in</span> [(i, j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (i, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), (i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j), (i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, j)]:
+        <span style="color:#66d9ef">if</span> (ni, nj) <span style="color:#f92672">in</span> potentials <span style="color:#f92672">and</span> matrix[i][j] <span style="color:#f92672">&gt;=</span> matrix[ni][nj]:
+            <span style="color:#66d9ef">return</span> True
+    <span style="color:#66d9ef">return</span> False
+</code></pre></div><h5 id="the-rest-of-the-code">The rest of the code</h5>
+<p>We start with a sample 5x5 matrix:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">matrix <span style="color:#f92672">=</span> [
+    [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>],
+    [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>],
+    [<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>],
+    [<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>],
+    [<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>]
+]
+</code></pre></div><p>We also create an empty set of <code>potentials</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">potentials <span style="color:#f92672">=</span> set()
+</code></pre></div><p>We&rsquo;ll also save the number of columns and number of rows in variables:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">numcols <span style="color:#f92672">=</span> len(matrix[<span style="color:#ae81ff">0</span>])
+numrows <span style="color:#f92672">=</span> len(matrix)
+</code></pre></div><p>Now we iterate through the matrix, row by row. If the cell is on a boundary, we add the cell to the set of <code>potentials</code>. We also check if any of the neighbours are potentials and if the heights are appropriate:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i, row <span style="color:#f92672">in</span> enumerate(matrix):
+    <span style="color:#66d9ef">for</span> j, e <span style="color:#f92672">in</span> enumerate(row):
+        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">==</span> numcols<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">or</span> (j <span style="color:#f92672">==</span> numcols<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">or</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> j <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> neighbours(i, j, potentials):
+            potentials<span style="color:#f92672">.</span>add((i,j))
+
+<span style="color:#66d9ef">print</span>(len(potentials))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">21
+</code></pre></div><p>If we do a manual check, it&rsquo;s clear this answer is wrong. There are 24 cells that can flow to water, not 21.
+The code is faulty because it misses some cells. It misses them because a single pass is not enough to identify all the cells. For example, look at the lower right of the matrix:</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2021-02-24_22-59-49_.png"/> 
+</figure>
+
+<p>The <em>4</em> marked in green has no neighbours in the <code>potential</code> set because on the right <code>5</code> is not yet processed and on the bottom <code>2</code> is also not yet processed. Depending on the matrix, we may need to do multiple passes.</p>
+<h3 id="dependence-on-the-size-of-the-matrix">Dependence on the size of the matrix</h3>
+<p>The number of passes may depend on the dimensions of the matrix. Notice this example. The surrounding blue is water. The darker colours are taller cells:</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2021-02-24_23-20-47_.png"/> 
+</figure>
+
+<p>In this case, the darkest cell would need 6 passes to be identified as part of <code>potentials</code>. This is because the neighbours would take 5 passes and their neighbours would take 4 passes and so on.</p>
+<h3 id="what-did-we-learn">What did we learn?</h3>
+<p>This approach clearly will not work for larger matrices. But we can learn a few things from this approach:</p>
+<ul>
+<li>There are only 5 types of cells:
+<ul>
+<li>Cells that can reach the Pacific water</li>
+<li>Cells that can reach the Atlantic water</li>
+<li>Cells that can reach both</li>
+<li>Cells that cannot reach either</li>
+<li>Undecided cells</li>
+</ul>
+</li>
+<li>Our current algorithm takes a lot of passes to categorize a cell</li>
+<li>A better algorithm would categorize a cell <em>sooner</em> (with less passes)</li>
+</ul>
+<h2 id="a-graph-theory-approach">A graph theory approach</h2>
+<p>We will continue to solve the problem of a single water body surrounding an island. Let&rsquo;s try using a graph theory based approach now. The idea is to be non-linear. Instead of linearly moving through the cells one by one, we start with the boundaries. All of the boundary cells are added directly to a queue of <code>potentials</code>. We use a queue instead of a set now because we need a way to pop in and pop out elements.
+After this, we check all the neighbours of this queue and add any that are at a higher level. At the crux, this is a breadth first search.</p>
+<h3 id="bfs-on-a-matrix">BFS on a matrix</h3>
+<p>We&rsquo;ll start with the same matrix again:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">matrix <span style="color:#f92672">=</span> [
+    [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>],
+    [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>],
+    [<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>],
+    [<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>],
+    [<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>]
+]
+</code></pre></div><h4 id="starting-with-the-boundaries">Starting with the boundaries</h4>
+<p>We&rsquo;ll create an empty queue of potentials.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> queue
+potentials <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span>Queue()
+</code></pre></div><p>We&rsquo;ll add the boundary elements to our <code>potentials</code> queue. All the elements in the first row:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>):
+    potentials<span style="color:#f92672">.</span>put((<span style="color:#ae81ff">0</span>, i))
+</code></pre></div><p>and the last row:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>):
+    potentials<span style="color:#f92672">.</span>put((<span style="color:#ae81ff">4</span>, i))
+</code></pre></div><p>and the first column:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>):
+    potentials<span style="color:#f92672">.</span>put((i, <span style="color:#ae81ff">0</span>))
+</code></pre></div><p>and the last column:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>):
+    potentials<span style="color:#f92672">.</span>put((i, <span style="color:#ae81ff">4</span>))
+</code></pre></div><p>Or we could compress this into:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>):
+    potentials<span style="color:#f92672">.</span>put((i, <span style="color:#ae81ff">4</span>))
+    potentials<span style="color:#f92672">.</span>put((<span style="color:#ae81ff">0</span>, i))
+    potentials<span style="color:#f92672">.</span>put((i, <span style="color:#ae81ff">0</span>))
+    potentials<span style="color:#f92672">.</span>put((<span style="color:#ae81ff">4</span>, i))
+</code></pre></div><p>We&rsquo;ll also create a set to mark the elements we have already visited:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">visited <span style="color:#f92672">=</span> set()
+</code></pre></div><h4 id="iterate-over-the-potentials">Iterate over the potentials</h4>
+<p>Now we iterate over the elements in <code>potentials</code> and check its neighbours. We&rsquo;ll check if index values are positive explicitly i.e. left side bounds. For staying within right side bounds, we&rsquo;ll use a <code>try-except</code>.
+While we iterate non-linearly we must make sure we don&rsquo;t go in circles. This is where the <code>visited</code> set is useful. We&rsquo;ll only explore a neighbour if it&rsquo;s not already in <code>visited</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> potentials<span style="color:#f92672">.</span>empty():
+    i, j <span style="color:#f92672">=</span> potentials<span style="color:#f92672">.</span>get()
+    visited<span style="color:#f92672">.</span>add((i, j))
+    <span style="color:#66d9ef">for</span> ni, nj <span style="color:#f92672">in</span> [(i, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), (i, j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, j), (i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j)]:
+        <span style="color:#66d9ef">try</span>:
+            <span style="color:#66d9ef">if</span> ni <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> nj <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> matrix[ni][nj] <span style="color:#f92672">&gt;=</span> matrix[i][j] <span style="color:#f92672">and</span> (ni, nj) <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> visited:
+                potentials<span style="color:#f92672">.</span>put((ni, nj))
+        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">IndexError</span>:
+            <span style="color:#66d9ef">pass</span>
+
+<span style="color:#66d9ef">print</span>(visited)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">{(1, 3), (3, 0), (2, 1), (0, 3), (2, 4), (4, 0), (1, 2), (3, 3), (4, 4), (0, 4), (4, 1), (1, 1), (3, 2), (0, 0), (1, 4), (2, 3), (4, 2), (1, 0), (0, 1), (3, 1), (2, 0), (4, 3), (3, 4), (0, 2)}
+</code></pre></div><h3 id="validity-of-solution">Validity of solution</h3>
+<p>Apart from the centre cell i.e. cell at (2,2), every other cell is reachable from the surrounding water body.</p>
+<h3 id="what-can-we-learn">What can we learn?</h3>
+<p>Clearly BFS is the correct approach for this problem. A BFS usually leads to a \( O(V + E) \) time complexity for a graph with \(V\) vertices and \(E\) edges. In this case, there are a maximum of \(4mn\) edges for a matrix of \(m\) rows and \(n\) columns; the \(4\) comes from the maximum degree of each cell.
+For a single water body, we have a starting queue of <code>potentials</code> which include all the boundary cells. But when we extend our approach to two water bodies as per the leetcode problem description, which cells are always in our queue? The top right and the bottom left! These two cells are always in our <code>potentials</code> queue.
+After this we start our BFS as before and visit the higher elevation neighbours.</p>
+<h2 id="bfs-for-multiple-water-bodies-different-start-conditions">BFS for multiple water bodies, different start conditions</h2>
+<p>We&rsquo;ll extend the previous solution now to include two different water bodies.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> queue
+potentials <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span>Queue()
+
+matrix <span style="color:#f92672">=</span> [
+    [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>],
+    [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>],
+    [<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>],
+    [<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>],
+    [<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>]
+]
+
+visited <span style="color:#f92672">=</span> set()
+
+potentials<span style="color:#f92672">.</span>put((<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">4</span>))
+potentials<span style="color:#f92672">.</span>put((<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">0</span>))
+
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> potentials<span style="color:#f92672">.</span>empty():
+    i, j <span style="color:#f92672">=</span> potentials<span style="color:#f92672">.</span>get()
+    visited<span style="color:#f92672">.</span>add((i, j))
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;visiting &#34;</span>, i, j)
+    <span style="color:#66d9ef">for</span> ni, nj <span style="color:#f92672">in</span> [(i, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), (i, j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, j), (i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j)]:
+        <span style="color:#66d9ef">try</span>:
+            <span style="color:#66d9ef">if</span> ni <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> nj <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> matrix[ni][nj] <span style="color:#f92672">&gt;=</span> matrix[i][j] <span style="color:#f92672">and</span> (ni, nj) <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> visited:
+                potentials<span style="color:#f92672">.</span>put((ni, nj))
+                <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;adding &#34;</span>, ni, nj)
+        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">IndexError</span>:
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;skipping &#34;</span>, ni, nj)
+            <span style="color:#66d9ef">pass</span>
+
+<span style="color:#66d9ef">print</span>(visited)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">visiting  0 4
+skipping  0 5
+visiting  4 0
+adding  3 0
+skipping  5 0
+visiting  3 0
+adding  3 1
+visiting  3 1
+{(3, 0), (3, 1), (4, 0), (0, 4)}
+</code></pre></div><h3 id="missing-cells">Missing cells</h3>
+<p>If we check manually, clearly we are missing some cells. Take the cell at (1,3). This cannot be reached from the initial two cells in our <code>potentials</code> queue. But clearly that cell has a valid path to both water bodies.
+We need a different approach</p>
+<h2 id="intersection-of-two-bfs">Intersection of two BFS</h2>
+<p>Instead of trying to solve this with a single BFS, we&rsquo;ll perform two BFS&rsquo;s.</p>
+<ul>
+<li>The first BFS starts with the upper and left boundaries i.e. cells that can reach the first water body. After this we&rsquo;ll run a BFS to find the first set of cells: cells that can reach the first water body</li>
+<li>The second BFS starts with the lower and right boundaries i.e. cells that can reach the second water body. After this we&rsquo;ll run a BFS to find the second set of cells: cells that can reach the second water body</li>
+<li>We&rsquo;ll find the intersection of these two sets to find the answer</li>
+</ul>
+<!--listend-->
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> queue
+
+matrix <span style="color:#f92672">=</span> [
+    [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>],
+    [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">4</span>],
+    [<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>],
+    [<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>],
+    [<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>]
+]
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">BFS</span>(potentials):
+    visited <span style="color:#f92672">=</span> set()
+    <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> potentials<span style="color:#f92672">.</span>empty():
+        i, j <span style="color:#f92672">=</span> potentials<span style="color:#f92672">.</span>get()
+        visited<span style="color:#f92672">.</span>add((i, j))
+        <span style="color:#66d9ef">for</span> ni, nj <span style="color:#f92672">in</span> [(i, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), (i, j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, j), (i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j)]:
+            <span style="color:#66d9ef">try</span>:
+                <span style="color:#66d9ef">if</span> ni <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> nj <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> matrix[ni][nj] <span style="color:#f92672">&gt;=</span> matrix[i][j] <span style="color:#f92672">and</span> (ni, nj) <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> visited:
+                    potentials<span style="color:#f92672">.</span>put((ni, nj))
+            <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">IndexError</span>:
+                <span style="color:#66d9ef">pass</span>
+
+    <span style="color:#66d9ef">return</span> visited
+
+potentials <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span>Queue()
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>):
+    potentials<span style="color:#f92672">.</span>put((i, <span style="color:#ae81ff">0</span>))
+    potentials<span style="color:#f92672">.</span>put((<span style="color:#ae81ff">0</span>, i))
+
+pacific_visited <span style="color:#f92672">=</span> BFS(potentials)
+
+potentials <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span>Queue()
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>):
+    potentials<span style="color:#f92672">.</span>put((<span style="color:#ae81ff">4</span>, i))
+    potentials<span style="color:#f92672">.</span>put((i, <span style="color:#ae81ff">4</span>))
+
+atlantic_visited <span style="color:#f92672">=</span> BFS(potentials)
+
+<span style="color:#66d9ef">print</span>(atlantic_visited<span style="color:#f92672">.</span>intersection(pacific_visited))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">{(1, 3), (3, 0), (3, 1), (1, 4), (0, 4), (4, 0)}
+</code></pre></div><h3 id="correctness">Correctness</h3>
+<p>For this particular example, the solution works. Now we&rsquo;ll check this algorithm against the full test set in leetcode.</p>
+<h4 id="modifications">Modifications</h4>
+<p>Before testing against the full test set, we have to modify the code to handle rectangular matrices and for empty matrices. Note that this part of the code only works for square matrices:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>):
+    potentials<span style="color:#f92672">.</span>put((i, <span style="color:#ae81ff">0</span>))
+    potentials<span style="color:#f92672">.</span>put((<span style="color:#ae81ff">0</span>, i))
+
+</code></pre></div><p>For a rectangular matrix, we need:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">numrows <span style="color:#f92672">=</span> len(matrix)
+numcols <span style="color:#f92672">=</span> len(matrix[<span style="color:#ae81ff">0</span>])
+
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numrows):
+    potentials<span style="color:#f92672">.</span>put((i, <span style="color:#ae81ff">0</span>))
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numcols):
+    potentials<span style="color:#f92672">.</span>put((<span style="color:#ae81ff">0</span>, i))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">water_flow</span>(matrix):
+    <span style="color:#66d9ef">if</span> matrix <span style="color:#f92672">==</span> []:
+        <span style="color:#66d9ef">return</span> []
+
+    numrows <span style="color:#f92672">=</span> len(matrix)
+    numcols <span style="color:#f92672">=</span> len(matrix[<span style="color:#ae81ff">0</span>])
+
+    <span style="color:#f92672">import</span> queue
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">BFS</span>(potentials):
+        visited <span style="color:#f92672">=</span> set()
+        <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> potentials<span style="color:#f92672">.</span>empty():
+            i, j <span style="color:#f92672">=</span> potentials<span style="color:#f92672">.</span>get()
+            visited<span style="color:#f92672">.</span>add((i, j))
+            <span style="color:#66d9ef">for</span> ni, nj <span style="color:#f92672">in</span> [(i, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), (i, j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, j), (i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j)]:
+                <span style="color:#66d9ef">try</span>:
+                    <span style="color:#66d9ef">if</span> ni <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> nj <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> matrix[ni][nj] <span style="color:#f92672">&gt;=</span> matrix[i][j] <span style="color:#f92672">and</span> (ni, nj) <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> visited:
+                        potentials<span style="color:#f92672">.</span>put((ni, nj))
+                <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">IndexError</span>:
+                    <span style="color:#66d9ef">pass</span>
+
+        <span style="color:#66d9ef">return</span> visited
+
+    potentials <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span>Queue()
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numrows):
+        potentials<span style="color:#f92672">.</span>put((i, <span style="color:#ae81ff">0</span>))
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numcols):
+        potentials<span style="color:#f92672">.</span>put((<span style="color:#ae81ff">0</span>, i))
+
+    pacific_visited <span style="color:#f92672">=</span> BFS(potentials)
+
+    potentials <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span>Queue()
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numrows):
+        potentials<span style="color:#f92672">.</span>put((i, numcols<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numcols):
+        potentials<span style="color:#f92672">.</span>put((numrows<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, i))
+
+    atlantic_visited <span style="color:#f92672">=</span> BFS(potentials)
+
+    <span style="color:#66d9ef">return</span> atlantic_visited<span style="color:#f92672">.</span>intersection(pacific_visited)
+</code></pre></div><h3 id="performance">Performance</h3>
+<p>The results after this modification is:</p>
+<blockquote>
+<p>Runtime: 596 ms, faster than 13.85% of Python3 online submissions for Pacific Atlantic Water Flow.</p>
+<p>Memory Usage: 15.4 MB, less than 79.02% of Python3 online submissions for Pacific Atlantic Water Flow.</p>
+</blockquote>
+<p>The runtime is extremely high. The question is: is it because two BFS&rsquo;s are a bad idea or is it because of bad implementation?</p>
+<h4 id="implementation-check">Implementation check</h4>
+<h5 id="profiling">Profiling</h5>
+<p>We&rsquo;ll use the <code>cProfile</code> library to check the run time:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> cProfile
+<span style="color:#f92672">import</span> numpy
+matrix <span style="color:#f92672">=</span> numpy<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">100</span>, size<span style="color:#f92672">=</span>(<span style="color:#ae81ff">100</span>,<span style="color:#ae81ff">200</span>))
+cProfile<span style="color:#f92672">.</span>run(<span style="color:#e6db74">&#39;water_flow(matrix)&#39;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">44863 function calls (44862 primitive calls) in 0.069 seconds
+
+   Ordered by: standard name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:103(release)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:143(__init__)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:147(__enter__)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:151(__exit__)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:157(_get_module_lock)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:176(cb)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:211(_call_with_frames_removed)
+       12    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:222(_verbose_message)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:307(__init__)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:311(__enter__)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:318(__exit__)
+        4    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:321(&lt;genexpr&gt;)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:35(_new_module)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:369(__init__)
+        2    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:403(cached)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:416(parent)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:424(has_location)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:504(_init_module_attrs)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:564(module_from_spec)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:58(__init__)
+        1    0.000    0.000    0.001    0.001 &lt;frozen importlib._bootstrap&gt;:651(_load_unlocked)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:707(find_spec)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:78(acquire)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:780(find_spec)
+        3    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:843(__enter__)
+        3    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:847(__exit__)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:870(_find_spec)
+        1    0.000    0.000    0.001    0.001 &lt;frozen importlib._bootstrap&gt;:936(_find_and_load_unlocked)
+        1    0.000    0.000    0.001    0.001 &lt;frozen importlib._bootstrap&gt;:966(_find_and_load)
+        3    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:997(_handle_fromlist)
+        3    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:1080(_path_importer_cache)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:1117(_get_spec)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:1149(find_spec)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:1228(_get_spec)
+        2    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:1233(find_spec)
+        2    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:263(cache_from_source)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:361(_get_cached)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:393(_check_name_wrapper)
+        2    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:41(_relax_case)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:430(_validate_bytecode_header)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:485(_compile_bytecode)
+        2    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:52(_r_long)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:524(spec_from_file_location)
+       11    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:57(_path_join)
+       11    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:59(&lt;listcomp&gt;)
+        2    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:63(_path_split)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:669(create_module)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:672(exec_module)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:743(get_code)
+        4    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:75(_path_stat)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:800(__init__)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:825(get_filename)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:830(get_data)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:840(path_stats)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:85(_path_is_mode_type)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap_external&gt;:94(_path_isfile)
+        1    0.000    0.000    0.069    0.069 &lt;string&gt;:1(&lt;module&gt;)
+        1    0.001    0.001    0.069    0.069 python-blDUOi:1(water_flow)
+        2    0.026    0.013    0.062    0.031 python-blDUOi:10(BFS)
+        1    0.000    0.000    0.000    0.000 queue.py:1(&lt;module&gt;)
+     1716    0.007    0.000    0.017    0.000 queue.py:115(put)
+        1    0.000    0.000    0.000    0.000 queue.py:13(Empty)
+     1716    0.007    0.000    0.019    0.000 queue.py:147(get)
+        1    0.000    0.000    0.000    0.000 queue.py:17(Full)
+        2    0.000    0.000    0.000    0.000 queue.py:199(_init)
+     3434    0.002    0.000    0.003    0.000 queue.py:202(_qsize)
+     1716    0.001    0.000    0.002    0.000 queue.py:206(_put)
+        1    0.000    0.000    0.000    0.000 queue.py:21(Queue)
+     1716    0.001    0.000    0.002    0.000 queue.py:210(_get)
+        1    0.000    0.000    0.000    0.000 queue.py:214(PriorityQueue)
+        1    0.000    0.000    0.000    0.000 queue.py:233(LifoQueue)
+        2    0.000    0.000    0.000    0.000 queue.py:27(__init__)
+     1718    0.003    0.000    0.005    0.000 queue.py:90(empty)
+        6    0.000    0.000    0.000    0.000 threading.py:215(__init__)
+     3432    0.002    0.000    0.004    0.000 threading.py:239(__enter__)
+     3432    0.002    0.000    0.003    0.000 threading.py:242(__exit__)
+     3432    0.002    0.000    0.004    0.000 threading.py:254(_is_owned)
+     3432    0.006    0.000    0.010    0.000 threading.py:334(notify)
+        1    0.000    0.000    0.000    0.000 {built-in method _imp._fix_co_filename}
+        5    0.000    0.000    0.000    0.000 {built-in method _imp.acquire_lock}
+        1    0.000    0.000    0.000    0.000 {built-in method _imp.is_builtin}
+        1    0.000    0.000    0.000    0.000 {built-in method _imp.is_frozen}
+        5    0.000    0.000    0.000    0.000 {built-in method _imp.release_lock}
+        4    0.000    0.000    0.000    0.000 {built-in method _thread.allocate_lock}
+        2    0.000    0.000    0.000    0.000 {built-in method _thread.get_ident}
+        5    0.000    0.000    0.000    0.000 {built-in method builtins.__build_class__}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.any}
+      2/1    0.000    0.000    0.069    0.069 {built-in method builtins.exec}
+        6    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+        8    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+        5    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+     3440    0.001    0.000    0.001    0.000 {built-in method builtins.len}
+        2    0.000    0.000    0.000    0.000 {built-in method from_bytes}
+        1    0.000    0.000    0.000    0.000 {built-in method marshal.loads}
+        3    0.000    0.000    0.000    0.000 {built-in method posix.fspath}
+        1    0.000    0.000    0.000    0.000 {built-in method posix.getcwd}
+        4    0.000    0.000    0.000    0.000 {built-in method posix.stat}
+     3432    0.001    0.000    0.001    0.000 {method &#39;__enter__&#39; of &#39;_thread.lock&#39; objects}
+     3432    0.001    0.000    0.001    0.000 {method &#39;__exit__&#39; of &#39;_thread.lock&#39; objects}
+     3432    0.002    0.000    0.002    0.000 {method &#39;acquire&#39; of &#39;_thread.lock&#39; objects}
+     1716    0.001    0.000    0.001    0.000 {method &#39;add&#39; of &#39;set&#39; objects}
+     1716    0.000    0.000    0.000    0.000 {method &#39;append&#39; of &#39;collections.deque&#39; objects}
+        1    0.000    0.000    0.000    0.000 {method &#39;disable&#39; of &#39;_lsprof.Profiler&#39; objects}
+        1    0.000    0.000    0.000    0.000 {method &#39;endswith&#39; of &#39;str&#39; objects}
+        2    0.000    0.000    0.000    0.000 {method &#39;get&#39; of &#39;dict&#39; objects}
+        1    0.000    0.000    0.000    0.000 {method &#39;intersection&#39; of &#39;set&#39; objects}
+       13    0.000    0.000    0.000    0.000 {method &#39;join&#39; of &#39;str&#39; objects}
+     1716    0.000    0.000    0.000    0.000 {method &#39;popleft&#39; of &#39;collections.deque&#39; objects}
+        1    0.000    0.000    0.000    0.000 {method &#39;read&#39; of &#39;_io.FileIO&#39; objects}
+        8    0.000    0.000    0.000    0.000 {method &#39;rpartition&#39; of &#39;str&#39; objects}
+       24    0.000    0.000    0.000    0.000 {method &#39;rstrip&#39; of &#39;str&#39; objects}
+</code></pre></div><p>Notice that most of the time is spent on the queue. This makes sense because queues are thread-safe. But we have a single consumer, single producer situation and we don&rsquo;t really need the multi-threading aspects of the queue. We can try replacing <code>queue</code> with a <code>deque</code>.</p>
+<h5 id="deque-instead-of-queue">Deque instead of Queue</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">water_flow</span>(matrix):
+    <span style="color:#66d9ef">if</span> matrix <span style="color:#f92672">==</span> []:
+        <span style="color:#66d9ef">return</span> []
+
+    numrows <span style="color:#f92672">=</span> len(matrix)
+    numcols <span style="color:#f92672">=</span> len(matrix[<span style="color:#ae81ff">0</span>])
+
+    <span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> deque
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">BFS</span>(potentials):
+        visited <span style="color:#f92672">=</span> set()
+        <span style="color:#66d9ef">while</span> potentials:
+            i, j <span style="color:#f92672">=</span> potentials<span style="color:#f92672">.</span>popleft()
+            visited<span style="color:#f92672">.</span>add((i, j))
+            <span style="color:#66d9ef">for</span> ni, nj <span style="color:#f92672">in</span> [(i, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), (i, j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, j), (i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j)]:
+                <span style="color:#66d9ef">try</span>:
+                    <span style="color:#66d9ef">if</span> ni <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> nj <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> matrix[ni][nj] <span style="color:#f92672">&gt;=</span> matrix[i][j] <span style="color:#f92672">and</span> (ni, nj) <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> visited:
+                        potentials<span style="color:#f92672">.</span>append((ni, nj))
+                <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">IndexError</span>:
+                    <span style="color:#66d9ef">pass</span>
+
+        <span style="color:#66d9ef">return</span> visited
+
+    potentials <span style="color:#f92672">=</span> deque()
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numrows):
+        potentials<span style="color:#f92672">.</span>append((i, <span style="color:#ae81ff">0</span>))
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numcols):
+        potentials<span style="color:#f92672">.</span>append((<span style="color:#ae81ff">0</span>, i))
+    pacific_visited <span style="color:#f92672">=</span> BFS(potentials)
+
+    potentials <span style="color:#f92672">=</span> deque()
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numrows):
+        potentials<span style="color:#f92672">.</span>append((i, numcols<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numcols):
+        potentials<span style="color:#f92672">.</span>append((numrows<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, i))
+    atlantic_visited <span style="color:#f92672">=</span> BFS(potentials)
+
+    <span style="color:#66d9ef">return</span> atlantic_visited<span style="color:#f92672">.</span>intersection(pacific_visited)
+
+<span style="color:#f92672">import</span> cProfile
+<span style="color:#f92672">import</span> numpy
+matrix <span style="color:#f92672">=</span> numpy<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">100</span>, size<span style="color:#f92672">=</span>(<span style="color:#ae81ff">100</span>,<span style="color:#ae81ff">200</span>))
+cProfile<span style="color:#f92672">.</span>run(<span style="color:#e6db74">&#39;water_flow(matrix)&#39;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">5517 function calls in 0.028 seconds
+
+   Ordered by: standard name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:1017(_handle_fromlist)
+        1    0.000    0.000    0.028    0.028 &lt;string&gt;:1(&lt;module&gt;)
+        1    0.000    0.000    0.027    0.027 python-eEnReg:1(water_flow)
+        2    0.025    0.013    0.027    0.013 python-eEnReg:10(BFS)
+        1    0.000    0.000    0.028    0.028 {built-in method builtins.exec}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+     1835    0.001    0.000    0.001    0.000 {method &#39;add&#39; of &#39;set&#39; objects}
+     1835    0.000    0.000    0.000    0.000 {method &#39;append&#39; of &#39;collections.deque&#39; objects}
+        1    0.000    0.000    0.000    0.000 {method &#39;disable&#39; of &#39;_lsprof.Profiler&#39; objects}
+        1    0.000    0.000    0.000    0.000 {method &#39;intersection&#39; of &#39;set&#39; objects}
+     1835    0.000    0.000    0.000    0.000 {method &#39;popleft&#39; of &#39;collections.deque&#39; objects}
+</code></pre></div><h6 id="results">Results</h6>
+<p>This implementation with a <code>deque</code> is much faster than using a <code>Queue</code>.</p>
+<blockquote>
+<p>Runtime: 320 ms, faster than 36.12% of Python3 online submissions for Pacific Atlantic Water Flow.</p>
+<p>Memory Usage: 15.4 MB, less than 93.84% of Python3 online submissions for Pacific Atlantic Water Flow.</p>
+</blockquote>
+<h5 id="pop-vs-popleft">Pop vs popleft</h5>
+<p>Surprisingly using <code>pop</code> instead of <code>popleft</code> cuts down runtime by about 10%. Although the answers don&rsquo;t change, we are in fact running a DFS instead of a BFS. For creating rooted spanning trees i.e. spanning trees from a particular vertex, DFS vs. BFS makes no difference.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">water_flow</span>(matrix):
+    <span style="color:#66d9ef">if</span> matrix <span style="color:#f92672">==</span> []:
+        <span style="color:#66d9ef">return</span> []
+
+    numrows <span style="color:#f92672">=</span> len(matrix)
+    numcols <span style="color:#f92672">=</span> len(matrix[<span style="color:#ae81ff">0</span>])
+
+    <span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> deque
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">BFS</span>(potentials):
+        visited <span style="color:#f92672">=</span> set()
+        <span style="color:#66d9ef">while</span> potentials:
+            i, j <span style="color:#f92672">=</span> potentials<span style="color:#f92672">.</span>pop()
+            visited<span style="color:#f92672">.</span>add((i, j))
+            <span style="color:#66d9ef">for</span> ni, nj <span style="color:#f92672">in</span> [(i, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), (i, j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, j), (i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j)]:
+                <span style="color:#66d9ef">try</span>:
+                    <span style="color:#66d9ef">if</span> ni <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> nj <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> matrix[ni][nj] <span style="color:#f92672">&gt;=</span> matrix[i][j] <span style="color:#f92672">and</span> (ni, nj) <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> visited:
+                        potentials<span style="color:#f92672">.</span>append((ni, nj))
+                <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">IndexError</span>:
+                    <span style="color:#66d9ef">pass</span>
+
+        <span style="color:#66d9ef">return</span> visited
+
+    potentials <span style="color:#f92672">=</span> deque()
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numrows):
+        potentials<span style="color:#f92672">.</span>append((i, <span style="color:#ae81ff">0</span>))
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numcols):
+        potentials<span style="color:#f92672">.</span>append((<span style="color:#ae81ff">0</span>, i))
+    pacific_visited <span style="color:#f92672">=</span> BFS(potentials)
+
+    potentials <span style="color:#f92672">=</span> deque()
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numrows):
+        potentials<span style="color:#f92672">.</span>append((i, numcols<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numcols):
+        potentials<span style="color:#f92672">.</span>append((numrows<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, i))
+    atlantic_visited <span style="color:#f92672">=</span> BFS(potentials)
+
+    <span style="color:#66d9ef">return</span> atlantic_visited<span style="color:#f92672">.</span>intersection(pacific_visited)
+
+<span style="color:#f92672">import</span> cProfile
+<span style="color:#f92672">import</span> numpy
+matrix <span style="color:#f92672">=</span> numpy<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">100</span>, size<span style="color:#f92672">=</span>(<span style="color:#ae81ff">100</span>,<span style="color:#ae81ff">200</span>))
+cProfile<span style="color:#f92672">.</span>run(<span style="color:#e6db74">&#39;water_flow(matrix)&#39;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">4626 function calls in 0.015 seconds
+
+   Ordered by: standard name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:1017(_handle_fromlist)
+        1    0.000    0.000    0.015    0.015 &lt;string&gt;:1(&lt;module&gt;)
+        1    0.000    0.000    0.015    0.015 python-nyj7Z7:1(water_flow)
+        2    0.014    0.007    0.015    0.007 python-nyj7Z7:10(BFS)
+        1    0.000    0.000    0.015    0.015 {built-in method builtins.exec}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+     1538    0.000    0.000    0.000    0.000 {method &#39;add&#39; of &#39;set&#39; objects}
+     1538    0.000    0.000    0.000    0.000 {method &#39;append&#39; of &#39;collections.deque&#39; objects}
+        1    0.000    0.000    0.000    0.000 {method &#39;disable&#39; of &#39;_lsprof.Profiler&#39; objects}
+        1    0.000    0.000    0.000    0.000 {method &#39;intersection&#39; of &#39;set&#39; objects}
+     1538    0.000    0.000    0.000    0.000 {method &#39;pop&#39; of &#39;collections.deque&#39; objects}
+</code></pre></div><h6 id="results">Results</h6>
+<blockquote>
+<p>Runtime: 260 ms, faster than 98.01% of Python3 online submissions for Pacific Atlantic Water Flow.</p>
+<p>Memory Usage: 15.5 MB, less than 79.02% of Python3 online submissions for Pacific Atlantic Water Flow.</p>
+</blockquote>
+<h2 id="yet-to-explore">Yet to explore</h2>
+<p>While BFS/DFS based reachability works alright for this particular problem, there are faster algorithms such as <a href="https://www.semanticscholar.org/paper/Compact-oracles-for-reachability-and-approximate-in-Thorup/17a9cda6666dedac25365a107a370ce82ff7ed5f">Thorup&rsquo;s algorithm for reachability for planar graphs</a>. Once the initial data structure is built for a particular graph (in \(O( n \log n)\) time ), the algorithm guarantees a constant time check for reachability between any two vertices. The implementation may not be straightforward considering the amount of math involved but it&rsquo;s worth a try since this particular problem involves planar graphs.</p>
+
+</main>
+
+<div class="related-content">
+
+
+<h3>See Also</h3>
+<ul>
+    
+    <li><a href="https://sprjg.github.io/posts/20201205201509-algo_walkthrough_spiral_matrix/">Algo walkthrough: spiral matrix</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/">Algo walkthrough: set matrix zeroes</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/20201127172735-algo_walkthrough_course_schedule/">Algo walkthrough: course schedule</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/20201125100541-algo_walkthrough_number_of_islands/">Algo walkthrough: number of islands</a></li>
+    
+</ul>
+
+</div>
+
+<script src="https://utteranc.es/client.js"
+        repo="sprjg/sprjg.github.io"
+        issue-term="title"
+        label="blog-comments"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  <footer>
+  <script src="https://sprjg.github.io/js/math-code.js"></script>
+<script async src="https://sprjg.github.io/MathJax/es5/tex-chtml.js"></script>
+
+
+<script async src="https://sprjg.github.io/js/center-img.js"></script>
+
+  
+  <hr/>
+  © <a href="https://sprjg.github.io">SPR</a> 2019 &ndash; 2020 | <a href="https://github.com/sprajagopal">Github</a>
+  
+  </footer>
+  </body>
+</html>
+
