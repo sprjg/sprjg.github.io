@@ -3,13 +3,48 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</loc>
-    <lastmod>2021-02-26T11:54:26+05:30</lastmod>
+    <loc>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</loc>
+    <lastmod>2021-02-26T12:09:57+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://sprjg.github.io/categories/algos/</loc>
-    <lastmod>2021-02-26T12:08:04+05:30</lastmod>
+    <lastmod>2021-02-26T12:09:57+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://sprjg.github.io/categories/</loc>
+    <lastmod>2021-02-26T12:09:57+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://sprjg.github.io/tags/graph-traversal/</loc>
+    <lastmod>2021-02-26T12:09:57+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://sprjg.github.io/tags/matrix/</loc>
+    <lastmod>2021-02-26T12:09:57+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://sprjg.github.io/</loc>
+    <lastmod>2021-02-26T12:09:57+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://sprjg.github.io/posts/</loc>
+    <lastmod>2021-02-26T12:09:57+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://sprjg.github.io/tags/</loc>
+    <lastmod>2021-02-26T12:09:57+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</loc>
+    <lastmod>2021-02-26T11:54:26+05:30</lastmod>
   </url>
   
   <url>
@@ -18,38 +53,13 @@
   </url>
   
   <url>
-    <loc>https://sprjg.github.io/categories/</loc>
-    <lastmod>2021-02-26T12:08:04+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>https://sprjg.github.io/tags/dynamic-programming/</loc>
     <lastmod>2021-02-26T11:54:26+05:30</lastmod>
   </url>
   
   <url>
-    <loc>https://sprjg.github.io/</loc>
-    <lastmod>2021-02-26T12:08:04+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://sprjg.github.io/posts/</loc>
-    <lastmod>2021-02-26T12:08:04+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://sprjg.github.io/tags/</loc>
-    <lastmod>2021-02-26T12:08:04+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>https://sprjg.github.io/posts/20201205201509-algo_walkthrough_spiral_matrix/</loc>
     <lastmod>2021-01-31T20:09:29+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://sprjg.github.io/tags/matrix/</loc>
-    <lastmod>2021-02-26T12:08:04+05:30</lastmod>
   </url>
   
   <url>
@@ -80,11 +90,6 @@
   <url>
     <loc>https://sprjg.github.io/tags/cycle-detection/</loc>
     <lastmod>2020-12-22T13:25:08+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://sprjg.github.io/tags/graph-traversal/</loc>
-    <lastmod>2021-02-26T12:08:04+05:30</lastmod>
   </url>
   
   <url>
@@ -150,11 +155,6 @@
   <url>
     <loc>https://sprjg.github.io/categories/tools/</loc>
     <lastmod>2020-12-07T18:55:25+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</loc>
-    <lastmod>2021-02-26T12:08:04+05:30</lastmod>
   </url>
   
 </urlset>

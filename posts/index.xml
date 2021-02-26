@@ -6,10 +6,26 @@
     <description>Recent content in Posts on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 12 Dec 2020 00:00:00 +0530</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0530</lastBuildDate>
     
 	<atom:link href="https://sprjg.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Algo walkthrough: pacific atlantic water flow</title>
+      <link>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</link>
+      <pubDate>Wed, 10 Feb 2021 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</guid>
+      <description>Note:
+The order of returned grid coordinates does not matter. Both m and n are less than 150.
+Link to the problem.
+ Intuitions The question directly gives us a way to visualize the matrix: as an elevation map. Following is a matrix and the corresponding elevation map:
+ ~ ~ ~ ~ ~
+~ 1 2 2 3 (5) *
+~ 3 2 3 (4) (4) *
+~ 2 4 (5) 3 1 *</description>
+    </item>
     
     <item>
       <title>Algo walkthrough: product of array except self</title>
@@ -132,22 +148,6 @@ Real domain to complex domain The first confusion for me was the shift in the su
       <description>A comparison of python vs matlab
 lassoPlot in matlab In matlab, lasso regression&amp;rsquo;s MSE is easily visualized using the command lassoPlot. The following is from Prof. Steve Brunton&amp;rsquo;s uwdatabook page. In the zip file, the exact file is CH03_SEC05_2_LASSO.m. The most relevant parts to create the plot are picked out here:
 A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors b = A*x + 2*randn(100,1); % Observations (with noise) xL2 = pinv(A)*b [XL1 FitInfo] = lasso(A,b,&amp;#39;CV&amp;#39;,10); lassoPlot(XL1,FitInfo,&amp;#39;PlotType&amp;#39;,&amp;#39;CV&amp;#39;) save See output below:</description>
-    </item>
-    
-    <item>
-      <title>Algo walkthrough: pacific atlantic water flow</title>
-      <link>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</link>
-      <pubDate>Mon, 10 Feb 2020 00:00:00 +0530</pubDate>
-      
-      <guid>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</guid>
-      <description>Note:
-The order of returned grid coordinates does not matter. Both m and n are less than 150.
-Link to the problem.
- Intuitions The question directly gives us a way to visualize the matrix: as an elevation map. Following is a matrix and the corresponding elevation map:
- ~ ~ ~ ~ ~
-~ 1 2 2 3 (5) *
-~ 3 2 3 (4) (4) *
-~ 2 4 (5) 3 1 *</description>
     </item>
     
   </channel>
