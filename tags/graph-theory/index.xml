@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>graph-theory on Notes on engineering math</title>
+    <link>https://sprjg.github.io/tags/graph-theory/</link>
+    <description>Recent content in graph-theory on Notes on engineering math</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0530</lastBuildDate>
+    
+	<atom:link href="https://sprjg.github.io/tags/graph-theory/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Algo walkthrough: jump game</title>
+      <link>https://sprjg.github.io/posts/20210226124708-algo_walkthrough_jump_game/</link>
+      <pubDate>Fri, 26 Feb 2021 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/posts/20210226124708-algo_walkthrough_jump_game/</guid>
+      <description>Example 1:
+Input: nums = [2,3,1,1,4]
+Output: true
+Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+Example 2:
+Input: nums = [3,2,1,0,4]
+Output: false
+Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
+ Link to the problem
+Intuitions There may be more than one path to reach the end of the array i.</description>
+    </item>
+    
+  </channel>
+</rss>
