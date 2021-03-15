@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:type" content="article" />
+
+<meta property="og:url" content="https://sprjg.github.io/posts/20210313111558-algo_walkthrough_word_search/" />
+
+<meta property="og:title" content="Algo walkthrough: Word search" />
+
+<meta property="og:image" content="https://sprjg.github.io/ox-hugo/screenshot2021-03-13_11-25-29_.png" />
+
+<meta property="og:description" content="Given an m x n grid of characters board and a string word, return true if word exists in the grid." />
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="twitter:site" content="">
+
+<meta name="twitter:creator" content="">
+
+<meta name="twitter:title" content="Algo walkthrough: Word search" />
+
+<meta name="twitter:description" content="Given an m x n grid of characters board and a string word, return true if word exists in the grid." />
+
+<meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/screenshot2021-03-13_11-25-29_.png" />
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/sprjg.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Algo walkthrough: Word search",
+    "headline" : "Algo walkthrough: Word search",
+    "description" : "Given an m x n grid of characters board and a string word, return true if word exists in the grid.",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2021",
+    "datePublished": "2021-03-13 00:00:00 \x2b0530 IST",
+    "dateModified" : "2021-03-13 00:00:00 \x2b0530 IST",
+    "url" : "https:\/\/sprjg.github.io\/posts\/20210313111558-algo_walkthrough_word_search\/",
+    "wordCount" : "1762",
+    "keywords" : [ "graph-traversal","Blog" ]
+}
+</script>
+
+
+    <title>Algo walkthrough: Word search | Notes on engineering math</title>
+    <link rel="stylesheet" href="https://sprjg.github.io/css/style.css" />
+    <link rel="stylesheet" href="https://sprjg.github.io/css/fonts.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class='site-title'> <div> Notes on engineering math </div> </div>
+    <div id="posts-list">
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="https://sprjg.github.io/posts/">Archive</a></li>
+      
+      <li><a href="https://sprjg.github.io/categories/">Categories</a></li>
+      
+      <li><a href="https://sprjg.github.io/tags/">Tags</a></li>
+      
+      <li><a href="https://sprjg.github.io/">About</a></li>
+      
+      <li><a href="https://sprjg.github.io/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+    </div>
+
+<div class="article-meta">
+<a href="https://sprjg.github.io/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: Word search</span></h1></a>
+</div>
+
+<main>
+  <aside class="toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#intuitions">Intuitions</a>
+      <ul>
+        <li><a href="#correctness">Correctness</a></li>
+        <li><a href="#implementation">Implementation <a id="org7e9c8d5"></a></a></li>
+        <li><a href="#results">Results</a></li>
+      </ul>
+    </li>
+    <li><a href="#improvements">Improvements</a>
+      <ul>
+        <li><a href="#seemingly-good-but-wrong-solutions">Seemingly good but wrong solutions</a></li>
+        <li><a href="#an-unconventional-but-creative-solution">An unconventional but creative solution</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </aside>
+  Given an m x n grid of characters board and a string word, return true if word exists in the grid.
+  <p>The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.</p>
+<p>Note: There will be some test cases with a board or a word larger than constraints to test if your solution is using pruning.</p>
+<p><a href="https://leetcode.com/problems/word-search/">Link to the problem.</a></p>
+<h2 id="intuitions">Intuitions</h2>
+<p>It seems like a graph traversal problem. What&rsquo;s tricky is the root of the traversal i.e. the starting point. Should we look for the first letter in the matrix and then follow the neighbours? What if there are multiple start points? We could explore each start point and return <code>True</code> when we succeed. If we exhaust all the start points, we can return <code>False</code>.
+For the example below, say we search for <code>SEE</code>. There are four possible start points. We do a modified Depth First Search from each start point. In vanilla DFT, we search all the paths until all edges are exhausted. This is not useful for this scenario. Instead we start at <code>S</code>. We look for an adjacent <code>E</code>. If we find one, we skip all other neighbours (for now) of <code>S</code> and move to <code>E</code>. The next letter we need is another <code>E</code>. We look for neighbours that match. If we find none, we move back to <code>S</code> and explore the skipped neighbours for another <code>E</code>.</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2021-03-13_11-25-29_.png"/> 
+</figure>
+
+<h3 id="correctness">Correctness</h3>
+<p>For a <code>False</code> result, we would explore all the start points and traverse through the whole matrix. At the end we return <code>False</code>. For a <code>True</code> result, we might find a promising start <em>and</em> a sequence of adjacent cells that match the word; we can return immediately at that point. We can handle multiple start points (explore one by one), multiple correct matches (just return after the first one).</p>
+<h3 id="implementation">Implementation <a id="org7e9c8d5"></a></h3>
+<p>Finding neighbours in a matrix is always finnicky (because of special handling at the boundaries). Apart from that a straightforward nested <code>for</code> loop is enough to explore the matrix for start points. When we find one, we start a DFT at that point.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">exist</span>(board, word):
+    numrows <span style="color:#f92672">=</span>  len(board)
+    numcols <span style="color:#f92672">=</span> len(board[<span style="color:#ae81ff">0</span>])
+    wlen <span style="color:#f92672">=</span> len(word)
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">DFT</span>(r,c,i):
+        <span style="color:#66d9ef">for</span> ni, nj <span style="color:#f92672">in</span> [(r, c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), (r, c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, c), (r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, c)]:
+            <span style="color:#66d9ef">if</span> ni <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> ni <span style="color:#f92672">&lt;</span> numrows <span style="color:#f92672">and</span> nj <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> nj <span style="color:#f92672">&lt;</span> numcols:
+                <span style="color:#66d9ef">if</span> (ni, nj) <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> visited <span style="color:#f92672">and</span> board[ni][nj] <span style="color:#f92672">==</span> word[i]:
+                    i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+                    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> wlen:
+                        <span style="color:#66d9ef">return</span> True
+                    visited<span style="color:#f92672">.</span>add((ni, nj))
+                    <span style="color:#66d9ef">if</span> DFT(ni,nj,i):
+                        <span style="color:#66d9ef">return</span> True
+                    i <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+                    visited<span style="color:#f92672">.</span>remove((ni, nj))
+        <span style="color:#66d9ef">return</span> False
+
+    <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(numrows):
+        <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(numcols):
+            <span style="color:#66d9ef">if</span> board[r][c] <span style="color:#f92672">==</span> word[<span style="color:#ae81ff">0</span>]:
+                <span style="color:#66d9ef">if</span> wlen <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+                    <span style="color:#66d9ef">return</span> True
+                visited <span style="color:#f92672">=</span> set()
+                visited<span style="color:#f92672">.</span>add((r,c))
+                <span style="color:#66d9ef">if</span> DFT(r,c,<span style="color:#ae81ff">1</span>):
+                    <span style="color:#66d9ef">return</span> True
+
+    <span style="color:#66d9ef">return</span> False
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test</span>():
+    <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>],[<span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;F&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;S&#34;</span>],[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;D&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>]], <span style="color:#e6db74">&#34;ABCCED&#34;</span>))
+    <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>],[<span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;F&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;S&#34;</span>],[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;D&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>]], <span style="color:#e6db74">&#34;SEE&#34;</span>))
+    <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>],[<span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;F&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;S&#34;</span>],[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;D&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>]],  <span style="color:#e6db74">&#34;ABCB&#34;</span>))
+    <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>]], <span style="color:#e6db74">&#34;aaa&#34;</span>))
+    <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;b&#34;</span>],[<span style="color:#e6db74">&#34;c&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>]], <span style="color:#e6db74">&#34;abcd&#34;</span>))
+    <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>],[<span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;F&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>,<span style="color:#e6db74">&#34;S&#34;</span>],[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;D&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>]], <span style="color:#e6db74">&#34;ABCESEEEFS&#34;</span>))
+    <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;D&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>],[<span style="color:#e6db74">&#34;T&#34;</span>,<span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;R&#34;</span>,<span style="color:#e6db74">&#34;Q&#34;</span>,<span style="color:#e6db74">&#34;F&#34;</span>],[<span style="color:#e6db74">&#34;M&#34;</span>,<span style="color:#e6db74">&#34;N&#34;</span>,<span style="color:#e6db74">&#34;O&#34;</span>,<span style="color:#e6db74">&#34;P&#34;</span>,<span style="color:#e6db74">&#34;G&#34;</span>],[<span style="color:#e6db74">&#34;L&#34;</span>,<span style="color:#e6db74">&#34;K&#34;</span>,<span style="color:#e6db74">&#34;J&#34;</span>,<span style="color:#e6db74">&#34;I&#34;</span>,<span style="color:#e6db74">&#34;H&#34;</span>]], <span style="color:#e6db74">&#34;ABCDEFGHIJKLMNOPQRST&#34;</span>))
+    <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>],[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>],[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>],[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>],[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;b&#34;</span>]], <span style="color:#e6db74">&#34;aaaaaaaaaaaaaaaaaaaa&#34;</span>))
+
+test()
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">True
+True
+False
+False
+False
+True
+True
+False
+</code></pre></div><h4 id="edge-cases">Edge cases</h4>
+<p>If there&rsquo;s just one letter in the given word, then we obviously return <code>True</code> as soon as find it. We don&rsquo;t start a DFT.</p>
+<h4 id="bound-checks">Bound checks</h4>
+<p>During DFT, we need the bounds check for the neighbours. The following <code>if</code> clause handles that.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">if</span> ni <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> ni <span style="color:#f92672">&lt;</span> numrows <span style="color:#f92672">and</span> nj <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> nj <span style="color:#f92672">&lt;</span> numcols:
+</code></pre></div><h4 id="backtracking">Backtracking</h4>
+<p>In traditional DFT, we mark nodes as <code>visited</code> when they are reached once. We don&rsquo;t &ldquo;unvisit&rdquo; them when we backtrack. But in this case, we have to mark them as unvisited when we backtrack because we are not interested in just visiting all nodes. We are also interested in the order of visiting. So when a DFT fails to find the right sequence, we remove the nodes visited in that try. We may revisit them in a different order from a different parent.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">visited<span style="color:#f92672">.</span>add((ni, nj))
+<span style="color:#66d9ef">if</span> DFT(ni,nj,i):
+    <span style="color:#66d9ef">return</span> True
+i <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+visited<span style="color:#f92672">.</span>remove((ni, nj))
+</code></pre></div><h3 id="results">Results</h3>
+<p>This is clearly a poor implementation.</p>
+<blockquote>
+<p>Runtime: 3408 ms, faster than 5.02% of Python3 online submissions for Word Search.</p>
+<p>Memory Usage: 15.9 MB, less than 40.53% of Python3 online submissions for Word Search.</p>
+</blockquote>
+<p>A few improvements are possible.</p>
+<h2 id="improvements">Improvements</h2>
+<p>The basic algorithm of using DFT seems to work. Any improvements must make the DFT faster. Particularly we must be faster in ruling out wrong paths.</p>
+<h3 id="seemingly-good-but-wrong-solutions">Seemingly good but wrong solutions</h3>
+<h4 id="memoizing-with-cell-co-ordinates-and-depth-value">Memoizing with cell co-ordinates and depth value</h4>
+<p>It might seem we could memoize the calls to the DFT i.e. maintain a dictionary of True/False outputs for the triplet <code>(r,c,i)</code> but this is theoretically wrong. To see why, look at the following example grid and a word <code>ABCESEEEFS</code>:</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2021-03-13_17-54-12_.png"/> 
+</figure>
+
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2021-03-13_18-02-45_.png"/> 
+</figure>
+
+<p>Say a DFT takes the yellow path. Notice that the circled <code>E</code> is reached at index <code>6</code>. This green path fails to cover the whole word. The correct DFT is the green path. But this path reaches the circled <code>E</code> at index <code>6</code> again! If we memoized our function <code>DFT</code> it would return <code>False</code> incorrectly. So the memoization cannot just be on the triplets; it must be on the whole path. But this makes no sense. We would never actually repeat a complete path again (since our starting point never repeats). So memoization does not actually help in this case at all.</p>
+<h4 id="starting-from-the-end-of-the-string-and-doing-a-reverse-dft">Starting from the end of the string and doing a reverse DFT</h4>
+<p>This may in fact be promising for some strings and test grids. But we could always find an inverted test case that takes a lot of time in this implementation.</p>
+<h3 id="an-unconventional-but-creative-solution">An unconventional but creative solution</h3>
+<p>We could try a solution that doesn&rsquo;t seem traditionally computer science-y. Given a string, we must find all the characters in the grid. Which means to reject a string we only need to prove that a substring does not exist in the grid. So with a clever choice of this substring we could reject test cases faster (and potentially localize on the correct location faster for accepting strings).</p>
+<h4 id="what-s-this-clever-choice-business">What&rsquo;s this clever choice business</h4>
+<p>The main issue with a DFT is the amount of backtracking and availability of start points. What if we choose a substring whose start character is the least occuring in the grid? Or better yet we may find that a character does not occur at all which leads to a straight rejection.
+Yes, this involves scanning the string and the grid once. But this may potentially save a lot of DFT work i.e. recursive calls, pushing/popping visited nodes.</p>
+<h5 id="approach">Approach</h5>
+<p>We first run through the grid linearly and save the character counts in a dictionary. We then go through the input string and find the character that least occurs in the grid. Depending on the position of this character we can choose the left or right substring (the idea is to choose as small a substring as possible).
+After this setup, we start searching for this chosen substring in the grid. If we don&rsquo;t find it, great, reject the string faster. If we do find it, then we have pinned approximately the location of our string. After this we just have to find the rest of it starting from this approximate location. This again might be faster than doing a DFT on the whole string.</p>
+<h5 id="data-structures-and-functions">Data structures and functions</h5>
+<p>We&rsquo;ll continue to use our <code>DFT</code> function from earlier. We&rsquo;ll modify the inputs to the input to include the word being searched and the visited stack. Earlier there was a single word being searched but now we are splitting the word into pieces, so the DFT function is now searching specifically for the word we supply it.
+We&rsquo;ll also move the checks from inside the <code>for</code> loop to the start of the function.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">DFT</span>(r,c,i,visited,word):
+    <span style="color:#66d9ef">if</span> i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">==</span> len(word):
+        <span style="color:#66d9ef">return</span> True
+    visited<span style="color:#f92672">.</span>add((r,c))
+    <span style="color:#66d9ef">for</span> ni, nj <span style="color:#f92672">in</span> [(r, c<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), (r, c<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), (r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, c), (r<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, c)]:
+        <span style="color:#66d9ef">if</span> ni <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> ni <span style="color:#f92672">&lt;</span> numrows <span style="color:#f92672">and</span> nj <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> nj <span style="color:#f92672">&lt;</span> numcols:
+            <span style="color:#66d9ef">if</span> (ni, nj) <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> visited <span style="color:#f92672">and</span> board[ni][nj] <span style="color:#f92672">==</span> word[i]:
+                <span style="color:#66d9ef">return</span> DFT(ni,nj,i,visited,word)
+    visited<span style="color:#f92672">.</span>remove((r, c))
+    <span style="color:#66d9ef">return</span> False
+</code></pre></div><p>Our approach depends on finding the least occurring letter in the grid that is also in the given word.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">exist</span>(board, word):
+    numrows <span style="color:#f92672">=</span>  len(board)
+    numcols <span style="color:#f92672">=</span> len(board[<span style="color:#ae81ff">0</span>])
+    wlen <span style="color:#f92672">=</span> len(word)
+    wmloc <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    cmin <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>
+    wcount <span style="color:#f92672">=</span> {}
+    wlocs <span style="color:#f92672">=</span> {}
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(numrows):
+        <span style="color:#66d9ef">for</span> idx, c <span style="color:#f92672">in</span> enumerate(board[i]):
+            wcount[c] <span style="color:#f92672">=</span> wcount<span style="color:#f92672">.</span>get(c, <span style="color:#ae81ff">0</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+            wlocs[c] <span style="color:#f92672">=</span> wlocs<span style="color:#f92672">.</span>get(c, []) <span style="color:#f92672">+</span> [idx]
+
+    <span style="color:#66d9ef">for</span> key, count <span style="color:#f92672">in</span> wcount<span style="color:#f92672">.</span>items():
+        <span style="color:#66d9ef">if</span> count <span style="color:#f92672">&lt;=</span> cmin:
+            wmloc <span style="color:#f92672">=</span> wlocs[key][<span style="color:#ae81ff">0</span>]
+            cmin <span style="color:#f92672">=</span> count
+
+    firststring, secondstring <span style="color:#f92672">=</span> (word[wmloc:], word[wmloc::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]) <span style="color:#66d9ef">if</span> wlen <span style="color:#f92672">-</span> wmloc <span style="color:#f92672">&lt;</span> wmloc <span style="color:#66d9ef">else</span> (word[wmloc::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], word[wmloc:])
+    <span style="color:#66d9ef">return</span> search(firststring, secondstring)
+</code></pre></div><p>Once we find the location <code>wmloc</code> of the letter in the given <code>word</code>, we split the given <code>word</code> into <code>firststring</code> and <code>secondstring</code>. Note also that the <code>firststring</code> or <code>secondstring</code> is reversed. This is to make sure that once we find this letter <code>word[wmloc]</code> in the grid, we search for both <code>firststring</code> and <code>secondstring</code> rooted from this grid position. If both are successfully found, we have the <code>word</code> in the grid.
+For example, for a grid with very few <code>B</code> characters, we split a given word of <code>ABAAAA</code> into <code>BA</code> and <code>BAAAA</code>. Both of these are searched from the same grid start point.</p>
+<blockquote>
+<p>Retaining the <code>visited</code> nodes</p>
+<p>We also do not clear the <code>visited</code> set over the two searches. We cannot reuse letters in both searches obviously.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">search</span>(firststring, secondstring, board, word):
+    <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> range(numrows):
+        <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(numcols):
+            <span style="color:#66d9ef">if</span> board[r][c] <span style="color:#f92672">==</span> word[<span style="color:#ae81ff">0</span>]:
+                <span style="color:#75715e"># start two DFT searches with a common visited set</span>
+                visited <span style="color:#f92672">=</span> set()
+                <span style="color:#66d9ef">return</span> DFT(r, c, <span style="color:#ae81ff">0</span>, visited, firststring) <span style="color:#f92672">and</span> DFT(r, c, <span style="color:#ae81ff">0</span>, visited, secondstring)
+
+    <span style="color:#66d9ef">return</span> False
+</code></pre></div><p>We&rsquo;ll also add a swap in case the <code>firststring</code> turns out be empty. The splitting makes no difference here and we&rsquo;ll simply search for the word as a whole.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">if</span> firststring <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span>:
+    firststring <span style="color:#f92672">=</span> secondstring
+    secondstring <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</code></pre></div><h5 id="testing">Testing</h5>
+<h6 id="basics">Basics</h6>
+<p>For the basis test cases this returns the same expected outputs as before. Now we move on to the full set of test cases in leetcode.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test</span>():
+   <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>],[<span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;F&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;S&#34;</span>],[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;D&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>]], <span style="color:#e6db74">&#34;ABCCED&#34;</span>))
+   <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>],[<span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;F&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;S&#34;</span>],[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;D&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>]], <span style="color:#e6db74">&#34;SEE&#34;</span>))
+   <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>],[<span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;F&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;S&#34;</span>],[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;D&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>]],  <span style="color:#e6db74">&#34;ABCB&#34;</span>))
+   <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>]], <span style="color:#e6db74">&#34;aaa&#34;</span>))
+   <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;b&#34;</span>],[<span style="color:#e6db74">&#34;c&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>]], <span style="color:#e6db74">&#34;abcd&#34;</span>))
+   <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>],[<span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;F&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>,<span style="color:#e6db74">&#34;S&#34;</span>],[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;D&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>]], <span style="color:#e6db74">&#34;ABCESEEEFS&#34;</span>))
+   <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#e6db74">&#34;B&#34;</span>,<span style="color:#e6db74">&#34;C&#34;</span>,<span style="color:#e6db74">&#34;D&#34;</span>,<span style="color:#e6db74">&#34;E&#34;</span>],[<span style="color:#e6db74">&#34;T&#34;</span>,<span style="color:#e6db74">&#34;S&#34;</span>,<span style="color:#e6db74">&#34;R&#34;</span>,<span style="color:#e6db74">&#34;Q&#34;</span>,<span style="color:#e6db74">&#34;F&#34;</span>],[<span style="color:#e6db74">&#34;M&#34;</span>,<span style="color:#e6db74">&#34;N&#34;</span>,<span style="color:#e6db74">&#34;O&#34;</span>,<span style="color:#e6db74">&#34;P&#34;</span>,<span style="color:#e6db74">&#34;G&#34;</span>],[<span style="color:#e6db74">&#34;L&#34;</span>,<span style="color:#e6db74">&#34;K&#34;</span>,<span style="color:#e6db74">&#34;J&#34;</span>,<span style="color:#e6db74">&#34;I&#34;</span>,<span style="color:#e6db74">&#34;H&#34;</span>]], <span style="color:#e6db74">&#34;ABCDEFGHIJKLMNOPQRST&#34;</span>))
+   <span style="color:#66d9ef">print</span>(exist([[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>],[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>],[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>],[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>],[<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;b&#34;</span>]], <span style="color:#e6db74">&#34;aaaaaaaaaaaaaaaaaaaa&#34;</span>))
+
+test()
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">True
+True
+False
+False
+False
+True
+True
+False
+</code></pre></div><h6 id="the-curveball">The curveball</h6>
+<p>This <a href="https://leetcode.com/submissions/detail/467704896/testcase/">particular testcase</a> is brutal. Our implementation times out. Surprisingly the <a href="#org7e9c8d5">previous implementation</a> did not time out but this one does? Let&rsquo;s analyze what causes this.
+In our case, we start with the only occurrence of <code>b</code>. Since this is the first occurrence in the given <code>word</code> we simply end up with an empty string and the given string. So our clever choice of splitting is of no use here.
+The board and the word have the same number of <code>a</code> and <code>b</code> occurrences. There is more than one path to go through the board and trace the given <code>word</code>.</p>
+
+</main>
+
+<div class="related-content">
+
+
+<h3>See Also</h3>
+<ul>
+    
+    <li><a href="https://sprjg.github.io/posts/20210313111558-algo_walkthrough_jump_game/">Algo walkthrough: jump game</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/20210226124708-algo_walkthrough_jump_game/">Algo walkthrough: jump game</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/">Algo walkthrough: pacific atlantic water flow</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/20201127172735-algo_walkthrough_course_schedule/">Algo walkthrough: course schedule</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/20201125100541-algo_walkthrough_number_of_islands/">Algo walkthrough: number of islands</a></li>
+    
+</ul>
+
+</div>
+
+<script src="https://utteranc.es/client.js"
+        repo="sprjg/sprjg.github.io"
+        issue-term="title"
+        label="blog-comments"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  <footer>
+  <script src="https://sprjg.github.io/js/math-code.js"></script>
+<script async src="https://sprjg.github.io/MathJax/es5/tex-chtml.js"></script>
+
+
+<script async src="https://sprjg.github.io/js/center-img.js"></script>
+
+  
+  <hr/>
+  © <a href="https://sprjg.github.io">SPR</a> 2019 &ndash; 2021 | <a href="https://github.com/sprajagopal">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

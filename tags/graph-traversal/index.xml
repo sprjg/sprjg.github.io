@@ -6,10 +6,52 @@
     <description>Recent content in graph-traversal on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Feb 2021 00:00:00 +0530</lastBuildDate>
+    <lastBuildDate>Sat, 13 Mar 2021 00:00:00 +0530</lastBuildDate>
     
 	<atom:link href="https://sprjg.github.io/tags/graph-traversal/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Algo walkthrough: jump game</title>
+      <link>https://sprjg.github.io/posts/20210313111558-algo_walkthrough_jump_game/</link>
+      <pubDate>Sat, 13 Mar 2021 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/posts/20210313111558-algo_walkthrough_jump_game/</guid>
+      <description>The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.
+Note: There will be some test cases with a board or a word larger than constraints to test if your solution is using pruning.
+Link to the problem.
+Intuitions It seems like a graph traversal problem. What&amp;rsquo;s tricky is the root of the traversal i.</description>
+    </item>
+    
+    <item>
+      <title>Algo walkthrough: Word search</title>
+      <link>https://sprjg.github.io/posts/20210313111558-algo_walkthrough_word_search/</link>
+      <pubDate>Sat, 13 Mar 2021 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/posts/20210313111558-algo_walkthrough_word_search/</guid>
+      <description>The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.
+Note: There will be some test cases with a board or a word larger than constraints to test if your solution is using pruning.
+Link to the problem.
+Intuitions It seems like a graph traversal problem. What&amp;rsquo;s tricky is the root of the traversal i.</description>
+    </item>
+    
+    <item>
+      <title>Algo walkthrough: jump game</title>
+      <link>https://sprjg.github.io/posts/20210226124708-algo_walkthrough_jump_game/</link>
+      <pubDate>Fri, 26 Feb 2021 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/posts/20210226124708-algo_walkthrough_jump_game/</guid>
+      <description>Example 1:
+Input: nums = [2,3,1,1,4]
+Output: true
+Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+Example 2:
+Input: nums = [3,2,1,0,4]
+Output: false
+Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
+ Link to the problem
+Intuitions There may be more than one path to reach the end of the array i.</description>
+    </item>
     
     <item>
       <title>Algo walkthrough: pacific atlantic water flow</title>
