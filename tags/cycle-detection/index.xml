@@ -13,10 +13,10 @@
     
     <item>
       <title>Algo walkthrough: course schedule</title>
-      <link>https://sprjg.github.io/posts/20201127172735-algo_walkthrough_course_schedule/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_course_schedule/</link>
       <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20201127172735-algo_walkthrough_course_schedule/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_course_schedule/</guid>
       <description>Link to the problem
 First impressions It seems every course has pre-requisites. A course c would have the following pre-requisites: [c, p1], [c, p2], .... First we finish all the pre-requisites then we can finish the course c. The pre-requisites will obviously have their own pre-requisites&amp;hellip; and so on. The question says &amp;ldquo;is it possible?&amp;rdquo; which means the inputs may have a situation where this chain of pre-requisites can never be completed because everything depends on everything else i.</description>
     </item>

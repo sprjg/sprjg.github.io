@@ -13,10 +13,10 @@
     
     <item>
       <title>Algo walkthrough: product of array except self</title>
-      <link>https://sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_product_of_array_except_self/</link>
       <pubDate>Sat, 12 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_product_of_array_except_self/</guid>
       <description>Input: [1,2,3,4]
 Output: [24,12,8,6]
 Note: Please solve it without division and in O(n).
@@ -27,10 +27,10 @@ Using division If we use division, how would we solve this problem? We could sta
     
     <item>
       <title>Algo walkthrough: spiral matrix</title>
-      <link>https://sprjg.github.io/posts/20201205201509-algo_walkthrough_spiral_matrix/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_spiral_matrix/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20201205201509-algo_walkthrough_spiral_matrix/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_spiral_matrix/</guid>
       <description>Example 1:
 Input matrix: [[1,2,3],[4,5,6],[7,8,9]]
 Output: [1,2,3,6,9,8,7,4,5]
@@ -41,20 +41,20 @@ Link to the problem.
     
     <item>
       <title>Algo walkthrough: longest sequence in unsorted array</title>
-      <link>https://sprjg.github.io/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_longest_sequence_in_unsorted_array/</link>
       <pubDate>Wed, 25 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_longest_sequence_in_unsorted_array/</guid>
       <description>Link to the problem.
 Hints  They hint at a \(O(n)\) solution. This can be useful at a later point. They also say the length of the array can be between \(1, 10000\). This means we can a small array of size \(10\) and manually try out solutions. This would probably scale fine. Each element can be huge! \(-10^9, 10^9\). Note that the value is higher than the length of the array.</description>
     </item>
     
     <item>
       <title>Algo walkthrough: swapping elements to find max score</title>
-      <link>https://sprjg.github.io/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_swapping_elements_to_find_max_score/</link>
       <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_swapping_elements_to_find_max_score/</guid>
       <description>Initial setup The initial setup consists of an unsorted array. Each element has a score defined as the absolute value of the difference the element&amp;rsquo;s value and its index.
 The absolute value The metric for each element gives us a sense of displacement. For example, if an element at index `4` is of value `10` the score for this is `6`. If the element was at index `5` and of value `11`, the score is still `6`.</description>
     </item>

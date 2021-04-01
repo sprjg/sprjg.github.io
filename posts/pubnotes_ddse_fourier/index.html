@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:type" content="article" />
+
+<meta property="og:url" content="https://sprjg.github.io/posts/pubnotes_ddse_fourier/" />
+
+<meta property="og:title" content="Fourier Analysis" />
+
+<meta property="og:image" content="https://sprjg.github.io/ox-hugo/" />
+
+<meta property="og:description" content="This is my notes for Prof. Steve Brunton&rsquo;s video lectures of Fourier Analysis.
+Real domain to complex domain The first confusion for me was the shift in the sum limits from real domain to complex domain. The real fourier series is expressed as \(\sum_{k=0}^{\infty} \frac{a_0}{2} &#43; a_k \cos kx &#43; b_k \sin kx\). The intuition here is that harmonics can express any function. The constant term accounts for all the different initial phase shifts of each of these harmonics." />
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="twitter:site" content="">
+
+<meta name="twitter:creator" content="">
+
+<meta name="twitter:title" content="Fourier Analysis" />
+
+<meta name="twitter:description" content="This is my notes for Prof. Steve Brunton&rsquo;s video lectures of Fourier Analysis.
+Real domain to complex domain The first confusion for me was the shift in the sum limits from real domain to complex domain. The real fourier series is expressed as \(\sum_{k=0}^{\infty} \frac{a_0}{2} &#43; a_k \cos kx &#43; b_k \sin kx\). The intuition here is that harmonics can express any function. The constant term accounts for all the different initial phase shifts of each of these harmonics." />
+
+<meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/" />
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/sprjg.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Fourier Analysis",
+    "headline" : "Fourier Analysis",
+    "description" : "This is my notes for Prof. Steve Brunton\x26rsquo;s video lectures of Fourier Analysis.\nReal domain to complex domain The first confusion for me was the shift in the sum limits from real domain to complex domain. The real fourier series is expressed as \\(\\sum_{k=0}^{\\infty} \\frac{a_0}{2} \x2b a_k \\cos kx \x2b b_k \\sin kx\\). The intuition here is that harmonics can express any function. The constant term accounts for all the different initial phase shifts of each of these harmonics.",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-04-10 00:00:00 \x2b0530 IST",
+    "dateModified" : "2020-04-10 00:00:00 \x2b0530 IST",
+    "url" : "https:\/\/sprjg.github.io\/posts\/pubnotes_ddse_fourier\/",
+    "wordCount" : "438",
+    "keywords" : [ "fourier","Blog" ]
+}
+</script>
+
+
+    <title>Fourier Analysis | Notes on engineering math</title>
+    <link rel="stylesheet" href="https://sprjg.github.io/css/style.css" />
+    <link rel="stylesheet" href="https://sprjg.github.io/css/fonts.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class='site-title'> <div> Notes on engineering math </div> </div>
+    <div id="posts-list">
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="https://sprjg.github.io/posts/">Archive</a></li>
+      
+      <li><a href="https://sprjg.github.io/categories/">Categories</a></li>
+      
+      <li><a href="https://sprjg.github.io/tags/">Tags</a></li>
+      
+      <li><a href="https://sprjg.github.io/">About</a></li>
+      
+      <li><a href="https://sprjg.github.io/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+    </div>
+
+<div class="article-meta">
+<a href="https://sprjg.github.io/posts" style="text-decoration:none;color:black;"><h1><span class="title">Fourier Analysis</span></h1></a>
+</div>
+
+<main>
+  <aside class="toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#real-domain-to-complex-domain">Real domain to complex domain</a>
+      <ul>
+        <li><a href="#oscillations-in-real-domain-rotations-in-complex-domain">Oscillations in real domain, rotations in complex domain</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </aside>
+  
+  <p>This is my notes for Prof. Steve Brunton&rsquo;s <a href="https://www.youtube.com/watch?v=jNC0jxb0OxE&amp;list=PLMrJAkhIeNNT%5FXh3Oy0Y4LTj0Oxo8GqsC">video lectures of
+Fourier Analysis</a>.</p>
+<h2 id="real-domain-to-complex-domain">Real domain to complex domain</h2>
+<p>The first confusion for me was the shift in the sum limits from real
+domain to complex domain. The real fourier series is expressed as
+\(\sum_{k=0}^{\infty} \frac{a_0}{2} + a_k \cos kx + b_k \sin kx\). The
+intuition here is that harmonics can express any function. The
+constant term accounts for all the different initial phase shifts of
+each of these harmonics. The mathematical property of these
+trigonometric terms \(\sin(kx), \cos(kx)\) is that they are orthogonal.
+Their inner product \(&lt;f, g&gt; = \int_{-\pi}^{\pi} f(x) g^*(x) dx =
+0\).</p>
+<blockquote>
+<p>To verify:
+The conjugation on the second term is irrelevant for real valued
+functions. \(f,g\) can be any \(\sin(kx), \cos(kx)\) term.
+<a href="https://ocw.mit.edu/resources/res-18-008-calculus-revisited-complex-variables-differential-equations-and-linear-algebra-fall-2011/study-materials/MITRES%5F18%5F008%5FpartIII%5Fsol08.pdf">This lecture</a> goes into detail about each combination. The intuition is
+that \(\int_{-\pi}^{\pi} \sin ax \cos bx\) is an odd function so
+integrating over this particular limit will be zero. But when \(a=b\)
+\(\int \sin^2 ax, \int \cos^2 ax\) are reduced using trigonometric
+identities to a constant plus a periodic function, and the constant
+part evaluates to \(\pi\).</p>
+</blockquote>
+<p>All of the above is for the real domain. In complex domain, the
+fourier series becomes: \(\sum_{k=-\infty}^{k=\infty} c_k e^{ikx}\)
+where \(c_k \in \mathbb{C}\). The sum starts from negative infinity now
+unlike the real domain.</p>
+<h3 id="oscillations-in-real-domain-rotations-in-complex-domain">Oscillations in real domain, rotations in complex domain</h3>
+<p>In real domain, the eigenfunctions are either \(\sin kx\) or
+\(\cos kx\). This means that \(\sin(kx)\) and \(\sin(-kx)\) are not
+orthogonal. This can be verified by the inner product which evaluates
+to \(- \pi\).
+So negative \(k\) in the real fourier series redundant as
+the eigenfunctions of \(k &gt; 0\) already include the \(k &lt; 0\) part too.
+Another way to think about this is phase shift. \(k &lt; 0\)  functions are
+simply a phase shift of the \(k &gt; 0\)  terms. All the phase shift terms
+are already accounted for by \(a_0\).
+But in complex domain, the eigenfunctions represent a rotation (at
+different frequencies and starting points), rather
+than oscillation. \(k &lt; 0\)  here represents a clockwise rotation and a
+\(k &gt; 0\)  represents an anti-clockwise rotation.</p>
+<blockquote>
+<p><a href="https://www.youtube.com/watch?v=spUNpyF58BY">This video</a> helps</p>
+</blockquote>
+<p>In this case, \(k &lt; 0\) cannot be accounted for by \(k &gt; 0\) functions. The
+computation of the inner product confirms the same of course.</p>
+<blockquote>
+<p>TODO: The complex conjugation of the second term in the inner product is
+equivalent to a direction change of rotation. I know that the
+integration of a complex function is related to contour integration
+but I don&rsquo;t see how the inner product in the complex domain represents
+&ldquo;closeness&rdquo; of two rotations.
+<a href="http://www1.spms.ntu.edu.sg/~ydchong/teaching/08%5Fcontour%5Fintegration.pdf">Yet to read this</a></p>
+</blockquote>
+
+</main>
+
+<div class="related-content">
+
+
+<h3>See Also</h3>
+<ul>
+    
+    <li><a href="https://sprjg.github.io/posts/compressed_sensing_with_the_fourier_ensemble/">Compressed Sensing with the Fourier Ensemble</a></li>
+    
+</ul>
+
+</div>
+
+<script src="https://utteranc.es/client.js"
+        repo="sprjg/sprjg.github.io"
+        issue-term="title"
+        label="blog-comments"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  <footer>
+  <script src="https://sprjg.github.io/js/math-code.js"></script>
+<script async src="https://sprjg.github.io/MathJax/es5/tex-chtml.js"></script>
+
+
+<script async src="https://sprjg.github.io/js/center-img.js"></script>
+
+  
+  <hr/>
+  © <a href="https://sprjg.github.io">SPR</a> 2019 &ndash; 2021 | <a href="https://github.com/sprajagopal">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

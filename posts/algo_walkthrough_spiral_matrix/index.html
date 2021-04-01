@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:type" content="article" />
+
+<meta property="og:url" content="https://sprjg.github.io/posts/algo_walkthrough_spiral_matrix/" />
+
+<meta property="og:title" content="Algo walkthrough: spiral matrix" />
+
+<meta property="og:image" content="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_20-24-49_.png" />
+
+<meta property="og:description" content="Given an m x n matrix, return all elements of the matrix in spiral order." />
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="twitter:site" content="">
+
+<meta name="twitter:creator" content="">
+
+<meta name="twitter:title" content="Algo walkthrough: spiral matrix" />
+
+<meta name="twitter:description" content="Given an m x n matrix, return all elements of the matrix in spiral order." />
+
+<meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_20-24-49_.png" />
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/sprjg.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Algo walkthrough: spiral matrix",
+    "headline" : "Algo walkthrough: spiral matrix",
+    "description" : "Given an m x n matrix, return all elements of the matrix in spiral order.",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-12-06 00:00:00 \x2b0530 IST",
+    "dateModified" : "2020-12-06 00:00:00 \x2b0530 IST",
+    "url" : "https:\/\/sprjg.github.io\/posts\/algo_walkthrough_spiral_matrix\/",
+    "wordCount" : "2744",
+    "keywords" : [ "arrays","matrix","Blog" ]
+}
+</script>
+
+
+    <title>Algo walkthrough: spiral matrix | Notes on engineering math</title>
+    <link rel="stylesheet" href="https://sprjg.github.io/css/style.css" />
+    <link rel="stylesheet" href="https://sprjg.github.io/css/fonts.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class='site-title'> <div> Notes on engineering math </div> </div>
+    <div id="posts-list">
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="https://sprjg.github.io/posts/">Archive</a></li>
+      
+      <li><a href="https://sprjg.github.io/categories/">Categories</a></li>
+      
+      <li><a href="https://sprjg.github.io/tags/">Tags</a></li>
+      
+      <li><a href="https://sprjg.github.io/">About</a></li>
+      
+      <li><a href="https://sprjg.github.io/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+    </div>
+
+<div class="article-meta">
+<a href="https://sprjg.github.io/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: spiral matrix</span></h1></a>
+</div>
+
+<main>
+  <aside class="toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#intuitions">Intuitions</a>
+      <ul>
+        <li><a href="#track-the-spiral-literally">Track the spiral <em>literally</em></a></li>
+        <li><a href="#rotating-to-avoid-direction-change">Rotating to avoid direction change</a></li>
+        <li><a href="#swapping-within-the-matrix">Swapping within the matrix</a></li>
+        <li><a href="#pyramid">Pyramid</a></li>
+        <li><a href="#a-loop-for-each-pyramid">A loop for each pyramid?</a></li>
+        <li><a href="#finding-a-better-pattern">Finding a better pattern</a></li>
+      </ul>
+    </li>
+    <li><a href="#implementation">Implementation:</a></li>
+    <li><a href="#performance">Performance</a>
+      <ul>
+        <li><a href="#improvements">Improvements</a></li>
+        <li><a href="#using-numpy">Using numpy</a></li>
+        <li><a href="#second-try-with-numpy">Second try with numpy</a></li>
+        <li><a href="#performance">Performance</a></li>
+      </ul>
+    </li>
+    <li><a href="#understanding-the-best-solution">Understanding the best solution</a>
+      <ul>
+        <li><a href="#approach">Approach</a></li>
+        <li><a href="#takeaways">Takeaways</a></li>
+      </ul>
+    </li>
+    <li><a href="#another-interesting-solution">Another interesting solution</a>
+      <ul>
+        <li><a href="#approach">Approach</a></li>
+        <li><a href="#takeaways">Takeaways</a></li>
+      </ul>
+    </li>
+    <li><a href="#post-script-the-bad-solution">Post-script: the bad solution</a></li>
+  </ul>
+</nav>
+  </aside>
+  Given an m x n matrix, return all elements of the matrix in spiral order.
+  <blockquote>
+<p>Example 1:</p>
+<p>Input matrix: [[1,2,3],[4,5,6],[7,8,9]]</p>
+<p>Output: [1,2,3,6,9,8,7,4,5]</p>
+<p><a href="https://leetcode.com/problems/spiral-matrix/">Link to the problem.</a></p>
+</blockquote>
+<h2 id="intuitions">Intuitions</h2>
+<h3 id="track-the-spiral-literally">Track the spiral <em>literally</em></h3>
+<p>I can definitely think of at least one solution involving 4 pointers <a id="org295e18e"></a>. The 4 pointers track the size of the matrix as the spiral closes inwards.</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_20-24-49_.png"/> 
+</figure>
+
+<p>But how to track the current location? A tuple with row and column numbers? At first we set direction to move towards right. When the column number reaches a value equal to <code>right</code> we change direction to move downwards. We also decrement <code>right</code> to reflect that we have traversed the last column.
+This becomes a pretty complex state machine. Different things being tracked, mutations, and along with all this probably a lot of edge cases. Most importantly, this approach does not exploit any innate property of this problem. It&rsquo;s a literal translation of the given problem statement into code.</p>
+<h3 id="rotating-to-avoid-direction-change">Rotating to avoid direction change</h3>
+<p>Another way to <span class="sidenote">
+<label class="sidenote-label" for="fn-prev">extend the previous solution</label>
+
+<span class="sidenote-content">and arguably reduce the complexity</span>
+</span>
+ is by using matrix rotations <a id="org76565fd"></a>.
+Instead of moving in horizontal and vertical directions, we could fix our movement direction as horizontal only.
+For a given matrix, we trace the top row, then rotate the matrix anti-clockwise one turn and recursively call the same operation on it.
+This is pretty neat in theory. We need only the size of the matrix.</p>
+<ul>
+<li>We simply start at the first row, first column and move right until the last column, appending the encountered elements into an array</li>
+<li><span class="sidenote">
+<label class="sidenote-label" for="fn-delete-row">We delete this row</label>
+
+<span class="sidenote-content">Note that this is the first row in the matrix. Since python implements array using pointers to objects, we won&#39;t have a performance issue. But deleting from the end of the array is language agnostic for better performance. This is the least of the issues with this approach though</span>
+</span>
+</li>
+<li>Then we rotate the matrix, call the operation recursively</li>
+<li>The base case could be a s <code>1x1</code> matrix, for which we simply append the element</li>
+</ul>
+<h4 id="rotation-every-time">Rotation every time</h4>
+<p>This is the biggest issue with this approach. We end up with \(\Theta(n)\) rotations. So this approach is nice and shiny in theory but may not work in terms of performance.</p>
+<h3 id="swapping-within-the-matrix">Swapping within the matrix</h3>
+<p>This is a shot in the dark but is there a pattern we can exploit in this spiral? Could we swap certain pairs of elements so that the resulting matrix can be flattened to get the spiral path result?</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_20-45-59_.png"/> 
+</figure>
+
+<h4 id="dimensions-will-never-match">Dimensions will never match</h4>
+<p>Even if something so absurd works for a square matrix, it simply doesn&rsquo;t make sense for a rectangular matrix. A column cannot swapped into a row.</p>
+<h3 id="pyramid">Pyramid</h3>
+<p>This <a id="org4f99b34"></a> is an extension of the previous idea but more promising. Let&rsquo;s first trace through a full spiral manually for a matrix. But let&rsquo;s colour the cells based on the direction we move.
+4 directions = 4 colours.
+The slant arrows mark the cells where we change direction.</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_20-58-32_.png"/> 
+</figure>
+
+<p>This is extremely promising because of the obvious pattern that has emerged. For a matrix with \(n\) columns, about the blue elements, we can say:</p>
+<ul>
+<li>all \(n\) elements of row 1 will be traversed together</li>
+<li>\(n-2\) elements (ignoring first and last) of row 2 will be traversed together</li>
+<li>\(n-4\) elements (ignoring first two and last two) of row 4 will be traversed together</li>
+</ul>
+<p>Similar patterns exist for the other colours too.</p>
+<h4 id="termination">Termination</h4>
+<p>So for a matrix with \(m\) rows and \(n\) columns, when do we terminate the blue pyramid? Length of \(n, n-2, n-4, \ldots\) till what? In our example, it stops at <code>3</code> because the green pyramid also takes up half the vertical space.
+It seems the blue and green pyramids can be same height if the number of rows is even. If not, blue gets an extra row because it starts first.
+A similar line of reasoning for red and brown but here their heights are equal. Could be because \(n &gt; m\).</p>
+<h4 id="putting-it-all-together">Putting it all together</h4>
+<p>For this particular matrix, how would our progression look like? Let&rsquo;s label the start and end index for the blue pyramid.</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-06_19-03-46_.png"/> 
+</figure>
+
+<p>We could similarly number the other pyramids also. This means we can extract these pyramids from a 2D array without actually tracing the spiral path.</p>
+<h5 id="first-code-draft">First code draft</h5>
+<p>Let&rsquo;s try extracting out the blue pyramid for a matrix. The code snippet below creates random matrices of size <code>5x8</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> random
+random_element <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span>: int(random<span style="color:#f92672">.</span>random() <span style="color:#f92672">*</span> <span style="color:#ae81ff">200</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">100</span>)
+m <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+n <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+random_row <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span>: [random_element() <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, n)]
+random_matrix <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span>: [random_row() <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, m)]
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Matrix:&#34;</span>)
+sample_matrix <span style="color:#f92672">=</span> random_matrix()
+<span style="color:#66d9ef">for</span> row <span style="color:#f92672">in</span> sample_matrix:
+    [<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;{str(e):&gt;5s}&#34;</span>, end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>) <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> row]
+    <span style="color:#66d9ef">print</span>()
+<span style="color:#66d9ef">print</span>(sample_matrix)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Matrix:
+  -78   -1  -44
+   48   64   55
+  -73   43   39
+[[-78, -1, -44], [48, 64, 55], [-73, 43, 39]]
+</code></pre></div><p>The blue pyramid will have height of \(\lceil \frac{m}{2} \rceil\).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> math
+height <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>ceil(m<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>)
+<span style="color:#66d9ef">print</span>(height)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">2
+</code></pre></div><p>Let&rsquo;s create two ranges: one for the starting index \(0, 1, \cdots\) and another indicating the length of the pyramid \(n, n-2, n-4, \cdots\). We know we need the first \(\lceil \frac{m}{2} \rceil\) elements from each of these arrays. We can <span class="sidenote">
+<label class="sidenote-label" for="fn-itertools">specify this</label>
+
+<span class="sidenote-content">there are many other ways to do this in python, but this looks most succinct to me</span>
+</span>
+ with <code>itertools.islice</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> itertools <span style="color:#f92672">import</span> islice
+start_points <span style="color:#f92672">=</span> list(islice(range(<span style="color:#ae81ff">0</span>, n), height))
+lengths <span style="color:#f92672">=</span> list(islice(range(n, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>), height))
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;{str(&#39;Start points:&#39;):20s}&#34;</span>, start_points)
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;{str(&#39;Lengths:&#39;):20s}&#34;</span>, lengths)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Start points:        [0, 1]
+Lengths:             [3, 1]
+</code></pre></div><p>Let&rsquo;s print out our blue pyramid values now:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i, start, length <span style="color:#f92672">in</span> zip(range(<span style="color:#ae81ff">0</span>, m), start_points, lengths):
+    <span style="color:#66d9ef">print</span>(sample_matrix[i][start:start<span style="color:#f92672">+</span>length])
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[-78, -1, -44]
+[64]
+</code></pre></div><h3 id="a-loop-for-each-pyramid">A loop for each pyramid?</h3>
+<p>This is something to think more about. Do we really need a loop for each of these pyramids? Or could we get away with a single loop?</p>
+<h4 id="cycling-through-pyramids">Cycling through pyramids</h4>
+<p>One pattern to notice: the resulting array will be one splice after other from each pyramid: blue, red, green, brown, blue, red&hellip; and so on. So there is a cycle that&rsquo;s followed until <em>one of the</em> pyramids is exhausted. Regardless of which one, the result stops there. Let&rsquo;s see some examples of this.</p>
+<h5 id="red-exhausted">Red exhausted</h5>
+<p>If we have a single row in the matrix, the red pyramid is exhausted at the start.</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-06_20-10-29_.png"/> 
+</figure>
+
+<p>The entire spiral is just one row of blue. Once red is exhausted we don&rsquo;t have to continue the cycle towards green, brown.</p>
+<h5 id="green-exhausted">Green exhausted</h5>
+<p>Here we have a blue, red, green, brown, blue, red cycle. This spiral ends because we have no more the green pyramid.</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-06_20-15-00_.png"/> 
+</figure>
+
+<h5 id="termination-condition">Termination condition</h5>
+<p>The point is we could simply generate start points and lengths for each pyramid. After this we append to an empty array with splices of each pyramid until one of the pyramids has an empty splice. At this point we can stop our loop.</p>
+<h4 id="generating-start-points-and-lengths">Generating start points and lengths</h4>
+<p>We could create 4 start points and 4 lengths for a single matrix to define all the 4 pyramids. But is there a pattern here that we could exploit? Could we use the loop number to calculate the start points?
+Let&rsquo;s write out the cycle to see if we can find a pattern:</p>
+<table>
+<thead>
+<tr>
+<th>colour</th>
+<th>start</th>
+<th>length</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>blue</td>
+<td>0,0</td>
+<td>n</td>
+</tr>
+<tr>
+<td>red</td>
+<td>n-1,1</td>
+<td>m-1</td>
+</tr>
+<tr>
+<td>green</td>
+<td>m-1,0</td>
+<td>n-1</td>
+</tr>
+<tr>
+<td>brown</td>
+<td>1,0</td>
+<td>m-2</td>
+</tr>
+<tr>
+<td>blue</td>
+<td>1,1</td>
+<td>n-2</td>
+</tr>
+<tr>
+<td>red</td>
+<td>n-2,1</td>
+<td>m-3</td>
+</tr>
+<tr>
+<td>green</td>
+<td>n-2,2</td>
+<td>n-3</td>
+</tr>
+<tr>
+<td>brown</td>
+<td>2,1</td>
+<td>m-4</td>
+</tr>
+</tbody>
+</table>
+<h5 id="lengths">Lengths</h5>
+<p>The lengths definitely have an easy pattern, \(n, m-1, n-1, m-2, n-2, \cdots\). We could simply decrement every time we use \(n\) or \(m\) and we&rsquo;d have this pattern.
+We could do this by using two <code>range</code> generators and <code>zip</code> them. That way we have alternative values from each of them.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_lengths</span>(m, n):
+    lengths <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> a,b <span style="color:#f92672">in</span> zip(range(n,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), range(m<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)):
+        lengths<span style="color:#f92672">.</span>extend([a,b])
+    <span style="color:#66d9ef">return</span> lengths
+
+<span style="color:#66d9ef">print</span>(generate_lengths(m, n))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[3, 2, 2, 1, 1, 0]
+</code></pre></div><p>Notice that we have our ranges run to <em>include 0</em>. This leads to a scenario where the resulting lengths may have a zero in between: <code>[2,3,1,2,0,1]</code>. Since the lengths are to be processed one after the other, <span class="sidenote">
+<label class="sidenote-label" for="fn-break">we&#39;ll simply break the loop</label>
+
+<span class="sidenote-content">We could exclude 0 but this leads to differents ways of handling m &gt; n and n &gt; m. Try it out</span>
+</span>
+ when a length is <code>0</code>.</p>
+<h5 id="start-points">Start points</h5>
+<p>The start points for each colour has a pattern: they move diagonally one unit towards the center. But this pattern still means we have to store 4 start points. An alternative way to think of start points is by using the <em>end point of the previous segment</em>. The start is always a unit distance away from this end point but the direction cycles through 4 options. So the direction is actually a function of the loop variable also i.e. reminder with 4. So we can use a single point \((0,0)\) and then cumulatively calculate the next one based on the distance.
+Let&rsquo;s define the four directions as 2-length arrays:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">directions <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>], [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>], [<span style="color:#ae81ff">0</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], [<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>]]
+</code></pre></div><p>We also need a lambda that will calculate the end point for us:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">move_in_direction <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> now, dir, distance: [now[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> distance <span style="color:#f92672">*</span> dir[<span style="color:#ae81ff">0</span>], now[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> distance <span style="color:#f92672">*</span> dir[<span style="color:#ae81ff">1</span>]]
+</code></pre></div><p>We already have the lengths calculated. Let&rsquo;s start from <code>[0,0]</code> and calculate end points. Then the next start point and so on, until we run out of lengths:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">start_point <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]
+<span style="color:#66d9ef">for</span> idx, l <span style="color:#f92672">in</span> enumerate(generate_lengths(m,n)):
+    end_point <span style="color:#f92672">=</span> move_in_direction(start_point, directions[idx<span style="color:#f92672">%</span><span style="color:#ae81ff">4</span>], l)
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;From {start_point} to {end_point}&#34;</span>)
+    start_point <span style="color:#f92672">=</span> move_in_direction(end_point, directions[(idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span><span style="color:#ae81ff">4</span>], <span style="color:#ae81ff">1</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">From [0, 0] to [0, 3]
+From [1, 3] to [3, 3]
+From [3, 2] to [3, 0]
+From [2, 0] to [1, 0]
+From [1, 1] to [1, 2]
+From [2, 2] to [2, 2]
+</code></pre></div><p>We have come full circle and we have implemented <a href="#org295e18e">this solution</a>. Our initial worry with this approach of tracking the spiral literally was the complexity of maintaining the state machine. But note that we found a pattern in the lengths which allowed us to eliminate a big chunk of that original state machine!</p>
+<h3 id="finding-a-better-pattern">Finding a better pattern</h3>
+<p>One issue is that we have to track both lengths and start points. We do have a pattern that reduces some complexity. But could we do better?
+The qualities of a good pattern:</p>
+<ul>
+<li>it should capture the <em>essence</em> of a spiral</li>
+<li>it should make looping easy</li>
+<li>number of states should be minimal</li>
+</ul>
+<h4 id="essence">Essence</h4>
+<p>A spiral is a form of recursion. It reaches inward until there&rsquo;s no more depth to cover. But our current pattern does not capture this <em>fully</em>. We can think of the blue lengths as the start of a new layer. So every perimeter is actually a layer.</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-07_14-53-10_.png"/> 
+</figure>
+
+<p>So every start point is simply the first element of an inner matrix once the outer layer is peeled off. This is a nice and easy pattern.</p>
+<h4 id="looping">Looping</h4>
+<p>But looping is still hard because the lengths for each layer is \(n, m-1, n-1, m-2\). This is a weird pattern. Note that because the lengths within a layer don&rsquo;t follow an easy pattern, the end points within a layer also won&rsquo;t.
+With all this in mind, let&rsquo;s try to partition our layer i.e. perimeter in a different way so that the lengths follow an easier pattern. Note that we cannot expect the four lengths within a layer to be equal simply because \(m, n\) are outside our control. But we can do this:</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-07_16-01-54_.png"/> 
+</figure>
+
+<p>Note how the outer layers have equal blue, green lengths and equal red, brown lengths: \(n-1, m-1, n-1, m-1\). This is a nice and easy pattern to loop over. Also note that the innermost layer in light red cannot be traversed with such a pattern. A row or column matrix will fail in this pattern. So we have to handle these specially.
+But this pattern is still a massive improvement over the previous one. All we need is a single for loop which decrements \(m,n\) by two every time. The starting point always moves by \(1,1\) so we can simply use the loop variable \(i\) for this.</p>
+<h4 id="states">States</h4>
+<p>In this new pattern, we only need \(m, n\) and one loop variable as state which tracks the start point. Within each iteration, the lengths are always decremented by 2.
+This reduces the complexity within the loop.</p>
+<h4 id="row-column-matrix">Row/column matrix</h4>
+<p>This is an edge case which needs special handling. But this is pretty simple. Given a \(m \times n\) matrix where \(m\) or \(n\) is 1, simple flatten and return the matrix.</p>
+<h2 id="implementation">Implementation:</h2>
+<p>Now let&rsquo;s see how this works. Here <code>a</code> is the loop variable. Our base case of row/column matrix is handled after the while loop condition <code>m &gt; 1 and n &gt; 1</code> fails.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">spiral</span>(matrix):
+    m <span style="color:#f92672">=</span> len(matrix)
+    n <span style="color:#f92672">=</span> len(matrix[<span style="color:#ae81ff">0</span>])
+
+    a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    spiral <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">while</span> m <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> n <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+        spiral<span style="color:#f92672">.</span>extend(matrix[a][a:a<span style="color:#f92672">+</span>n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+        spiral<span style="color:#f92672">.</span>extend([matrix[i][a<span style="color:#f92672">+</span>n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(a,a<span style="color:#f92672">+</span>m<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)])
+        spiral<span style="color:#f92672">.</span>extend(matrix[a<span style="color:#f92672">+</span>m<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][a<span style="color:#f92672">+</span>n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:a:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+        spiral<span style="color:#f92672">.</span>extend([matrix[i][a] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(a<span style="color:#f92672">+</span>m<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, a, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)])
+        a<span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>
+        m<span style="color:#f92672">-=</span><span style="color:#ae81ff">2</span>
+        n<span style="color:#f92672">-=</span><span style="color:#ae81ff">2</span>
+
+    <span style="color:#66d9ef">if</span> m <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+        spiral<span style="color:#f92672">.</span>extend(matrix[a][a:a<span style="color:#f92672">+</span>n])
+    <span style="color:#66d9ef">elif</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+        spiral<span style="color:#f92672">.</span>extend([matrix[i][a] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(a, a<span style="color:#f92672">+</span>m)])
+    <span style="color:#66d9ef">return</span> spiral
+</code></pre></div><h2 id="performance">Performance</h2>
+<p>The runtime is decent:</p>
+<blockquote>
+<p>Runtime: 28 ms, faster than 79.41% of Python3 online submissions for Spiral Matrix.</p>
+<p>Memory Usage: 14.3 MB, less than 7.82% of Python3 online submissions for Spiral Matrix.</p>
+</blockquote>
+<h3 id="improvements">Improvements</h3>
+<p>The main issue here could be the <code>for</code> loop within the <code>while</code> loop for moving in horizontal direction. Slicing in horizontal direction is not possible with the vanilla python array.</p>
+<h3 id="using-numpy">Using numpy</h3>
+<p>The advantage of using numpy is array slicing. It becomes easy and intuitive.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> numpy
+
+matrix <span style="color:#f92672">=</span> numpy<span style="color:#f92672">.</span>matrix(sample_matrix)
+<span style="color:#66d9ef">print</span>(matrix)
+<span style="color:#66d9ef">print</span>(matrix[<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>])
+<span style="color:#66d9ef">print</span>(matrix[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">2</span>])
+<span style="color:#66d9ef">print</span>(matrix[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>:<span style="color:#ae81ff">0</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+<span style="color:#66d9ef">print</span>(matrix[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">2</span>])
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[[-78  -1 -44]
+ [ 48  64  55]
+ [-73  43  39]]
+[[-1]
+ [64]]
+[[64]]
+[[39 43]]
+[[43]]
+</code></pre></div><p>Notice that both row and column major traversals work. Let&rsquo;s rewrite our code to use numpy.</p>
+<h3 id="second-try-with-numpy">Second try with numpy</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">spiral</span>(matrix):
+    m <span style="color:#f92672">=</span> len(matrix)
+    n <span style="color:#f92672">=</span> len(matrix[<span style="color:#ae81ff">0</span>])
+
+    np_matrix <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(matrix)
+    <span style="color:#66d9ef">print</span>(np_matrix)
+    a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    spiral <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([])
+    <span style="color:#66d9ef">while</span> m <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> n <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+        spiral <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>concatenate([spiral, np_matrix[a, a:a<span style="color:#f92672">+</span>n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>flatten()])
+        spiral <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>concatenate([spiral, np_matrix[a:a<span style="color:#f92672">+</span>m<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, a<span style="color:#f92672">+</span>n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>flatten()])
+        spiral <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>concatenate([spiral, np_matrix[a<span style="color:#f92672">+</span>m<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, a<span style="color:#f92672">+</span>n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:a:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>flatten()])
+        spiral <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>concatenate([spiral, np_matrix[a<span style="color:#f92672">+</span>m<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:a:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, a]<span style="color:#f92672">.</span>flatten()])
+        a<span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>
+        m<span style="color:#f92672">-=</span><span style="color:#ae81ff">2</span>
+        n<span style="color:#f92672">-=</span><span style="color:#ae81ff">2</span>
+
+    <span style="color:#66d9ef">if</span> m <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+        spiral <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>concatenate([spiral, np_matrix[a,a:a<span style="color:#f92672">+</span>n]<span style="color:#f92672">.</span>flatten()])
+    <span style="color:#66d9ef">elif</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+        spiral <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>concatenate([spiral, np_matrix[a:a<span style="color:#f92672">+</span>m,a]<span style="color:#f92672">.</span>flatten()])
+    <span style="color:#66d9ef">return</span> spiral
+
+<span style="color:#66d9ef">print</span>(spiral(sample_matrix))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[[-78  -1 -44]
+ [ 48  64  55]
+ [-73  43  39]]
+[-78.  -1. -44.  55.  39.  43. -73.  48.  64.]
+</code></pre></div><h3 id="performance">Performance</h3>
+<p>This actually performs worse. But there is a module import time which might be significant.</p>
+<blockquote>
+<p>Runtime: 92 ms, faster than 5.75% of Python3 online submissions for Spiral Matrix.</p>
+<p>Memory Usage: 31 MB, less than 7.82% of Python3 online submissions for Spiral Matrix.</p>
+</blockquote>
+<h2 id="understanding-the-best-solution">Understanding the best solution</h2>
+<p>Let&rsquo;s see the <a href="https://leetcode.com/submissions/detail/428162662/">best performing solution in python</a>. This runs at \(8\) ms.</p>
+<h3 id="approach">Approach</h3>
+<p>It&rsquo;s a loop that <a href="#org295e18e">traverses the matrix</a> literally. The visited elements are mutated so that they are not revisited.</p>
+<h3 id="takeaways">Takeaways</h3>
+<p>I have learned that the most elegant solutions are not the fastest <a id="org7f3d194"></a>.</p>
+<h2 id="another-interesting-solution">Another interesting solution</h2>
+<p><a href="https://leetcode.com/submissions/detail/428162662/">This one</a> runs at \(16\) ms but is far more interesting.</p>
+<h3 id="approach">Approach</h3>
+<p><code>matrix.pop(0)</code> fetches the first row, and removes it from the matrix.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">row <span style="color:#f92672">=</span> sample_matrix<span style="color:#f92672">.</span>pop(<span style="color:#ae81ff">0</span>)
+<span style="color:#66d9ef">print</span>(row)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[-78, -1, -44]
+</code></pre></div><p>The <code>*row</code> is just an <span class="sidenote">
+<label class="sidenote-label" for="fn-unwrapping">unwrapping of the array:</label>
+
+<span class="sidenote-content">Not sure why simply row wouldn&#39;t suffice.</span>
+</span>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">print</span>([<span style="color:#f92672">*</span>row])
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[-78, -1, -44]
+</code></pre></div><p>Now comes the fun part: <code>zip(*matrix)</code> creates a generator that yields an element from each row of the matrix:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">print</span>(sample_matrix)
+<span style="color:#66d9ef">print</span>(list(zip(<span style="color:#f92672">*</span>sample_matrix)))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[[48, 64, 55], [-73, 43, 39]]
+[(48, -73), (64, 43), (55, 39)]
+</code></pre></div><p>After the result is reversed i.e. the last column first:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">print</span>(list(zip(<span style="color:#f92672">*</span>sample_matrix))[::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[(55, 39), (64, 43), (48, -73)]
+</code></pre></div><p>Note that this is a <a href="#org76565fd">form of rotating</a> where the result gets rotated \(90^\circ\) anti-clockwise. This rotation is crucial because the column we needed to traverse i.e the last column is now the first row.
+The resulting matrix is then recursively passed on to <code>spiralOrder</code> which removes the row, then rotates, and calls recursively on the resulting matrix.</p>
+<h3 id="takeaways">Takeaways</h3>
+<ul>
+<li>Using <code>zip</code> to transform a matrix is super intuitive once I saw it</li>
+<li>Rotating a matrix is not as performance heavy as I thought</li>
+<li>The most elegant solutions can <a href="#org7f3d194">sometimes be the fastest</a> too</li>
+</ul>
+<h2 id="post-script-the-bad-solution">Post-script: the bad solution</h2>
+<p>This is the implementation of the <a href="#org4f99b34">first pattern</a>. Extremely complex and does not do justice to the essence of the problem. It&rsquo;s neither fast nor elegant.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">spiral</span>(matrix):
+    m <span style="color:#f92672">=</span> len(matrix)
+    n <span style="color:#f92672">=</span> len(matrix[<span style="color:#ae81ff">0</span>])
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_lengths</span>(m, n):
+        lengths <span style="color:#f92672">=</span> []
+        <span style="color:#66d9ef">for</span> a,b <span style="color:#f92672">in</span> zip(range(n,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), range(m<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)):
+            lengths<span style="color:#f92672">.</span>extend([a,b])
+        <span style="color:#66d9ef">return</span> lengths
+
+    directions <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>], [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>], [<span style="color:#ae81ff">0</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], [<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>]]
+    move_in_direction <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> now, dir, distance: [now[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> distance <span style="color:#f92672">*</span> dir[<span style="color:#ae81ff">0</span>], now[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> distance <span style="color:#f92672">*</span> dir[<span style="color:#ae81ff">1</span>]]
+    start_point <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]
+    spiral <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> idx, l <span style="color:#f92672">in</span> enumerate(generate_lengths(m, n)):
+        <span style="color:#66d9ef">if</span> l <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            <span style="color:#66d9ef">break</span>
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(l):
+            a, b <span style="color:#f92672">=</span> move_in_direction(start_point, directions[idx<span style="color:#f92672">%</span><span style="color:#ae81ff">4</span>], abs(i))
+            spiral<span style="color:#f92672">.</span>append(matrix[a][b])
+        start_point <span style="color:#f92672">=</span> move_in_direction([a,b], directions[(idx <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span><span style="color:#ae81ff">4</span>], <span style="color:#ae81ff">1</span>)
+    <span style="color:#66d9ef">return</span> spiral
+</code></pre></div>
+</main>
+
+<div class="related-content">
+
+
+<h3>See Also</h3>
+<ul>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_pacific_atlantic_water_flow/">Algo walkthrough: pacific atlantic water flow</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_product_of_array_except_self/">Algo walkthrough: product of array except self</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_set_matrix_zeroes/">Algo walkthrough: set matrix zeroes</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_longest_sequence_in_unsorted_array/">Algo walkthrough: longest sequence in unsorted array</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_swapping_elements_to_find_max_score/">Algo walkthrough: swapping elements to find max score</a></li>
+    
+</ul>
+
+</div>
+
+<script src="https://utteranc.es/client.js"
+        repo="sprjg/sprjg.github.io"
+        issue-term="title"
+        label="blog-comments"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  <footer>
+  <script src="https://sprjg.github.io/js/math-code.js"></script>
+<script async src="https://sprjg.github.io/MathJax/es5/tex-chtml.js"></script>
+
+
+<script async src="https://sprjg.github.io/js/center-img.js"></script>
+
+  
+  <hr/>
+  © <a href="https://sprjg.github.io">SPR</a> 2019 &ndash; 2021 | <a href="https://github.com/sprajagopal">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

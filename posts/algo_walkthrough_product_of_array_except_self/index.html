@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:type" content="article" />
+
+<meta property="og:url" content="https://sprjg.github.io/posts/algo_walkthrough_product_of_array_except_self/" />
+
+<meta property="og:title" content="Algo walkthrough: product of array except self" />
+
+<meta property="og:image" content="https://sprjg.github.io/ox-hugo/screenshot2020-12-12_17-50-36_.png" />
+
+<meta property="og:description" content="Given an array nums of n integers where n &gt; 1,  return an array output such that output[i] is equal to the product of all the elements of nums except nums[i]." />
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="twitter:site" content="">
+
+<meta name="twitter:creator" content="">
+
+<meta name="twitter:title" content="Algo walkthrough: product of array except self" />
+
+<meta name="twitter:description" content="Given an array nums of n integers where n &gt; 1,  return an array output such that output[i] is equal to the product of all the elements of nums except nums[i]." />
+
+<meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/screenshot2020-12-12_17-50-36_.png" />
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/sprjg.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Algo walkthrough: product of array except self",
+    "headline" : "Algo walkthrough: product of array except self",
+    "description" : "Given an array nums of n integers where n \x3e 1,  return an array output such that output[i] is equal to the product of all the elements of nums except nums[i].",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-12-12 00:00:00 \x2b0530 IST",
+    "dateModified" : "2020-12-12 00:00:00 \x2b0530 IST",
+    "url" : "https:\/\/sprjg.github.io\/posts\/algo_walkthrough_product_of_array_except_self\/",
+    "wordCount" : "1594",
+    "keywords" : [ "arrays","dynamic-programming","Blog" ]
+}
+</script>
+
+
+    <title>Algo walkthrough: product of array except self | Notes on engineering math</title>
+    <link rel="stylesheet" href="https://sprjg.github.io/css/style.css" />
+    <link rel="stylesheet" href="https://sprjg.github.io/css/fonts.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class='site-title'> <div> Notes on engineering math </div> </div>
+    <div id="posts-list">
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="https://sprjg.github.io/posts/">Archive</a></li>
+      
+      <li><a href="https://sprjg.github.io/categories/">Categories</a></li>
+      
+      <li><a href="https://sprjg.github.io/tags/">Tags</a></li>
+      
+      <li><a href="https://sprjg.github.io/">About</a></li>
+      
+      <li><a href="https://sprjg.github.io/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+    </div>
+
+<div class="article-meta">
+<a href="https://sprjg.github.io/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: product of array except self</span></h1></a>
+</div>
+
+<main>
+  <aside class="toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-not-to-do">What not to do</a>
+      <ul>
+        <li><a href="#using-division">Using division</a></li>
+        <li><a href="#more-than-o--n">More than O(n)</a></li>
+      </ul>
+    </li>
+    <li><a href="#intuitions">Intuitions</a>
+      <ul>
+        <li><a href="#on--approx--constant-number-of-passes">\(O(n) \approx\) constant number of passes</a></li>
+        <li><a href="#summary-of-approach">Summary of approach</a></li>
+      </ul>
+    </li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#testing">Testing</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#second-try">Second try</a>
+      <ul>
+        <li><a href="#results">Results</a></li>
+      </ul>
+    </li>
+    <li><a href="#understanding-the-best-solution">Understanding the best solution</a>
+      <ul>
+        <li><a href="#constant-space">Constant space</a></li>
+        <li><a href="#operator"><code>~</code> operator</a></li>
+        <li><a href="#the-single-iteration">The single iteration</a></li>
+        <li><a href="#takeaways">Takeaways</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </aside>
+  Given an array nums of n integers where n &gt; 1,  return an array output such that output[i] is equal to the product of all the elements of nums except nums[i].
+  <blockquote>
+<p>Input:  [1,2,3,4]</p>
+<p>Output: [24,12,8,6]</p>
+<p>Note: Please solve it without division and in O(n).</p>
+<p><a href="https://leetcode.com/problems/product-of-array-except-self/">Link to the problem.</a></p>
+</blockquote>
+<h2 id="what-not-to-do">What not to do</h2>
+<p>Let&rsquo;s ignore the <em>note</em> for now.</p>
+<h3 id="using-division">Using division</h3>
+<p>If we use division, how would we solve this problem? We could start with a single pass over the array. In this pass, we multiply all the elements and calculate <code>complete_product</code>. For each element <code>e</code>, we can now calculate \(\frac{complete-product}{e}\). This, stored in an array, is our final result.</p>
+<h3 id="more-than-o--n">More than O(n)</h3>
+<p>What if we had no time constraints? What&rsquo;s our worst brute-force solution?
+We could iterate over the array. For each element <code>e</code>, we perform a nested iteration of all the other elements. During this nested iteration, we calculate the product of all the other elements. This is a \(O(n^2)\) solution.</p>
+<h2 id="intuitions">Intuitions</h2>
+<p>We have a clear idea of the boundaries now: we can do \(O(n)\) but with division or we can do \(O(n^2)\) without division. We are now aiming for a solution that&rsquo;s \(O(n)\) <em>without division</em>.</p>
+<h3 id="on--approx--constant-number-of-passes">\(O(n) \approx\) constant number of passes</h3>
+<p><span class="sidenote">
+<label class="sidenote-label" for="fn-usually-single-pass">Usually</label>
+
+<span class="sidenote-content">There are recurrence relations that lead to overall complexity of \\(\Theta(n)\\) but are not a single pass, but let&#39;s ignore those for now</span>
+</span>
+ \(O(n)\) implies a constant number of passes over the array. So it seems the <strong>note</strong> is actually a hint.
+Let&rsquo;s imagine we start with a single pass over the array. For each element <code>e</code>, we get to perform some constant operations. This could a math operation except division. It&rsquo;s natural to think that the result of this math operation = the result we need for this element = product of the whole array except this element.</p>
+<h4 id="result-for-a-single-element">Result for a single element</h4>
+<p>Now let&rsquo;s think specifically about a single element&rsquo;s result. What exactly is the product of a whole array except the current element?</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-12_17-50-36_.png"/> 
+</figure>
+
+<p>The current element at index \(i\) is highlighted as yellow. The other elements are grey. We need the product \(p_{i}\) of all these grey elements. Because multiplication is transitive, \(p_i\) is equal to the product of \(p_{\text{left}}, \ p_{\text{right}}\).</p>
+<p>\(p_i = p_{\text{left}} \times p_{\text{right}}\)</p>
+<h4 id="calculating--p-text-left">Calculating  \(p_{\text{left}}\)</h4>
+<p>We are hoping to calculate \(p_{\text{left}}\) for each element using only constant number of operations. Let&rsquo;s denote \(p_{\text{left}}\) for index \(i\) as: \(p^i_{\text{left}}\).
+Let&rsquo;s try an inductive line of thinking. The current element is highlighted in yellow:</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-12_18-05-13_.png"/> 
+</figure>
+
+<p>Say we have somehow calculated \(p_{\text{left}}\) for all the elements on the left of current element. So for all indices \(k &lt; i\), we know \(p^k_{\text{left}}\).</p>
+<p>Notice that for the yellow element, we only have to multiply the green portion with the grey portion to get \(p^i_{\text{left}}\). We already know the green portion: \(p^{i-1}_{\text{left}}\). We also know the grey element: \(array[i-1]\). This means for the element at \(i\):</p>
+<p>\(p^i_{\text{left}} =array[i-1] \times p^{i-1}_{\text{left}}\)</p>
+<p>This multiplication is a single operation with two array look-ups leading to a constant time operation.</p>
+<h4 id="calculating--p-text-right">Calculating \(p_{\text{right}}\)</h4>
+<p>We could approach this similarly except we now start from the rightmost element, \(i=n-1\). We&rsquo;ll have this relation:</p>
+<p>\(p^i_{\text{right}} = array[i+1] \times p^{i+1}_{\text{right}}\)</p>
+<h4 id="base-cases">Base cases</h4>
+<p>Note that \(p^0_{\text{left}} = 1, p^{n-1}_{\text{right}} = 1\). This is to ensure that we can build on top of these using successive multiplication operations. If the operation was an addition we&rsquo;d set them to zero.</p>
+<h3 id="summary-of-approach">Summary of approach</h3>
+<p>We will calculate \(p_{\text{left}}\) and \(p_{\text{right}}\) for each element. This will take two passes. After this, we&rsquo;ll need one final pass to calculate our result array where we multiple the left and right products for each element. A total of 3 passes.</p>
+<h2 id="implementation">Implementation</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">productExceptSelf</span>(nums):
+    n <span style="color:#f92672">=</span> len(nums)
+    <span style="color:#75715e"># left product</span>
+    left <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> n
+    left[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    left[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> nums[<span style="color:#ae81ff">0</span>]
+    <span style="color:#66d9ef">for</span> i, e <span style="color:#f92672">in</span> enumerate(nums[<span style="color:#ae81ff">2</span>:]):
+        left[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> nums[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>] <span style="color:#f92672">*</span> left[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>]
+
+    right <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> n
+    right[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    right[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> nums[n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    <span style="color:#66d9ef">for</span> i, e <span style="color:#f92672">in</span> enumerate(nums[<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]):
+        right[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> nums[n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span>i] <span style="color:#f92672">*</span> right[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
+
+    <span style="color:#66d9ef">print</span>(left, right)
+    result <span style="color:#f92672">=</span> [left[i] <span style="color:#f92672">*</span> right[n <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> i] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, n)]
+    <span style="color:#66d9ef">return</span> result
+</code></pre></div><h2 id="testing">Testing</h2>
+<p>Let&rsquo;s test our implementation with randomly generated arrays:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> random
+n <span style="color:#f92672">=</span> int(random<span style="color:#f92672">.</span>random() <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>
+array <span style="color:#f92672">=</span> [int(random<span style="color:#f92672">.</span>random() <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, n)]
+<span style="color:#66d9ef">print</span>(array)
+<span style="color:#66d9ef">print</span>(productExceptSelf(array))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[0, 1, 2, 8, 0, 6]
+[0, 0, 0, 0, 0, 0]
+</code></pre></div><h2 id="results">Results</h2>
+<p>This implementation scores low against the tests.</p>
+<blockquote>
+<p>Runtime: 264 ms, faster than 13.34% of Python3 online submissions for Product of Array Except Self.</p>
+<p>Memory Usage: 22.5 MB, less than 8.94% of Python3 online submissions for Product of Array Except Self.</p>
+</blockquote>
+<p>We may have a hint in the problem description:</p>
+<blockquote>
+<p>Follow up:
+Could you solve it with constant space complexity? (The output array does not count as extra space for the purpose of space complexity analysis.)</p>
+</blockquote>
+<p>Using two extra arrays counts as \(O(n)\) space. Could we do this without creating intermediate arrays?</p>
+<h2 id="second-try">Second try</h2>
+<p><a id="org628a433"></a> The follow up says that a result array does not count as extra space. So we are allowed at most one extra array. What if we used the same approach but changed our memory storage to accommodate this new constraint?
+Say we have a single <code>result</code> array. We first calculate and store the left products for each element in this array:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">productExceptSelf</span>(nums):
+    n <span style="color:#f92672">=</span> len(nums)
+    result <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> n
+    <span style="color:#75715e"># left product</span>
+    result[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    result[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> nums[<span style="color:#ae81ff">0</span>]
+    <span style="color:#66d9ef">for</span> i, e <span style="color:#f92672">in</span> enumerate(nums[<span style="color:#ae81ff">2</span>:]):
+        result[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> nums[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>] <span style="color:#f92672">*</span> result[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>]
+</code></pre></div><p>Now we have a <code>result</code> array with the left products stored. We can now iterate in reverse over this <code>result</code> to do two things at once: calculate the right product and then the final result. This would save us one iteration also. Instead of storing a full <code>right</code> array, we&rsquo;ll just keep track of the last right product which is required for the next computation.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    last_right_product <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+        result[i] <span style="color:#f92672">=</span> result[i] <span style="color:#f92672">*</span> last_right_product
+        last_right_product <span style="color:#f92672">=</span> nums[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> last_right_product
+    result[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> last_right_product
+    <span style="color:#66d9ef">return</span> result
+</code></pre></div><h3 id="results">Results</h3>
+<p>The results are only marginally better.</p>
+<blockquote>
+<p>Runtime: 256 ms, faster than 19.75% of Python3 online submissions for Product of Array Except Self.</p>
+<p>Memory Usage: 21.8 MB, less than 35.96% of Python3 online submissions for Product of Array Except Self.</p>
+</blockquote>
+<h4 id="removing-the-enumerate">Removing the <code>enumerate</code></h4>
+<p>If we replace the <code>enumerate</code> in the first pass with a counter <code>i</code> and manually increment it, the code runs slightly faster:</p>
+<blockquote>
+<p>Runtime: 232 ms, faster than 73.80% of Python3 online submissions for Product of Array Except Self.</p>
+<p>Memory Usage: 21.8 MB, less than 34.77% of Python3 online submissions for Product of Array Except Self.</p>
+</blockquote>
+<h4 id="a-single-iteration">A single iteration?</h4>
+<p>Is there a solution to this using only a single pass of the array?</p>
+<h2 id="understanding-the-best-solution">Understanding the best solution</h2>
+<p><a id="org5ed5469"></a> <a href="https://leetcode.com/submissions/detail/460826688/">This one</a> is a creative solution. It&rsquo;s amazing how this solution uses the best algorithm and also ends up being super readable.</p>
+<h3 id="constant-space">Constant space</h3>
+<p>This part is something we have already seen. We don&rsquo;t need two extra arrays. Instead keep a cumulative product from both ends. But this algorithm calculates the cumulative left and right product in a single iteration by using the <code>~</code> operator.</p>
+<h3 id="operator"><code>~</code> operator</h3>
+<p>This operator indexes in the reverse from the end of the array. So <code>~0</code> is equivalent to <code>-1</code> in array indexing. It makes code more readable because the offset in <code>~</code> operator is the same in forward and reverse direction unlike negative indexing.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">array <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>]
+<span style="color:#66d9ef">print</span>(array[<span style="color:#ae81ff">0</span>])
+<span style="color:#66d9ef">print</span>(array[<span style="color:#f92672">~</span><span style="color:#ae81ff">0</span>])
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">1
+6
+</code></pre></div><h3 id="the-single-iteration">The single iteration</h3>
+<p>Our implementation: goes forward once, calculates left products. After this, goes in reverse, calculating the right products and also the final result for every element.
+Instead this algorithm uses a single iteration to do all three of the above. To understand how this is even possible, let&rsquo;s see look at a single element.</p>
+<h4 id="operations-for-an-element">Operations for an element</h4>
+<p>For a single element, we need two quantities: left and right product:</p>
+<p>\(p_{\text{left}} \times p_{\text{right}}\)</p>
+<p>The final result for this element is the product of left and right products. Say we aim to do this in-place. We need either left product or right product occupying the result space:</p>
+<p>\(\text{res} = p_{\text{left}}\) or \(\text{res} = p_{\text{right}}\)</p>
+<p>After this, when we calculate the other product:</p>
+<p>\(\text{res} = \text{res} * p_{\text{right}}\) or \(\text{res} = \text{res} * p_{\text{left}}\)</p>
+<h4 id="half-iteration">Half iteration</h4>
+<p>Notice that the result for all elements is set to <code>1</code> initially.
+Now we can look at the first half of this algorithm&rsquo;s iteration as:</p>
+<ul>
+<li>calculating left products for the left half of the array</li>
+<li>calculating right products for the right half of the array</li>
+</ul>
+<p>The second half of the algorithm is calculating the final result! For each element:</p>
+<ul>
+<li>calculates left products for the right half of the array, and sets result to <code>res[i]*=left</code></li>
+<li>calculates right products for the left half of the array, and sets result to <code>res[~i]*=right</code></li>
+</ul>
+<p>So this single iteration is actually 4 half iterations. That&rsquo;s the ingenuity of this algorithm. By using <code>~</code> we have a cumulative right product, but it&rsquo;s only useful if we can use it immediately. For the right half, we store this right product. For the left half, we multiply this right product with the existing left product to find the final result.</p>
+<h3 id="takeaways">Takeaways</h3>
+<p>Why was it so hard to figure out this final piece? Instead of using the <code>~i</code>, I could have used <code>n-i</code> which is functionally the same result. But what makes <a href="#org5ed5469">this algorithm</a> a hard leap from <a href="#org628a433">this</a>?</p>
+<ul>
+<li>Intuitively a loop does &ldquo;one thing&rdquo; for every element in the array
+<ul>
+<li>Calculating two different quantities for the two halves of the array is a super confusing concept</li>
+</ul>
+</li>
+<li>The symmetry is so hard to see the first time here. But once it&rsquo;s there, it&rsquo;s hard to unsee it</li>
+</ul>
+<p>This is one of the most elegant algorithms ever!</p>
+
+</main>
+
+<div class="related-content">
+
+
+<h3>See Also</h3>
+<ul>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_spiral_matrix/">Algo walkthrough: spiral matrix</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_number_of_ways_to_decode_message/">Algo walkthrough: number of ways to decode message</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_longest_sequence_in_unsorted_array/">Algo walkthrough: longest sequence in unsorted array</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_swapping_elements_to_find_max_score/">Algo walkthrough: swapping elements to find max score</a></li>
+    
+</ul>
+
+</div>
+
+<script src="https://utteranc.es/client.js"
+        repo="sprjg/sprjg.github.io"
+        issue-term="title"
+        label="blog-comments"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  <footer>
+  <script src="https://sprjg.github.io/js/math-code.js"></script>
+<script async src="https://sprjg.github.io/MathJax/es5/tex-chtml.js"></script>
+
+
+<script async src="https://sprjg.github.io/js/center-img.js"></script>
+
+  
+  <hr/>
+  © <a href="https://sprjg.github.io">SPR</a> 2019 &ndash; 2021 | <a href="https://github.com/sprajagopal">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

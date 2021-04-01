@@ -13,10 +13,10 @@
     
     <item>
       <title>Algo walkthrough: jump game</title>
-      <link>https://sprjg.github.io/posts/20210226124708-algo_walkthrough_jump_game/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_jump_game/</link>
       <pubDate>Fri, 26 Feb 2021 00:00:00 +0530</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20210226124708-algo_walkthrough_jump_game/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_jump_game/</guid>
       <description>Example 1:
 Input: nums = [2,3,1,1,4]
 Output: true
@@ -31,10 +31,10 @@ Intuitions There may be more than one path to reach the end of the array i.</des
     
     <item>
       <title>Algo walkthrough: pacific atlantic water flow</title>
-      <link>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_pacific_atlantic_water_flow/</link>
       <pubDate>Wed, 10 Feb 2021 00:00:00 +0530</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20210131201122-algo_walkthrough_pacific_atlantic_water_flow/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_pacific_atlantic_water_flow/</guid>
       <description>Note:
 The order of returned grid coordinates does not matter. Both m and n are less than 150.
 Link to the problem.
@@ -47,10 +47,10 @@ Link to the problem.
     
     <item>
       <title>Algo walkthrough: product of array except self</title>
-      <link>https://sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_product_of_array_except_self/</link>
       <pubDate>Sat, 12 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20201212172313-algo_walkthrough_product_of_array_except_self/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_product_of_array_except_self/</guid>
       <description>Input: [1,2,3,4]
 Output: [24,12,8,6]
 Note: Please solve it without division and in O(n).
@@ -61,10 +61,10 @@ Using division If we use division, how would we solve this problem? We could sta
     
     <item>
       <title>Algo walkthrough: spiral matrix</title>
-      <link>https://sprjg.github.io/posts/20201205201509-algo_walkthrough_spiral_matrix/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_spiral_matrix/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20201205201509-algo_walkthrough_spiral_matrix/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_spiral_matrix/</guid>
       <description>Example 1:
 Input matrix: [[1,2,3],[4,5,6],[7,8,9]]
 Output: [1,2,3,6,9,8,7,4,5]
@@ -75,20 +75,20 @@ Link to the problem.
     
     <item>
       <title>Algo walkthrough: number of ways to decode message</title>
-      <link>https://sprjg.github.io/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_number_of_ways_to_decode_message/</link>
       <pubDate>Sat, 05 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20201205103553-algo_walkthrough_number_of_ways_to_decode_message/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_number_of_ways_to_decode_message/</guid>
       <description>Link to the problem
 Intuitions Variable code length The root of the issue is variable code length. Some codes are length-1 (a-i), some are length-2 (j-z). This leads to may lead to; there are conditions to deal with but we&amp;#39;ll come to that later  multiple correct decodings for the same input code. Let&amp;rsquo;s take a minimal example of 25 as the input code. We could decode it as be or y.</description>
     </item>
     
     <item>
       <title>Algo walkthrough: set matrix zeroes</title>
-      <link>https://sprjg.github.io/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_set_matrix_zeroes/</link>
       <pubDate>Tue, 01 Dec 2020 00:00:00 +0530</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_set_matrix_zeroes/</guid>
       <description>Link to the problem.
 Hints  A straight forward solution using O(mn) space is probably a bad idea.
 A simple improvement uses O(m + n) space, but still not the best solution.
@@ -97,20 +97,20 @@ Could you devise a constant space solution? So this problem is more about space 
     
     <item>
       <title>Algo walkthrough: course schedule</title>
-      <link>https://sprjg.github.io/posts/20201127172735-algo_walkthrough_course_schedule/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_course_schedule/</link>
       <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20201127172735-algo_walkthrough_course_schedule/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_course_schedule/</guid>
       <description>Link to the problem
 First impressions It seems every course has pre-requisites. A course c would have the following pre-requisites: [c, p1], [c, p2], .... First we finish all the pre-requisites then we can finish the course c. The pre-requisites will obviously have their own pre-requisites&amp;hellip; and so on. The question says &amp;ldquo;is it possible?&amp;rdquo; which means the inputs may have a situation where this chain of pre-requisites can never be completed because everything depends on everything else i.</description>
     </item>
     
     <item>
       <title>Algo walkthrough: number of islands</title>
-      <link>https://sprjg.github.io/posts/20201125100541-algo_walkthrough_number_of_islands/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_number_of_islands/</link>
       <pubDate>Thu, 26 Nov 2020 00:00:00 +0530</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20201125100541-algo_walkthrough_number_of_islands/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_number_of_islands/</guid>
       <description>Link to the problem.
 Exploration The first instinct is to lower the dimension of the problem and see what that looks like. A 1D world with stretches of land and water:
                  1 0 0 0 1 1 1 0 0 1    In this case, there are 3 islands. We can count this in a single pass of the array.</description>
@@ -118,20 +118,20 @@ Exploration The first instinct is to lower the dimension of the problem and see 
     
     <item>
       <title>Algo walkthrough: longest sequence in unsorted array</title>
-      <link>https://sprjg.github.io/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_longest_sequence_in_unsorted_array/</link>
       <pubDate>Wed, 25 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20201123210516-algo_walkthrough_longest_sequence_in_unsorted_array/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_longest_sequence_in_unsorted_array/</guid>
       <description>Link to the problem.
 Hints  They hint at a \(O(n)\) solution. This can be useful at a later point. They also say the length of the array can be between \(1, 10000\). This means we can a small array of size \(10\) and manually try out solutions. This would probably scale fine. Each element can be huge! \(-10^9, 10^9\). Note that the value is higher than the length of the array.</description>
     </item>
     
     <item>
       <title>Algo walkthrough: swapping elements to find max score</title>
-      <link>https://sprjg.github.io/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</link>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_swapping_elements_to_find_max_score/</link>
       <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://sprjg.github.io/posts/20201122105230-algo_walkthrough_swapping_elements_to_find_max_score/</guid>
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_swapping_elements_to_find_max_score/</guid>
       <description>Initial setup The initial setup consists of an unsorted array. Each element has a score defined as the absolute value of the difference the element&amp;rsquo;s value and its index.
 The absolute value The metric for each element gives us a sense of displacement. For example, if an element at index `4` is of value `10` the score for this is `6`. If the element was at index `5` and of value `11`, the score is still `6`.</description>
     </item>

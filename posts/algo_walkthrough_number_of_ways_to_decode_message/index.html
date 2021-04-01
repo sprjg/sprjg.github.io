@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:type" content="article" />
+
+<meta property="og:url" content="https://sprjg.github.io/posts/algo_walkthrough_number_of_ways_to_decode_message/" />
+
+<meta property="og:title" content="Algo walkthrough: number of ways to decode message" />
+
+<meta property="og:image" content="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_10-56-42_.png" />
+
+<meta property="og:description" content="  A message containing letters from A-Z is being encoded to numbers using the following mapping:
+
+  &#39;A&#39; -&gt; 1
+
+  &#39;B&#39; -&gt; 2
+
+  ...
+
+  &#39;Z&#39; -&gt; 26
+
+  Given a non-empty string containing only digits, determine the total number of ways to decode it.
+
+  The answer is guaranteed to fit in a 32-bit integer.
+  " />
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="twitter:site" content="">
+
+<meta name="twitter:creator" content="">
+
+<meta name="twitter:title" content="Algo walkthrough: number of ways to decode message" />
+
+<meta name="twitter:description" content="  A message containing letters from A-Z is being encoded to numbers using the following mapping:
+
+  &#39;A&#39; -&gt; 1
+
+  &#39;B&#39; -&gt; 2
+
+  ...
+
+  &#39;Z&#39; -&gt; 26
+
+  Given a non-empty string containing only digits, determine the total number of ways to decode it.
+
+  The answer is guaranteed to fit in a 32-bit integer.
+  " />
+
+<meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_10-56-42_.png" />
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/sprjg.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Algo walkthrough: number of ways to decode message",
+    "headline" : "Algo walkthrough: number of ways to decode message",
+    "description" : "  A message containing letters from A-Z is being encoded to numbers using the following mapping:\n\n  \x27A\x27 -\x3e 1\n\n  \x27B\x27 -\x3e 2\n\n  ...\n\n  \x27Z\x27 -\x3e 26\n\n  Given a non-empty string containing only digits, determine the total number of ways to decode it.\n\n  The answer is guaranteed to fit in a 32-bit integer.\n  ",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-12-05 00:00:00 \x2b0530 IST",
+    "dateModified" : "2020-12-05 00:00:00 \x2b0530 IST",
+    "url" : "https:\/\/sprjg.github.io\/posts\/algo_walkthrough_number_of_ways_to_decode_message\/",
+    "wordCount" : "2120",
+    "keywords" : [ "strings","dynamic-programming","Blog" ]
+}
+</script>
+
+
+    <title>Algo walkthrough: number of ways to decode message | Notes on engineering math</title>
+    <link rel="stylesheet" href="https://sprjg.github.io/css/style.css" />
+    <link rel="stylesheet" href="https://sprjg.github.io/css/fonts.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class='site-title'> <div> Notes on engineering math </div> </div>
+    <div id="posts-list">
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="https://sprjg.github.io/posts/">Archive</a></li>
+      
+      <li><a href="https://sprjg.github.io/categories/">Categories</a></li>
+      
+      <li><a href="https://sprjg.github.io/tags/">Tags</a></li>
+      
+      <li><a href="https://sprjg.github.io/">About</a></li>
+      
+      <li><a href="https://sprjg.github.io/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+    </div>
+
+<div class="article-meta">
+<a href="https://sprjg.github.io/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: number of ways to decode message</span></h1></a>
+</div>
+
+<main>
+  <aside class="toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#intuitions">Intuitions</a>
+      <ul>
+        <li><a href="#variable-code-length">Variable code length</a></li>
+        <li><a href="#variable-code-length-but-limited-variability">Variable code length but limited variability</a></li>
+        <li><a href="#multiplicity">Multiplicity</a></li>
+        <li><a href="#generalizing">Generalizing</a></li>
+        <li><a href="#base-case">Base case</a></li>
+        <li><a href="#duplicates">Duplicates</a></li>
+      </ul>
+    </li>
+    <li><a href="#solution-approach">Solution approach</a>
+      <ul>
+        <li><a href="#some-checks-needed">Some checks needed</a></li>
+        <li><a href="#data-structures">Data structures</a></li>
+      </ul>
+    </li>
+    <li><a href="#implementation">Implementation</a>
+      <ul>
+        <li><a href="#testing">Testing</a></li>
+        <li><a href="#unhandled-cases">Unhandled cases</a></li>
+      </ul>
+    </li>
+    <li><a href="#corrections">Corrections</a>
+      <ul>
+        <li><a href="#zero-at-start">Zero at start</a></li>
+        <li><a href="#zero-in-the-middle-end">Zero in the middle/end</a></li>
+        <li><a href="#invalid-tokens">Invalid tokens</a></li>
+        <li><a href="#complete-code">Complete code</a></li>
+      </ul>
+    </li>
+    <li><a href="#performance">Performance</a></li>
+    <li><a href="#understanding-the-best-solution">Understanding the best solution</a>
+      <ul>
+        <li><a href="#an-array-instead-of-previous-two-variables">An array instead of previous two variables</a></li>
+        <li><a href="#processing-direction">Processing direction</a></li>
+        <li><a href="#is-this-better">Is this better?</a></li>
+      </ul>
+    </li>
+    <li><a href="#bonus">Bonus</a></li>
+  </ul>
+</nav>
+  </aside>
+    A message containing letters from A-Z is being encoded to numbers using the following mapping:
+
+  &#39;A&#39; -&gt; 1
+
+  &#39;B&#39; -&gt; 2
+
+  ...
+
+  &#39;Z&#39; -&gt; 26
+
+  Given a non-empty string containing only digits, determine the total number of ways to decode it.
+
+  The answer is guaranteed to fit in a 32-bit integer.
+  
+  <p><a href="https://leetcode.com/problems/decode-ways/description/">Link to the problem</a></p>
+<h2 id="intuitions">Intuitions</h2>
+<h3 id="variable-code-length">Variable code length</h3>
+<p>The root of the issue is variable code length. Some codes are length-1 (a-i), some are length-2 (j-z). This <span class="sidenote">
+<label class="sidenote-label" for="fn3">leads to</label>
+
+<span class="sidenote-content">may lead to; there are conditions to deal with but we&#39;ll come to that later</span>
+</span>
+ multiple correct decodings for the same input code. Let&rsquo;s take a minimal example of <code>25</code> as the input code.
+We could decode it as <code>be</code> or <code>y</code>.</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_10-56-42_.png"/> 
+</figure>
+
+<h3 id="variable-code-length-but-limited-variability">Variable code length but limited variability</h3>
+<p>This is the encouraging part. Notice that we only have <span class="sidenote">
+<label class="sidenote-label" for="fn-variale-code">two</label>
+
+<span class="sidenote-content">atmost two, we may have lesser too. Try 35 as input</span>
+</span>
+ possibilities for an input of size 2.
+Initially an input code such as <code>1235452621772738</code> may have seemed chaotic in the number of ways we could decode it. But now it&rsquo;s obvious that the source of variability is in groupings of 2. This significantly reduces the number of decodings.</p>
+<h3 id="multiplicity">Multiplicity</h3>
+<p>Let&rsquo;s think about a length-2 code which has <code>2</code> possible decodings. Now let&rsquo;s add one more number to the code.</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_11-11-35_.png"/> 
+</figure>
+
+<p>The gray areas are already &ldquo;computed&rdquo; i.e. we have already counted the number of decodings. We had two options in the grey area: keep <code>25</code> as whole or split it as <code>2,5</code>.
+Adding an additional number <code>1</code> to the code leads to 2 options directly i.e. simply add to the existing decodings as shown in the image above.
+But we have more options too. We could combine the new number <code>1</code> with the <code>2</code> and keep <code>5</code> separate:</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_11-23-01_.png"/> 
+</figure>
+
+<p>The combination marked red is new. Giving us a total of 3 decoding ways.</p>
+<h3 id="generalizing">Generalizing</h3>
+<p>Let&rsquo;s assume we have already found the number of decodings <code>D(k)</code>  for an input of length <code>k</code>:</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_11-27-50_.png"/> 
+</figure>
+
+<p>Adding one number <code>s[k+1]</code> to this leads to two paths:</p>
+<ul>
+<li><code>D(k)</code> decodings simply by adding the new number <code>s[k+1]</code> to each one of them</li>
+</ul>
+<p>+Combining the new number <code>s[k+1]</code> with the first number <code>s[k]</code> in the existing code can give us 2 ways to decode. Each of these can combine with <code>D(k-1)</code> decodings of the remaining code</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_11-36-07_.png"/> 
+</figure>
+
+<h3 id="base-case">Base case</h3>
+<p>Where do we get <code>D(k), D(k-1)</code> from?
+We know that an input code with length 0 has 0 decodings: <code>D(0) = 0</code>
+We also know that an input code of length 1 has exactly 1 decoding: <code>D(1) = 1</code></p>
+<h4 id="length-2-code">Length 2 code</h4>
+<p>For a length 2 code,</p>
+<ul>
+<li>we have <code>D(1)</code> decodings by simply adding the new number to each of the previous <code>D(1)</code> decodings</li>
+<li>we can also combine the new number with the existing number to create 2 combinations and each of them can combine with decodings in <code>D(0)</code>. But <code>D(0) = 0</code> so we just have the 2 combinations here.</li>
+</ul>
+<p>This is <code>D(2)</code>.</p>
+<h4 id="length-3-code">Length 3 code</h4>
+<p>For a length 3 code,</p>
+<ul>
+<li>we have <code>D(2)</code> decodings by simply adding the new number to each of the previous <code>D(2)</code> decodings</li>
+<li>we can also combine the new number with the first number of the old code to <span class="sidenote">
+<label class="sidenote-label" for="fn-not-always">create 2 combinations</label>
+
+<span class="sidenote-content">not always 2. Could be 1 also for a code like 35</span>
+</span>
+ and multiply that with the <code>D(1)</code>.</li>
+</ul>
+<p>This is <code>D(3)</code>.</p>
+<h3 id="duplicates">Duplicates</h3>
+<p>This is the difficult part. How do we weed out the duplicates? Take the example of an input code <code>2226</code>. The numbers on the right are the labels for each decoding.</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_12-59-39_.png"/> 
+</figure>
+
+<p>Checking manually at least, we don&rsquo;t have any duplicates.</p>
+<h2 id="solution-approach">Solution approach</h2>
+<p>We can start building from <code>0</code> numbers in the code. After including a number, we compute <code>D(1)</code>. We keep adding and computing all the way until <code>D(n)</code> when all <code>n</code> numbers are included in the code.</p>
+<h3 id="some-checks-needed">Some checks needed</h3>
+<ul>
+<li>We may not always have 2 decodings for a length-2 code. An example of <code>35</code> has only one decoding <code>ce</code> because <code>35 &gt; 26</code>.</li>
+<li>We may not always have a valid decoding for a length-1 code. Example: <code>0</code>.</li>
+</ul>
+<h3 id="data-structures">Data structures</h3>
+<ul>
+<li>We can simply use the existing array and <span class="sidenote">
+<label class="sidenote-label" for="fn-rev-order">iterate through it in reverse order.</label>
+
+<span class="sidenote-content">we can do it in forward direction also; the point 4 below changes accordingly i.e. f&#34;{eprev}{e}&#34; is checked. Other edge cases handling also has to change. Read next section</span>
+</span>
+</li>
+<li>We don&rsquo;t have to store all the <code>D(i)</code>. We only need the last two, say <code>D0, D1</code> to mean <code>D(k), D(k-1)</code> respectively</li>
+<li>For each new additional number, we have to start a counter <code>Dnow</code>. By the end of the processing/iteration for this additional number, we change <code>Dnow = D0</code> and <code>D0 = D1</code></li>
+<li>Every new addition number is <code>e</code> and the previous number was <code>eprev</code>. We have to check if <code>f&quot;{e}{eprev}&quot;</code> is less than or equal to <code>26</code>. If it is only then do we take the second path i.e. combining with <code>D(k-1)</code></li>
+<li>For sake of convenience we&rsquo;ll avoid processing the rightmost number; instead we&rsquo;ll account for it by setting initial value of <code>D(k)</code> with <code>D(k)=1</code></li>
+<li><code>D(k-1)</code> initial value logically should be zero. But <a id="org7cd7f4e"></a> &hellip;
+<ul>
+<li>Take the example of <code>26</code>. When the new additional number combined with old additional number (point 4), is less than 26, we have one more decoding possible along with <code>2,6</code>. But if we added <code>D(k-1) = 0</code> we&rsquo;d have the wrong result i.e. just decoding</li>
+<li>For the sake of making this work, we can set initial value of <code>D(k-1)=1</code>. Anyway it will get overwritten by the end of the first additional number</li>
+</ul>
+</li>
+</ul>
+<h2 id="implementation">Implementation</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">count_decodings</span>(s):
+    D1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    eprevprev <span style="color:#f92672">=</span> None
+    eprev <span style="color:#f92672">=</span> s[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    D0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    Dnow <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> s[<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]:
+        <span style="color:#75715e"># can this new e be combined with eprev</span>
+        Dnow <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        combo <span style="color:#f92672">=</span> int(f<span style="color:#e6db74">&#34;{e}{eprev}&#34;</span>)
+        <span style="color:#66d9ef">if</span> combo <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">26</span>:
+            Dnow <span style="color:#f92672">+=</span> D1
+
+        <span style="color:#75715e"># all the previous decodings</span>
+        <span style="color:#75715e"># can be combined with this e</span>
+        Dnow <span style="color:#f92672">+=</span> D0
+        D0, D1 <span style="color:#f92672">=</span> Dnow, D0
+        eprev <span style="color:#f92672">=</span> e
+    <span style="color:#66d9ef">return</span> Dnow
+</code></pre></div><h3 id="testing">Testing</h3>
+<p>Let&rsquo;s test for strings in the <a href="https://leetcode.com/problems/decode-ways/">leetcode description</a> first.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">print</span>(count_decodings(<span style="color:#e6db74">&#34;266&#34;</span>))
+<span style="color:#66d9ef">print</span>(count_decodings(<span style="color:#e6db74">&#34;26612312&#34;</span>))
+<span style="color:#66d9ef">print</span>(count_decodings(<span style="color:#e6db74">&#34;212312366&#34;</span>))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">2
+12
+15
+</code></pre></div><p>I also tried these inputs against leetcode&rsquo;s tester and these work as expected.</p>
+<h3 id="unhandled-cases">Unhandled cases</h3>
+<h4 id="zeros">Zeros</h4>
+<p>The glaring omission in the above test cases is <code>0</code>. They do not contain <code>0</code>'s. Adding <code>0</code>'s will break our implementation. Let&rsquo;s see why. To understand better, we&rsquo;ll take specific cases and build on it</p>
+<h5 id="zero-at-rightmost-position">Zero at rightmost position</h5>
+<h6 id="no-valid-1-length-decoding">No valid 1-length decoding</h6>
+<p>In this case, the zero itself is the first added number and thus has zero valid decodings. This is easily handled by changing initial values of <code>D0</code> accordingly.</p>
+<h6 id="the-next-number-cannot-be-broken">The next number cannot be broken</h6>
+<p>This is more serious. Say the input is <code>320</code>:</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_15-22-24_.png"/> 
+</figure>
+
+<p>The <code>3</code> cannot be combined with <code>2</code> because that would create an orphan <code>0</code> which is not decodable.</p>
+<h5 id="zero-in-the-middle">Zero in the middle</h5>
+<p>Say the input is <code>10xxxxx</code> where the <code>x</code> placeholders are already processed:</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_15-26-40_.png"/> 
+</figure>
+
+<p>The issue now is that when <code>0</code> is the new number added, we simply have nothing to do. In a bad way. We cannot say whether the current code is valid or not. If the next incoming number can combine with this zero then the code becomes valid, otherwise the entire thing is invalid.
+It gets worse! Say we have another incoming number <code>2</code> to the existing <code>10xxxxx</code>:</p>
+<figure>
+    <img src="https://sprjg.github.io/ox-hugo/screenshot2020-12-05_15-30-31_.png"/> 
+</figure>
+
+<p>Now we cannot combine <code>2</code> and <code>1</code> because the <code>0</code> would get orphaned.</p>
+<h5 id="zero-at-the-start">Zero at the start</h5>
+<p>This is simply invalid as we say in the previous section. We cannot combine this <code>0</code> with anything and so this is also an edge case check before our algorithm starts.</p>
+<h2 id="corrections">Corrections</h2>
+<p>The nature of zeros in this problem is not contained to one iteration. The effects propagate to subsequent iterations after the zero (maybe 2 or 3 iterations). To handle the issue of zeros, we can either handle the edge cases by adding checks but this could lead to spaghetti code.
+The other way is to understand the core of the issue: <em>orphaned</em> zeros. <strong>So zeros by themselves are meaningless.</strong> Knowing this, we could simply change our iteration style to treat zeros only with their preceding number thus leading to an always valid combined token.
+Let&rsquo;s make corrections for each of the edge cases we discussed.</p>
+<h3 id="zero-at-start">Zero at start</h3>
+<p>This will handle the zeros at start:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">    <span style="color:#66d9ef">if</span> s <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">or</span> s[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</code></pre></div><h3 id="zero-in-the-middle-end">Zero in the middle/end</h3>
+<p>Whenever we encounter a zero, we combine it with the next incoming number (preceding number) and then process them together. We have to change the for loop to a while:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">i <span style="color:#f92672">=</span> len(s) <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>
+<span style="color:#66d9ef">while</span> i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#66d9ef">if</span> s[i] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        token <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#34;{s[i-1]}{s[i]}&#34;</span>
+        i <span style="color:#f92672">-=</span> <span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">else</span>:
+        token <span style="color:#f92672">=</span> s[i]
+        i <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#75715e"># process token as usual</span>
+</code></pre></div><h3 id="invalid-tokens">Invalid tokens</h3>
+<p>The good side effect of tokenizing this way: we can weed out inputs such as <code>xxxx000xxxx</code>. When we encounter the first zero (from right) we will combine it with the preceding number to form a token <code>00</code> which is invalid. So we can check if token formed by combining is valid and return 0 if it&rsquo;s not in the range <code>(0, 26]</code>.</p>
+<h3 id="complete-code">Complete code</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">count_decodings</span>(s):
+    <span style="color:#66d9ef">if</span> s <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">or</span> s[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+
+    D0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    D1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    Dcurrent <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    i <span style="color:#f92672">=</span> len(s) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+    prevtoken <span style="color:#f92672">=</span> None
+    <span style="color:#66d9ef">while</span> i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#66d9ef">if</span> s[i] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span>:
+            token <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#34;{s[i-1]}{s[i]}&#34;</span>
+            <span style="color:#66d9ef">if</span> int(token) <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">26</span> <span style="color:#f92672">or</span> int(token) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+                <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+            i <span style="color:#f92672">-=</span> <span style="color:#ae81ff">2</span>
+        <span style="color:#66d9ef">else</span>:
+            token <span style="color:#f92672">=</span> s[i]
+            i <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+        Dcurrent <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        <span style="color:#66d9ef">if</span> prevtoken <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+            combo <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#34;{token}{prevtoken}&#34;</span>
+            <span style="color:#66d9ef">if</span> int(combo) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">26</span>:
+                Dcurrent <span style="color:#f92672">+=</span> D1
+
+        Dcurrent <span style="color:#f92672">+=</span> D0
+        prevtoken <span style="color:#f92672">=</span> token
+        D0, D1 <span style="color:#f92672">=</span> Dcurrent, D0
+    <span style="color:#66d9ef">return</span> Dcurrent
+</code></pre></div><h2 id="performance">Performance</h2>
+<blockquote>
+<p>Runtime: 28 ms, faster than 84.07% of Python3 online submissions for Decode Ways.</p>
+<p>Memory Usage: 14.2 MB, less than 28.54% of Python3 online submissions for Decode Ways.</p>
+</blockquote>
+<p>We&rsquo;re doing alright in terms of time. The space seems high but <a href="https://sprjg.github.io/posts/20201130130544-algo_walkthrough_set_matrix_zeroes/#deleting-our-used-objects">I&rsquo;ve seen weird behaviour with space usage before</a>. So I&rsquo;m averse to going down this rabbit hole.</p>
+<h2 id="understanding-the-best-solution">Understanding the best solution</h2>
+<p>The <span class="sidenote">
+<label class="sidenote-label" for="fn-best">best solution</label>
+
+<span class="sidenote-content">Among all submissions, 16ms run time</span>
+</span>
+ <a href="https://leetcode.com/submissions/detail/427395128/">is this one</a>. If the solution is small enough to fit in a playing card, it&rsquo;s worth understanding more.</p>
+<h3 id="an-array-instead-of-previous-two-variables">An array instead of previous two variables</h3>
+<p>This implementation uses an array <code>dp</code> to store the results of each new number addition. <code>dp[0]</code> is set to <code>1</code> for <a href="#org7cd7f4e">the same reason</a> we set <code>D1 = 1</code>. Note also that the array is offset by 1 i.e. result of including one number is at <code>dp[1]</code> not <code>dp[0]</code>. Thus the final result is at <code>dp[len(s)]</code>.
+So <code>dp[i]</code> here is the number of decodings possible for <code>s[:i]</code>. This is a crucial point to understand for the rest to make sense.</p>
+<h3 id="processing-direction">Processing direction</h3>
+<p>The processing is from left to right. This is a significant change to understand. Because everything is <em>mirrored</em> in a way, it&rsquo;s a bit confusing at first. But let&rsquo;s track down the places where <code>dp[i]</code> is changed.</p>
+<h4 id="subproblem-additions">Subproblem additions</h4>
+<p>There are two additions within the loop to mutate <code>dp[i]</code></p>
+<h5 id="if-block">If block</h5>
+<p>Forget the <code>if</code> for a minute. This addition is simply saying: we can add this new number to each of the previous discovered decoding. This is the equivalent to the addition of <code>D(k)</code> in our implementation.
+The <code>if</code> is simply to avoid this addition when the new number is <code>0</code>. Note that the number being processing is <code>s[i-1]</code> and the result is stored in <code>dp[i]</code>.</p>
+<h5 id="two-digit">Two digit</h5>
+<p>This is the other place where <code>dp[i]</code> changes. Here the solution is combining <code>s[i-1]</code> and <code>s[i-2]</code>. If that&rsquo;s a valid token, then we get to permute this with all decodings of <code>dp[i-2]</code>. This is equivalent to our <code>D(k-1)</code> addition.</p>
+<h3 id="is-this-better">Is this better?</h3>
+<p>Of course, in terms of time. But is this more elegant in terms of logic?</p>
+<h4 id="constant-loop-delta">Constant loop delta</h4>
+<p>This is a big cognitive relief in this solution. Because the loop always updates by <code>1</code>, in terms of code, we can avoid special skips.</p>
+<h4 id="zero-appearances-are-not-an-edge-case">Zero appearances are not an edge case</h4>
+<p>In this solution, the appearance of a zero is simply handled the same way as everything else. <span class="sidenote">
+<label class="sidenote-label" for="fn-loop-zeroes">Mainly the loop itself doesn&#39;t care about the zeros.</label>
+
+<span class="sidenote-content">In our implementation, the loop decrements by 2 instead of 1</span>
+</span>
+</p>
+<h2 id="bonus">Bonus</h2>
+<p>This is the spaghetti code implementation that would also work but bring shame upon us all.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">count_decodings</span>(s):
+    <span style="color:#66d9ef">if</span> s <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">or</span> s[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+    D1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    eprevprev <span style="color:#f92672">=</span> None
+    eprev <span style="color:#f92672">=</span> s[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    <span style="color:#66d9ef">if</span> eprev <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span>:
+        D0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        Dnow <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">else</span>:
+        D0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+        Dnow <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> s[<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]:
+        <span style="color:#66d9ef">if</span> e <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">and</span> eprev <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span>:
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+        <span style="color:#66d9ef">elif</span> e <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;0&#34;</span>:
+            D0, D1 <span style="color:#f92672">=</span> Dnow, D0
+            eprevprev, eprev <span style="color:#f92672">=</span> eprev, e
+            <span style="color:#66d9ef">continue</span>
+
+        <span style="color:#75715e"># can this new e be combined with eprev</span>
+        Dnow <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        combo <span style="color:#f92672">=</span> int(f<span style="color:#e6db74">&#34;{e}{eprev}&#34;</span>)
+        <span style="color:#66d9ef">if</span> combo <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">26</span> <span style="color:#f92672">and</span> eprevprev <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;0&#34;</span>:
+            Dnow <span style="color:#f92672">+=</span> D1
+
+        <span style="color:#75715e"># all the previous decodings</span>
+        <span style="color:#75715e"># can be combined with this e</span>
+        <span style="color:#66d9ef">if</span> eprev <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;0&#34;</span>:
+            Dnow <span style="color:#f92672">+=</span> D0
+        D0, D1 <span style="color:#f92672">=</span> Dnow, D0
+        <span style="color:#66d9ef">print</span>(Dnow)
+        eprevprev, eprev <span style="color:#f92672">=</span> eprev, e
+    <span style="color:#66d9ef">return</span> Dnow
+</code></pre></div>
+</main>
+
+<div class="related-content">
+
+
+<h3>See Also</h3>
+<ul>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_product_of_array_except_self/">Algo walkthrough: product of array except self</a></li>
+    
+</ul>
+
+</div>
+
+<script src="https://utteranc.es/client.js"
+        repo="sprjg/sprjg.github.io"
+        issue-term="title"
+        label="blog-comments"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  <footer>
+  <script src="https://sprjg.github.io/js/math-code.js"></script>
+<script async src="https://sprjg.github.io/MathJax/es5/tex-chtml.js"></script>
+
+
+<script async src="https://sprjg.github.io/js/center-img.js"></script>
+
+  
+  <hr/>
+  © <a href="https://sprjg.github.io">SPR</a> 2019 &ndash; 2021 | <a href="https://github.com/sprajagopal">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

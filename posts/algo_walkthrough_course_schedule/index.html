@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:type" content="article" />
+
+<meta property="og:url" content="https://sprjg.github.io/posts/algo_walkthrough_course_schedule/" />
+
+<meta property="og:title" content="Algo walkthrough: course schedule" />
+
+<meta property="og:image" content="https://sprjg.github.io/ox-hugo/" />
+
+<meta property="og:description" content="  There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1.
+  Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
+  Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
+  " />
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="twitter:site" content="">
+
+<meta name="twitter:creator" content="">
+
+<meta name="twitter:title" content="Algo walkthrough: course schedule" />
+
+<meta name="twitter:description" content="  There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1.
+  Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
+  Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
+  " />
+
+<meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/" />
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/sprjg.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Algo walkthrough: course schedule",
+    "headline" : "Algo walkthrough: course schedule",
+    "description" : "  There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1.\n  Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]\n  Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?\n  ",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-11-26 00:00:00 \x2b0530 IST",
+    "dateModified" : "2020-11-26 00:00:00 \x2b0530 IST",
+    "url" : "https:\/\/sprjg.github.io\/posts\/algo_walkthrough_course_schedule\/",
+    "wordCount" : "1995",
+    "keywords" : [ "graph-traversal","cycle-detection","Blog" ]
+}
+</script>
+
+
+    <title>Algo walkthrough: course schedule | Notes on engineering math</title>
+    <link rel="stylesheet" href="https://sprjg.github.io/css/style.css" />
+    <link rel="stylesheet" href="https://sprjg.github.io/css/fonts.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class='site-title'> <div> Notes on engineering math </div> </div>
+    <div id="posts-list">
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="https://sprjg.github.io/posts/">Archive</a></li>
+      
+      <li><a href="https://sprjg.github.io/categories/">Categories</a></li>
+      
+      <li><a href="https://sprjg.github.io/tags/">Tags</a></li>
+      
+      <li><a href="https://sprjg.github.io/">About</a></li>
+      
+      <li><a href="https://sprjg.github.io/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+    </div>
+
+<div class="article-meta">
+<a href="https://sprjg.github.io/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: course schedule</span></h1></a>
+</div>
+
+<main>
+  <aside class="toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#first-impressions">First impressions</a></li>
+    <li><a href="#input">Input</a></li>
+    <li><a href="#cycle-detection-for-a-directed-graph">Cycle detection for a directed graph</a></li>
+    <li><a href="#approach">Approach</a>
+      <ul>
+        <li><a href="#independence">Independence</a></li>
+        <li><a href="#data-structures">Data structures</a></li>
+        <li><a href="#implementation">Implementation</a></li>
+        <li><a href="#random-tests">Random tests</a></li>
+      </ul>
+    </li>
+    <li><a href="#observations">Observations</a>
+      <ul>
+        <li><a href="#possible-edge-cases">Possible edge cases</a></li>
+        <li><a href="#corrections">Corrections</a></li>
+      </ul>
+    </li>
+    <li><a href="#test-results-from-leetcode">Test results from leetcode</a>
+      <ul>
+        <li><a href="#profiling">Profiling</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </aside>
+    There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1.
+  Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
+  Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
+  
+  <p><a href="https://leetcode.com/problems/course-schedule/">Link to the problem</a></p>
+<h2 id="first-impressions">First impressions</h2>
+<p>It seems every course has pre-requisites. A course <code>c</code> would have the following pre-requisites: <code>[c, p1], [c, p2], ...</code>. First we finish all the pre-requisites then we can finish the course <code>c</code>. The pre-requisites will obviously have their own pre-requisites&hellip; and so on.
+The question says &ldquo;is it possible?&rdquo; which means the inputs may have a situation where this chain of pre-requisites can never be completed because everything depends on everything else i.e. a cycle!</p>
+<h2 id="input">Input</h2>
+<p>The input is a list of edges. Our job is to check whether there are cycles.</p>
+<h2 id="cycle-detection-for-a-directed-graph">Cycle detection for a directed graph</h2>
+<p>One standard way to do this in a graph is by using <a href="https://en.wikipedia.org/wiki/Breadth-first%5Fsearch">BFS</a> along with a topological sorting.</p>
+<h2 id="approach">Approach</h2>
+<p>The idea is to iteratively remove independent courses, until we can remove no more. If there are still vertices that are unvisited i.e. removed, then these form a cycle(s).</p>
+<h3 id="independence">Independence</h3>
+<p>To quantify independence we first compute the indegree of each vertex. The independent courses will have zero indegree and can be removed (i.e. completed first). Accordingly decrement the indegree of its dependents. Again, we look for any independent courses, removing them, reducing the indegree of dependents. If we continue this way to exhaust all vertices (courses), then we have proved that the given set of courses can be completed.</p>
+<h3 id="data-structures">Data structures</h3>
+<p>We are given two inputs:</p>
+<ul>
+<li>the number of vertices, <code>numCourses</code></li>
+<li>the list of edges, <code>prerequisites</code>
+<ul>
+<li>we iterate over these edges to find the indegree of each vertex and store in a dictionary <code>indegree</code> such that for vertex <code>e</code>, the indegree is <code>indegree[e]</code>
+<ul>
+<li>any <code>e</code> that we find with <code>0</code> indegree will be added to a set called <code>processing</code></li>
+</ul>
+</li>
+<li>we also create a dictionary, <code>edges</code>, so that <code>edges[x]</code> is a list of dependents of <code>x</code>, i.e. a list of vertices that depend on <code>x</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="implementation">Implementation</h3>
+<p>At this point we should have a <code>processing</code> set with nonzero elements. If not, there are no independent courses already.
+We start by popping off a vertex from <code>processing</code>. The dependents of this vertex <code>e</code> is in <code>edges[e]</code>. We decrement the indegree for the vertices in <code>edges[e]</code>. Now are there any new independent courses to be added to <code>processing</code>? Add them.</p>
+<blockquote>
+<p>We already know that <code>processing</code> contains all the vertices with 0 indegree at the start. So the only vertices that can now be added to <code>processing</code> are the ones we just decremented. This makes adding new independent vertices to <code>processing</code> a constant time operation and no search is involved.</p>
+</blockquote>
+<p>If we have no more vertices in <code>processing</code> we stop. At this point, if every vertex went through <code>processing</code> then there is no cycle. If not, there is. To track this, let&rsquo;s use a counter <code>numVisited</code> which is incremented every time a vertex is popped off from <code>processing</code>. If there are no cycles, <code>numVisited</code> should be equal to <code>numCourses</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(numCourses, prerequisites):
+    <span style="color:#75715e"># set of vertices yet to be visited</span>
+    vertices <span style="color:#f92672">=</span> set(range(<span style="color:#ae81ff">0</span>, numCourses))
+
+    <span style="color:#75715e"># create dictionary of indegree</span>
+    <span style="color:#75715e"># set all indegree to zero</span>
+    indegree <span style="color:#f92672">=</span> {}
+    <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> vertices:
+        indegree[e] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+    <span style="color:#75715e"># counter for visited vertices</span>
+    numVisited <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+    <span style="color:#75715e"># edges</span>
+    edges <span style="color:#f92672">=</span> {}
+
+    <span style="color:#66d9ef">for</span> course, dep <span style="color:#f92672">in</span> prerequisites:
+        <span style="color:#66d9ef">if</span> dep <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> edges:
+            edges[dep] <span style="color:#f92672">=</span> set()
+        <span style="color:#75715e"># course has another dependency</span>
+        indegree[course] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#75715e"># dep has another dependent</span>
+        edges[dep]<span style="color:#f92672">.</span>add(course)
+
+    <span style="color:#75715e"># vertices with zero indegree</span>
+    processing <span style="color:#f92672">=</span> set()
+    <span style="color:#66d9ef">for</span> k, v <span style="color:#f92672">in</span> indegree<span style="color:#f92672">.</span>items():
+        <span style="color:#66d9ef">if</span> v <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            <span style="color:#75715e"># add independent vertices</span>
+            processing<span style="color:#f92672">.</span>add(k)
+
+    <span style="color:#66d9ef">while</span> len(processing) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#75715e"># an independent course</span>
+        e <span style="color:#f92672">=</span> next(iter(processing))
+
+        <span style="color:#75715e"># remove it i.e. complete it</span>
+        processing<span style="color:#f92672">.</span>remove(e)
+
+        <span style="color:#75715e"># we completed one more course</span>
+        numVisited <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+        <span style="color:#75715e"># who are the dependents of e?</span>
+        <span style="color:#75715e"># i.e. who depends on e?</span>
+        <span style="color:#75715e"># if there are any</span>
+        <span style="color:#66d9ef">if</span> e <span style="color:#f92672">in</span> edges:
+            <span style="color:#66d9ef">for</span> course <span style="color:#f92672">in</span> edges[e]:
+                indegree[course] <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+
+                <span style="color:#75715e"># is this course now independent?</span>
+                <span style="color:#66d9ef">if</span> indegree[course] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+                    processing<span style="color:#f92672">.</span>add(course)
+
+    <span style="color:#75715e"># nothing more to process</span>
+    <span style="color:#75715e"># did we finish all courses?</span>
+    <span style="color:#66d9ef">return</span> numVisited <span style="color:#f92672">==</span> numCourses
+</code></pre></div><h3 id="random-tests">Random tests</h3>
+<h4 id="generating-inputs">Generating inputs</h4>
+<p>To (basic) test our implementation for edge cases, let&rsquo;s generate random graphs</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> random
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_input</span>(max_vertices, max_degree):
+    numCourses <span style="color:#f92672">=</span> int(random<span style="color:#f92672">.</span>random() <span style="color:#f92672">*</span> max_vertices)
+    prerequisites <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, numCourses):
+        num_deps <span style="color:#f92672">=</span> int(random<span style="color:#f92672">.</span>random() <span style="color:#f92672">*</span> max_degree)
+        prerequisites<span style="color:#f92672">.</span>extend([
+            (e, int(random<span style="color:#f92672">.</span>random() <span style="color:#f92672">*</span> numCourses))
+                              <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, num_deps) ])
+
+    <span style="color:#75715e"># restrict to unique edges</span>
+    prerequisites <span style="color:#f92672">=</span> list(set(prerequisites))
+
+    <span style="color:#66d9ef">return</span> numCourses, prerequisites
+</code></pre></div><h4 id="visualizing-inputs">Visualizing inputs</h4>
+<p>To better visualize these random graphs, I&rsquo;m using <a href="https://pypi.org/project/graphviz/">graphviz</a> here. This will help in quickly verifying the results from our implementation:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> graphviz <span style="color:#f92672">import</span> Digraph
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">visualize_graph</span>(numCourses, prerequisites):
+    dot <span style="color:#f92672">=</span> Digraph(format<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;png&#39;</span>)
+
+    <span style="color:#75715e"># add all the nodes</span>
+    <span style="color:#66d9ef">for</span> node <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, numCourses):
+        dot<span style="color:#f92672">.</span>node(str(node), str(node))
+
+    <span style="color:#75715e"># add all the edges</span>
+    <span style="color:#66d9ef">for</span> src, dst <span style="color:#f92672">in</span> prerequisites:
+        dot<span style="color:#f92672">.</span>edge(str(src), str(dst))
+
+    dot<span style="color:#f92672">.</span>render(<span style="color:#e6db74">&#39;leetcode-course-schedule&#39;</span>)
+</code></pre></div><p>We can create test inputs by:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">numCourses, prerequisites <span style="color:#f92672">=</span> generate_input(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">4</span>)
+visualize_graph(numCourses, prerequisites)
+<span style="color:#66d9ef">print</span>(main(numCourses, prerequisites))
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">False
+</code></pre></div><figure>
+    <img src="https://sprjg.github.io/ox-hugo/leetcode-course-schedule.png"/> 
+</figure>
+
+<h2 id="observations">Observations</h2>
+<h3 id="possible-edge-cases">Possible edge cases</h3>
+<h4 id="self-loops">Self loops</h4>
+<p>If a course depends on itself, can it be completed? Yes, it would be fair to assume courses cannot depend on themselves and if such an edge occurs, it can be discarded.</p>
+<h4 id="zero-courses">Zero courses</h4>
+<p>If there are zero courses, they can be trivially completed.</p>
+<h3 id="corrections">Corrections</h3>
+<p>Let&rsquo;s add a check to discard self loops when we process <code>prerequisites</code> to create <code>edges</code> and <code>indegree</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(numCourses, prerequisites):
+    <span style="color:#75715e"># set of vertices yet to be visited</span>
+    vertices <span style="color:#f92672">=</span> set(range(<span style="color:#ae81ff">0</span>, numCourses))
+
+    <span style="color:#75715e"># create dictionary of indegree</span>
+    <span style="color:#75715e"># set all indegree to zero</span>
+    indegree <span style="color:#f92672">=</span> {}
+    <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> vertices:
+        indegree[e] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+    <span style="color:#75715e"># counter for visited vertices</span>
+    numVisited <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+    <span style="color:#75715e"># edges</span>
+    edges <span style="color:#f92672">=</span> {}
+
+    <span style="color:#66d9ef">for</span> course, dep <span style="color:#f92672">in</span> prerequisites:
+        <span style="color:#66d9ef">if</span> course <span style="color:#f92672">==</span> dep:
+            <span style="color:#66d9ef">continue</span>
+        <span style="color:#66d9ef">if</span> dep <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> edges:
+            edges[dep] <span style="color:#f92672">=</span> set()
+        <span style="color:#75715e"># course has another dependency</span>
+        indegree[course] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#75715e"># dep has another dependent</span>
+        edges[dep]<span style="color:#f92672">.</span>add(course)
+
+    <span style="color:#75715e"># vertices with zero indegree</span>
+    processing <span style="color:#f92672">=</span> set()
+    <span style="color:#66d9ef">for</span> k, v <span style="color:#f92672">in</span> indegree<span style="color:#f92672">.</span>items():
+        <span style="color:#66d9ef">if</span> v <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            <span style="color:#75715e"># add independent vertices</span>
+            processing<span style="color:#f92672">.</span>add(k)
+
+    <span style="color:#66d9ef">while</span> len(processing) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#75715e"># an independent course</span>
+        v <span style="color:#f92672">=</span> next(iter(processing))
+
+        <span style="color:#75715e"># remove it i.e. complete it</span>
+        processing<span style="color:#f92672">.</span>remove(v)
+
+        <span style="color:#75715e"># we completed one more course</span>
+        numVisited <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+        <span style="color:#75715e"># who are the dependents of e?</span>
+        <span style="color:#75715e"># i.e. who depends on e?</span>
+        <span style="color:#75715e"># if there are any</span>
+        <span style="color:#66d9ef">if</span> v <span style="color:#f92672">in</span> edges:
+            <span style="color:#66d9ef">for</span> course <span style="color:#f92672">in</span> edges[v]:
+                indegree[course] <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+
+                <span style="color:#75715e"># is this course now independent?</span>
+                <span style="color:#66d9ef">if</span> indegree[course] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+                    processing<span style="color:#f92672">.</span>add(course)
+
+    <span style="color:#75715e"># nothing more to process</span>
+    <span style="color:#75715e"># did we finish all courses?</span>
+    <span style="color:#66d9ef">return</span> numVisited <span style="color:#f92672">==</span> numCourses
+</code></pre></div><h2 id="test-results-from-leetcode">Test results from leetcode</h2>
+<p>The runtime is not so good:</p>
+<blockquote>
+<p>Runtime: 116 ms, faster than 27.71% of Python3 online submissions for Course Schedule.</p>
+<p>Memory Usage: 15.7 MB, less than 57.53% of Python3 online submissions for Course Schedule.</p>
+</blockquote>
+<h3 id="profiling">Profiling</h3>
+<p>Let&rsquo;s see where the implementation takes time. We&rsquo;ll have to increase the problem size. Let&rsquo;s try <code>10^5</code> courses and a maximum of <code>3</code> dependencies for each:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> cProfile
+numCourses, prerequisites <span style="color:#f92672">=</span> generate_input(<span style="color:#ae81ff">10</span><span style="color:#f92672">**</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">3</span>)
+cProfile<span style="color:#f92672">.</span>run(<span style="color:#e6db74">&#39;main(numCourses, prerequisites)&#39;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">478383 function calls in 20.248 seconds
+
+   Ordered by: standard name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.010    0.010   20.248   20.248 &lt;string&gt;:1(&lt;module&gt;)
+        1    0.474    0.474   20.238   20.238 python-ywGZBx:1(main)
+        1    0.000    0.000   20.248   20.248 {built-in method builtins.exec}
+    79016    0.015    0.000    0.015    0.000 {built-in method builtins.iter}
+    79017    0.017    0.000    0.017    0.000 {built-in method builtins.len}
+    79016   19.691    0.000   19.691    0.000 {built-in method builtins.next}
+   162313    0.027    0.000    0.027    0.000 {method &#39;add&#39; of &#39;set&#39; objects}
+        1    0.000    0.000    0.000    0.000 {method &#39;disable&#39; of &#39;_lsprof.Profiler&#39; objects}
+        1    0.000    0.000    0.000    0.000 {method &#39;items&#39; of &#39;dict&#39; objects}
+    79016    0.015    0.000    0.015    0.000 {method &#39;remove&#39; of &#39;set&#39; objects}
+</code></pre></div><p>A staggering 20 seconds is spent on the <code>next</code> in the <code>while</code> loop!</p>
+<h4 id="mutating-a-set-while-iterating-over-it">Mutating a set while iterating over it</h4>
+<p><a href="https://stackoverflow.com/questions/48018680/updating-a-set-while-iterating-over-its-elements">This is not surprising</a>. Instead we can use <code>queue</code> for <code>processing</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> queue
+<span style="color:#f92672">import</span> cProfile
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(prerequisites, numCourses):
+    <span style="color:#75715e"># set of vertices yet to be visited</span>
+    vertices <span style="color:#f92672">=</span> set(range(<span style="color:#ae81ff">0</span>, numCourses))
+
+    <span style="color:#75715e"># create dictionary of indegree</span>
+    <span style="color:#75715e"># set all indegree to zero</span>
+    indegree <span style="color:#f92672">=</span> {}
+    <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> vertices:
+        indegree[e] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+    <span style="color:#75715e"># counter for visited vertices</span>
+    numVisited <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+    <span style="color:#75715e"># edges</span>
+    edges <span style="color:#f92672">=</span> {}
+
+    <span style="color:#66d9ef">for</span> course, dep <span style="color:#f92672">in</span> prerequisites:
+        <span style="color:#66d9ef">if</span> course <span style="color:#f92672">==</span> dep:
+            <span style="color:#66d9ef">continue</span>
+        <span style="color:#66d9ef">if</span> dep <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> edges:
+            edges[dep] <span style="color:#f92672">=</span> set()
+        <span style="color:#75715e"># course has another dependency</span>
+        indegree[course] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#75715e"># dep has another dependent</span>
+        edges[dep]<span style="color:#f92672">.</span>add(course)
+
+    <span style="color:#75715e"># vertices with zero indegree</span>
+    processing <span style="color:#f92672">=</span> queue<span style="color:#f92672">.</span>Queue()
+    <span style="color:#66d9ef">for</span> k, v <span style="color:#f92672">in</span> indegree<span style="color:#f92672">.</span>items():
+        <span style="color:#66d9ef">if</span> v <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            <span style="color:#75715e"># add independent vertices</span>
+            processing<span style="color:#f92672">.</span>put(k)
+
+    <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> processing<span style="color:#f92672">.</span>empty():
+        <span style="color:#75715e"># an independent course</span>
+        e <span style="color:#f92672">=</span> processing<span style="color:#f92672">.</span>get_nowait()
+
+        <span style="color:#75715e"># we completed one more course</span>
+        numVisited <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+        <span style="color:#75715e"># who are the dependents of e?</span>
+        <span style="color:#75715e"># i.e. who depends on e?</span>
+        <span style="color:#75715e"># if there are any</span>
+        <span style="color:#66d9ef">if</span> e <span style="color:#f92672">in</span> edges:
+            <span style="color:#66d9ef">for</span> course <span style="color:#f92672">in</span> edges[e]:
+                indegree[course] <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+
+                <span style="color:#75715e"># is this course now independent?</span>
+                <span style="color:#66d9ef">if</span> indegree[course] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+                    processing<span style="color:#f92672">.</span>put(course)
+
+    <span style="color:#75715e"># nothing more to process</span>
+    <span style="color:#75715e"># did we finish all courses?</span>
+    <span style="color:#66d9ef">return</span> numVisited <span style="color:#f92672">==</span> numCourses
+
+cProfile<span style="color:#f92672">.</span>run(<span style="color:#e6db74">&#39;main(prerequisites, numCourses)&#39;</span>)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">2137727 function calls in 1.772 seconds
+
+   Ordered by: standard name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.008    0.008    1.772    1.772 &lt;string&gt;:1(&lt;module&gt;)
+        1    0.410    0.410    1.764    1.764 python-dhe6aC:3(main)
+    79016    0.210    0.000    0.533    0.000 queue.py:121(put)
+    79016    0.230    0.000    0.603    0.000 queue.py:153(get)
+    79016    0.060    0.000    0.663    0.000 queue.py:192(get_nowait)
+        1    0.000    0.000    0.000    0.000 queue.py:205(_init)
+   158033    0.067    0.000    0.097    0.000 queue.py:208(_qsize)
+    79016    0.039    0.000    0.054    0.000 queue.py:212(_put)
+    79016    0.038    0.000    0.052    0.000 queue.py:216(_get)
+        1    0.000    0.000    0.000    0.000 queue.py:33(__init__)
+    79017    0.095    0.000    0.146    0.000 queue.py:96(empty)
+        3    0.000    0.000    0.000    0.000 threading.py:222(__init__)
+   158032    0.074    0.000    0.120    0.000 threading.py:246(__enter__)
+   158032    0.076    0.000    0.098    0.000 threading.py:249(__exit__)
+   158032    0.077    0.000    0.138    0.000 threading.py:261(_is_owned)
+   158032    0.188    0.000    0.326    0.000 threading.py:341(notify)
+        1    0.000    0.000    0.000    0.000 {built-in method _thread.allocate_lock}
+        1    0.000    0.000    1.772    1.772 {built-in method builtins.exec}
+   158033    0.030    0.000    0.030    0.000 {built-in method builtins.len}
+   158032    0.045    0.000    0.045    0.000 {method &#39;__enter__&#39; of &#39;_thread.lock&#39; objects}
+   158032    0.023    0.000    0.023    0.000 {method &#39;__exit__&#39; of &#39;_thread.lock&#39; objects}
+   158032    0.061    0.000    0.061    0.000 {method &#39;acquire&#39; of &#39;_thread.lock&#39; objects}
+    83297    0.012    0.000    0.012    0.000 {method &#39;add&#39; of &#39;set&#39; objects}
+    79016    0.014    0.000    0.014    0.000 {method &#39;append&#39; of &#39;collections.deque&#39; objects}
+        1    0.000    0.000    0.000    0.000 {method &#39;disable&#39; of &#39;_lsprof.Profiler&#39; objects}
+        1    0.000    0.000    0.000    0.000 {method &#39;items&#39; of &#39;dict&#39; objects}
+    79016    0.014    0.000    0.014    0.000 {method &#39;popleft&#39; of &#39;collections.deque&#39; objects}
+</code></pre></div><p>This is about 15x faster. But surprisingly leetcode says we are not doing any better:</p>
+<blockquote>
+<p>Runtime: 120 ms, faster than 26.38% of Python3 online submissions for Course Schedule.</p>
+<p>Memory Usage: 15.7 MB, less than 56.48% of Python3 online submissions for Course Schedule.</p>
+</blockquote>
+<h4 id="using-array-instead-of-queue">Using array instead of queue</h4>
+<p>One reason for the high time could be the import time. To avoid importing a queue, let&rsquo;s use an array as a stack. This may work because regardless of the order of processing the vertices, we only care that we visit all of them. So a LIFO over a FIFO doesn&rsquo;t make a difference for the algorithm. We can also avoid initializing the dictionary <code>indegree</code> if we use an array instead; we can set the elements to zero by <code>indegree = [0]*numCourse</code>. Let&rsquo;s see what our results after making these changes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>(prerequisites, numCourses):
+    <span style="color:#75715e"># create dictionary of indegree</span>
+    <span style="color:#75715e"># set all indegree to zero</span>
+    indegree <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> numCourses
+
+    <span style="color:#75715e"># counter for visited vertices</span>
+    numVisited <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+    <span style="color:#75715e"># edges</span>
+    edges <span style="color:#f92672">=</span> {}
+
+    <span style="color:#66d9ef">for</span> course, dep <span style="color:#f92672">in</span> prerequisites:
+        <span style="color:#66d9ef">if</span> course <span style="color:#f92672">==</span> dep:
+            <span style="color:#66d9ef">continue</span>
+        <span style="color:#66d9ef">if</span> dep <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> edges:
+            edges[dep] <span style="color:#f92672">=</span> set()
+        <span style="color:#75715e"># course has another dependency</span>
+        indegree[course] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#75715e"># dep has another dependent</span>
+        edges[dep]<span style="color:#f92672">.</span>add(course)
+
+    <span style="color:#75715e"># vertices with zero indegree</span>
+    processing <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> v, degree <span style="color:#f92672">in</span> enumerate(indegree):
+        <span style="color:#66d9ef">if</span> degree <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            <span style="color:#75715e"># add independent vertices</span>
+            processing<span style="color:#f92672">.</span>append(v)
+
+    <span style="color:#66d9ef">while</span> processing:
+        <span style="color:#75715e"># an independent course</span>
+        e <span style="color:#f92672">=</span> processing<span style="color:#f92672">.</span>pop()
+
+        <span style="color:#75715e"># we completed one more course</span>
+        numVisited <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+        <span style="color:#75715e"># who are the dependents of e?</span>
+        <span style="color:#75715e"># i.e. who depends on e?</span>
+        <span style="color:#75715e"># if there are any</span>
+        <span style="color:#66d9ef">if</span> e <span style="color:#f92672">in</span> edges:
+            <span style="color:#66d9ef">for</span> course <span style="color:#f92672">in</span> edges[e]:
+                indegree[course] <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+
+                <span style="color:#75715e"># is this course now independent?</span>
+                <span style="color:#66d9ef">if</span> indegree[course] <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+                    processing<span style="color:#f92672">.</span>append(course)
+
+    <span style="color:#75715e"># nothing more to process</span>
+    <span style="color:#75715e"># did we finish all courses?</span>
+    <span style="color:#66d9ef">return</span> numVisited <span style="color:#f92672">==</span> numCourses
+</code></pre></div><blockquote>
+<p>Runtime: 100 ms, faster than 46.81% of Python3 online submissions for Course Schedule.
+Memory Usage: 15.5 MB, less than 70.47% of Python3 online submissions for Course Schedule.</p>
+</blockquote>
+<p>We have reduced 26ms by shifting to an array instead of a queue (only because the algorithm works regardless of LIFO or FIFO).</p>
+
+</main>
+
+<div class="related-content">
+
+
+<h3>See Also</h3>
+<ul>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_jump_game/">Algo walkthrough: jump game</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_pacific_atlantic_water_flow/">Algo walkthrough: pacific atlantic water flow</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_number_of_islands/">Algo walkthrough: number of islands</a></li>
+    
+</ul>
+
+</div>
+
+<script src="https://utteranc.es/client.js"
+        repo="sprjg/sprjg.github.io"
+        issue-term="title"
+        label="blog-comments"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  <footer>
+  <script src="https://sprjg.github.io/js/math-code.js"></script>
+<script async src="https://sprjg.github.io/MathJax/es5/tex-chtml.js"></script>
+
+
+<script async src="https://sprjg.github.io/js/center-img.js"></script>
+
+  
+  <hr/>
+  © <a href="https://sprjg.github.io">SPR</a> 2019 &ndash; 2021 | <a href="https://github.com/sprajagopal">Github</a>
+  
+  </footer>
+  </body>
+</html>
+
