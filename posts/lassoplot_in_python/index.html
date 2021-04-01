@@ -11,9 +11,7 @@
 
 <meta property="og:image" content="https://sprjg.github.io/ox-hugo/" />
 
-<meta property="og:description" content="A comparison of python vs matlab
-lassoPlot in matlab In matlab, lasso regression&rsquo;s MSE is easily visualized using the command lassoPlot. The following is from Prof. Steve Brunton&rsquo;s uwdatabook page. In the zip file, the exact file is CH03_SEC05_2_LASSO.m. The most relevant parts to create the plot are picked out here:
-A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors b = A*x &#43; 2*randn(100,1); % Observations (with noise) xL2 = pinv(A)*b [XL1 FitInfo] = lasso(A,b,&#39;CV&#39;,10); lassoPlot(XL1,FitInfo,&#39;PlotType&#39;,&#39;CV&#39;) save See output below:" />
+<meta property="og:description" content="Is there an equivalent of MATLAB&#39;s lassoPlot in python? No, but we can make do. A comparison of python vs matlab." />
 
 <meta name="twitter:card" content="summary_large_image">
 
@@ -23,9 +21,7 @@ A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0;
 
 <meta name="twitter:title" content="lassoPlot in python" />
 
-<meta name="twitter:description" content="A comparison of python vs matlab
-lassoPlot in matlab In matlab, lasso regression&rsquo;s MSE is easily visualized using the command lassoPlot. The following is from Prof. Steve Brunton&rsquo;s uwdatabook page. In the zip file, the exact file is CH03_SEC05_2_LASSO.m. The most relevant parts to create the plot are picked out here:
-A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors b = A*x &#43; 2*randn(100,1); % Observations (with noise) xL2 = pinv(A)*b [XL1 FitInfo] = lasso(A,b,&#39;CV&#39;,10); lassoPlot(XL1,FitInfo,&#39;PlotType&#39;,&#39;CV&#39;) save See output below:" />
+<meta name="twitter:description" content="Is there an equivalent of MATLAB&#39;s lassoPlot in python? No, but we can make do. A comparison of python vs matlab." />
 
 <meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/" />
 
@@ -40,7 +36,7 @@ A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0;
     "articleSection" : "posts",
     "name" : "lassoPlot in python",
     "headline" : "lassoPlot in python",
-    "description" : "A comparison of python vs matlab\nlassoPlot in matlab In matlab, lasso regression\x26rsquo;s MSE is easily visualized using the command lassoPlot. The following is from Prof. Steve Brunton\x26rsquo;s uwdatabook page. In the zip file, the exact file is CH03_SEC05_2_LASSO.m. The most relevant parts to create the plot are picked out here:\nA = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors b = A*x \x2b 2*randn(100,1); % Observations (with noise) xL2 = pinv(A)*b [XL1 FitInfo] = lasso(A,b,\x26#39;CV\x26#39;,10); lassoPlot(XL1,FitInfo,\x26#39;PlotType\x26#39;,\x26#39;CV\x26#39;) save See output below:",
+    "description" : "Is there an equivalent of MATLAB\x27s lassoPlot in python? No, but we can make do. A comparison of python vs matlab.",
     "inLanguage" : "en-US",
     "author" : "",
     "creator" : "",
@@ -51,7 +47,7 @@ A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0;
     "datePublished": "2020-03-26 00:00:00 \x2b0530 IST",
     "dateModified" : "2020-03-26 00:00:00 \x2b0530 IST",
     "url" : "https:\/\/sprjg.github.io\/posts\/lassoplot_in_python\/",
-    "wordCount" : "716",
+    "wordCount" : "710",
     "keywords" : [ "matlab","python","plotting","Blog" ]
 }
 </script>
@@ -102,9 +98,8 @@ A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0;
   </ul>
 </nav>
   </aside>
-  
-  <p>A comparison of python vs matlab</p>
-<h2 id="lassoplot-in-matlab"><code>lassoPlot</code> in matlab</h2>
+  Is there an equivalent of MATLAB&#39;s lassoPlot in python? No, but we can make do. A comparison of python vs matlab.
+  <h2 id="lassoplot-in-matlab"><code>lassoPlot</code> in matlab</h2>
 <p>In matlab, lasso regression&rsquo;s MSE is easily visualized using the command
 <code>lassoPlot</code>. The following is from Prof. Steve Brunton&rsquo;s
 <a href="http:uwdatabook.com">uwdatabook page</a>. In the zip file, the exact file is
@@ -121,7 +116,7 @@ lassoPlot(XL1,FitInfo,<span style="color:#e6db74">&#39;PlotType&#39;</span>,<spa
 save
 </code></pre></div><p>See output below:</p>
 <figure>
-    <img src="https://sprjg.github.io/ox-hugo/matlab_lassoplot.svg"/> 
+    <img src="~/matlab_lassoplot.svg"/> 
 </figure>
 
 <h2 id="equivalent-command-in-python">Equivalent command in python</h2>
