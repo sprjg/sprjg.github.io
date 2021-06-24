@@ -6,10 +6,40 @@
     <description>Recent content in Posts on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0530</lastBuildDate>
+    <lastBuildDate>Wed, 23 Jun 2021 00:00:00 +0530</lastBuildDate>
     
 	<atom:link href="https://sprjg.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Algo walkthrough: invert binary tree</title>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_invert_binary_tree/</link>
+      <pubDate>Wed, 23 Jun 2021 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_invert_binary_tree/</guid>
+      <description>This problem requires only the most basic understanding of the binary tree. We are simply asked to swap the left and right portions of the binary tree but at every node. The last part is particularly important. The challenge (if any) is not simply swapping left and right, but rather swapping the subtrees of the left and right parts also. Actually that&amp;rsquo;s pretty much the whole code in that sentence.</description>
+    </item>
+    
+    <item>
+      <title>Algo walkthrough: maximum depth of a binary tree</title>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_maximum_depth_of_a_binary_tree/</link>
+      <pubDate>Wed, 23 Jun 2021 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_maximum_depth_of_a_binary_tree/</guid>
+      <description>Link to the problem.
+Intuitions This is a fairly straightforward problem. We are concerned with the longest path from the root to any leaf. This means, we have to check every possible path from the root to leaf. Because of any of these paths could be the longest. An alternative way to frame this is by thinking about the left and right subtrees. We know that this longest path has to be on either one of these.</description>
+    </item>
+    
+    <item>
+      <title>Algo walkthrough: same tree</title>
+      <link>https://sprjg.github.io/posts/algo_walkthrough_same_tree/</link>
+      <pubDate>Wed, 23 Jun 2021 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/posts/algo_walkthrough_same_tree/</guid>
+      <description>Link to the problem
+Pessimism can be good   The central idea of this problem is to find differences between the trees.
+ do the root values match? if they do, then check if the left subtrees match if they do, then check if the right subtrees match  Some base cases  as an axiom, if both trees are empty, then we consider them the same. So that becomes a base case to check explicitly also if only one of the trees are not empty, then we can simply reject the inputs as not equal  Code # Definition for a binary tree node.</description>
+    </item>
     
     <item>
       <title>Algo walkthrough: jump game</title>

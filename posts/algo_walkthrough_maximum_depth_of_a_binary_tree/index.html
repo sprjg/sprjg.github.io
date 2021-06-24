@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:type" content="article" />
+
+<meta property="og:url" content="https://sprjg.github.io/posts/algo_walkthrough_maximum_depth_of_a_binary_tree/" />
+
+<meta property="og:title" content="Algo walkthrough: maximum depth of a binary tree" />
+
+<meta property="og:image" content="https://sprjg.github.io/ox-hugo/" />
+
+<meta property="og:description" content="Given the root of a binary tree, return its maximum depth." />
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="twitter:site" content="">
+
+<meta name="twitter:creator" content="">
+
+<meta name="twitter:title" content="Algo walkthrough: maximum depth of a binary tree" />
+
+<meta name="twitter:description" content="Given the root of a binary tree, return its maximum depth." />
+
+<meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/" />
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/sprjg.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Algo walkthrough: maximum depth of a binary tree",
+    "headline" : "Algo walkthrough: maximum depth of a binary tree",
+    "description" : "Given the root of a binary tree, return its maximum depth.",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2021",
+    "datePublished": "2021-06-23 00:00:00 \x2b0530 IST",
+    "dateModified" : "2021-06-23 00:00:00 \x2b0530 IST",
+    "url" : "https:\/\/sprjg.github.io\/posts\/algo_walkthrough_maximum_depth_of_a_binary_tree\/",
+    "wordCount" : "310",
+    "keywords" : [ "trees","Blog" ]
+}
+</script>
+
+
+    <title>Algo walkthrough: maximum depth of a binary tree | Notes on engineering math</title>
+    <link rel="stylesheet" href="https://sprjg.github.io/css/style.css" />
+    <link rel="stylesheet" href="https://sprjg.github.io/css/fonts.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class='site-title'> <div> Notes on engineering math </div> </div>
+    <div id="posts-list">
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="https://sprjg.github.io/posts/">Archive</a></li>
+      
+      <li><a href="https://sprjg.github.io/categories/">Categories</a></li>
+      
+      <li><a href="https://sprjg.github.io/tags/">Tags</a></li>
+      
+      <li><a href="https://sprjg.github.io/">About</a></li>
+      
+      <li><a href="https://sprjg.github.io/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+    </div>
+
+<div class="article-meta">
+<a href="https://sprjg.github.io/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: maximum depth of a binary tree</span></h1></a>
+</div>
+
+<main>
+  <aside class="toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#intuitions">Intuitions</a></li>
+    <li><a href="#statistics-cannot-help">Statistics cannot help</a></li>
+    <li><a href="#code">Code</a></li>
+    <li><a href="#results">Results</a></li>
+  </ul>
+</nav>
+  </aside>
+  Given the root of a binary tree, return its maximum depth.
+  <p><a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/">Link to the problem</a>.</p>
+<h2 id="intuitions">Intuitions</h2>
+<p>This is a fairly straightforward problem. We are concerned with the longest path from the root to any leaf. This means, we <em>have</em> to check every possible path from the root to leaf. Because of any of these paths could be the longest.
+An alternative way to frame this is by thinking about the left and right subtrees. We know that this longest path has to be on either one of these. So we are first tasked with finding the longest path <em>within these subtrees</em>. After that we find the bigger of the two. This gives us a recursive understanding of the quantity of maximum depth.
+\(
+d_{\text{tree}} = 1 + \max(d_{\text{left}}, d_{\text{right}})
+\)</p>
+<h2 id="statistics-cannot-help">Statistics cannot help</h2>
+<p>Unlike <a href="https://sprjg.github.io/posts/algo_walkthrough_same_tree">equality testing for binary trees</a> randomly choosing left or right subtree to work on first cannot help because in this case, we <em>must</em> find the maximum depth of both the subtrees. In equality testing, we can stop when we find a discrepancy if any one of the trees.</p>
+<h2 id="code">Code</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Definition for a binary tree node.</span>
+<span style="color:#75715e"># class TreeNode(object):</span>
+<span style="color:#75715e">#     def __init__(self, val=0, left=None, right=None):</span>
+<span style="color:#75715e">#         self.val = val</span>
+<span style="color:#75715e">#         self.left = left</span>
+<span style="color:#75715e">#         self.right = right</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>(object):
+    <span style="color:#a6e22e">@staticmethod</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hasChildren</span>(node):
+        <span style="color:#66d9ef">return</span> node<span style="color:#f92672">.</span>left <span style="color:#f92672">!=</span> None <span style="color:#f92672">or</span> node<span style="color:#f92672">.</span>right <span style="color:#f92672">!=</span> None
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">maxDepth</span>(self, root):
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        :type root: TreeNode
+</span><span style="color:#e6db74">        :rtype: int
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+
+        <span style="color:#75715e"># base case 1</span>
+        <span style="color:#66d9ef">if</span>(root <span style="color:#f92672">==</span> None):
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+
+        <span style="color:#75715e"># base case 2</span>
+        <span style="color:#66d9ef">if</span>(Solution<span style="color:#f92672">.</span>hasChildren(root) <span style="color:#f92672">==</span> False):
+            <span style="color:#75715e"># if no children, then the depth is simply 1</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+
+        <span style="color:#75715e"># so there are children</span>
+        <span style="color:#75715e"># the depth is maximum of either children&#39;s depth (+1)</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> max(self<span style="color:#f92672">.</span>maxDepth(root<span style="color:#f92672">.</span>left), self<span style="color:#f92672">.</span>maxDepth(root<span style="color:#f92672">.</span>right))
+</code></pre></div><h2 id="results">Results</h2>
+<p>The runtime varies from 36-44ms.</p>
+<blockquote>
+<p>Runtime: 36 ms, faster than 91.74% of Python3 online submissions for Maximum Depth of Binary Tree.
+Memory Usage: 15.9 MB, less than 79.62% of Python3 online submissions for Maximum Depth of Binary Tree.</p>
+</blockquote>
+
+</main>
+
+<div class="related-content">
+
+
+<h3>See Also</h3>
+<ul>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_invert_binary_tree/">Algo walkthrough: invert binary tree</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_same_tree/">Algo walkthrough: same tree</a></li>
+    
+</ul>
+
+</div>
+
+<script src="https://utteranc.es/client.js"
+        repo="sprjg/sprjg.github.io"
+        issue-term="title"
+        label="blog-comments"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  <footer>
+  <script src="https://sprjg.github.io/js/math-code.js"></script>
+<script async src="https://sprjg.github.io/MathJax/es5/tex-chtml.js"></script>
+
+
+<script async src="https://sprjg.github.io/js/center-img.js"></script>
+
+  
+  <hr/>
+  © <a href="https://sprjg.github.io">SPR</a> 2019 &ndash; 2021 | <a href="https://github.com/sprajagopal">Github</a>
+  
+  </footer>
+  </body>
+</html>
+

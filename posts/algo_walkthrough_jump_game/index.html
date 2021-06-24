@@ -340,7 +340,7 @@ cProfile<span style="color:#f92672">.</span>run(<span style="color:#e6db74">&#39
      2501    0.000    0.000    0.000    0.000 {method &#39;append&#39; of &#39;collections.deque&#39; objects}
         1    0.000    0.000    0.000    0.000 {method &#39;disable&#39; of &#39;_lsprof.Profiler&#39; objects}
      2501    0.000    0.000    0.000    0.000 {method &#39;pop&#39; of &#39;collections.deque&#39; objects}
-</code></pre></div><p>For the same input, we use one-fourth the time. That&rsquo;s definitely an improvement. But not enough of an improvement. <a id="orgf56cb7a"></a> Because a ten times increase in the input size leads to ~100 times increase in time:</p>
+</code></pre></div><p>For the same input, we use one-fourth the time. That&rsquo;s definitely an improvement. But not enough of an improvement. <a id="org1bc7898"></a> Because a ten times increase in the input size leads to ~100 times increase in time:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">cProfile<span style="color:#f92672">.</span>run(<span style="color:#e6db74">&#39;test_reachability(list(range(25000, -1, -1)) + [1,0])&#39;</span>)
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">         75008 function calls in 14.729 seconds
 
@@ -392,7 +392,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
     20
     21         1          0.0      0.0      0.0      return False
 
-</code></pre></div><p>The issue is clearly the nested loop (<code>for</code> inside <code>while</code>). Ideal scenario: initially, the <code>for</code> loop has significant work to do (lots of unvisited cells) but later the <code>for</code> loop simply skips over already visited cells. But the for loop still must run the course. In this example, this statement  <code>new_cell = current_cell_index + jump</code> is called close to 3 million times! As the input size increases, this part exponentially grows. <a id="orgc2ba39d"></a>
+</code></pre></div><p>The issue is clearly the nested loop (<code>for</code> inside <code>while</code>). Ideal scenario: initially, the <code>for</code> loop has significant work to do (lots of unvisited cells) but later the <code>for</code> loop simply skips over already visited cells. But the for loop still must run the course. In this example, this statement  <code>new_cell = current_cell_index + jump</code> is called close to 3 million times! As the input size increases, this part exponentially grows. <a id="org7a0f122"></a>
 Can we cut down the <code>for</code> loop search space?</p>
 </li>
 </ul>
@@ -439,7 +439,7 @@ Can we cut down the <code>for</code> loop search space?</p>
     <img src="https://sprjg.github.io/ox-hugo/screenshot2021-03-12_21-50-58_.png"/> 
 </figure>
 
-<p>So the fact the <a href="#orgc2ba39d">for loop visits already visited nodes</a> is not an issue but a necessity (not a bug, a feature). We are actually checking all the edges from the current node in this for loop. And there&rsquo;s no way to avoid that.</p>
+<p>So the fact the <a href="#org7a0f122">for loop visits already visited nodes</a> is not an issue but a necessity (not a bug, a feature). We are actually checking all the edges from the current node in this for loop. And there&rsquo;s no way to avoid that.</p>
 </li>
 </ul>
 <h2 id="transitivity">Transitivity?</h2>
