@@ -32,6 +32,17 @@ Intuitions This is a fairly straightforward problem. We are concerned with the l
     
     <item>
       <title>Algo walkthrough: same tree</title>
+      <link>https://sprjg.github.io/posts/20210623222504-algo_walkthrough_same_tree/</link>
+      <pubDate>Wed, 23 Jun 2021 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/posts/20210623222504-algo_walkthrough_same_tree/</guid>
+      <description>Link to the problem
+Pessimism can be good   The central idea of this problem is to find differences between the trees.
+ do the root values match? if they do, then check if the left subtrees match if they do, then check if the right subtrees match  Some base cases  as an axiom, if both trees are empty, then we consider them the same. So that becomes a base case to check explicitly also if only one of the trees are not empty, then we can simply reject the inputs as not equal  Code # Definition for a binary tree node.</description>
+    </item>
+    
+    <item>
+      <title>Algo walkthrough: same tree</title>
       <link>https://sprjg.github.io/posts/algo_walkthrough_same_tree/</link>
       <pubDate>Wed, 23 Jun 2021 00:00:00 +0530</pubDate>
       
