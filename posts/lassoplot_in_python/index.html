@@ -11,7 +11,9 @@
 
 <meta property="og:image" content="https://sprjg.github.io/ox-hugo/" />
 
-<meta property="og:description" content="Is there an equivalent of MATLAB&#39;s lassoPlot in python? No, but we can make do. A comparison of python vs matlab." />
+<meta property="og:description" content="A comparison of python vs matlab
+lassoPlot in matlab In matlab, lasso regression&rsquo;s MSE is easily visualized using the command lassoPlot. The following is from Prof. Steve Brunton&rsquo;s uwdatabook page. In the zip file, the exact file is CH03_SEC05_2_LASSO.m. The most relevant parts to create the plot are picked out here:
+A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors b = A*x &#43; 2*randn(100,1); % Observations (with noise) xL2 = pinv(A)*b [XL1 FitInfo] = lasso(A,b,&#39;CV&#39;,10); lassoPlot(XL1,FitInfo,&#39;PlotType&#39;,&#39;CV&#39;) save See output below:" />
 
 <meta name="twitter:card" content="summary_large_image">
 
@@ -21,7 +23,9 @@
 
 <meta name="twitter:title" content="lassoPlot in python" />
 
-<meta name="twitter:description" content="Is there an equivalent of MATLAB&#39;s lassoPlot in python? No, but we can make do. A comparison of python vs matlab." />
+<meta name="twitter:description" content="A comparison of python vs matlab
+lassoPlot in matlab In matlab, lasso regression&rsquo;s MSE is easily visualized using the command lassoPlot. The following is from Prof. Steve Brunton&rsquo;s uwdatabook page. In the zip file, the exact file is CH03_SEC05_2_LASSO.m. The most relevant parts to create the plot are picked out here:
+A = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors b = A*x &#43; 2*randn(100,1); % Observations (with noise) xL2 = pinv(A)*b [XL1 FitInfo] = lasso(A,b,&#39;CV&#39;,10); lassoPlot(XL1,FitInfo,&#39;PlotType&#39;,&#39;CV&#39;) save See output below:" />
 
 <meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/" />
 
@@ -36,7 +40,7 @@
     "articleSection" : "posts",
     "name" : "lassoPlot in python",
     "headline" : "lassoPlot in python",
-    "description" : "Is there an equivalent of MATLAB\x27s lassoPlot in python? No, but we can make do. A comparison of python vs matlab.",
+    "description" : "A comparison of python vs matlab\nlassoPlot in matlab In matlab, lasso regression\u0026rsquo;s MSE is easily visualized using the command lassoPlot. The following is from Prof. Steve Brunton\u0026rsquo;s uwdatabook page. In the zip file, the exact file is CH03_SEC05_2_LASSO.m. The most relevant parts to create the plot are picked out here:\nA = randn(100,10); % Matrix of possible predictors x = [0; 0; 1; 0; 0; 0; -1; 0; 0; 0]; % Two nonzero predictors b = A*x \u002b 2*randn(100,1); % Observations (with noise) xL2 = pinv(A)*b [XL1 FitInfo] = lasso(A,b,\u0026#39;CV\u0026#39;,10); lassoPlot(XL1,FitInfo,\u0026#39;PlotType\u0026#39;,\u0026#39;CV\u0026#39;) save See output below:",
     "inLanguage" : "en-US",
     "author" : "",
     "creator" : "",
@@ -44,10 +48,10 @@
     "accountablePerson" : "",
     "copyrightHolder" : "",
     "copyrightYear" : "2020",
-    "datePublished": "2020-03-26 00:00:00 \x2b0530 IST",
-    "dateModified" : "2020-03-26 00:00:00 \x2b0530 IST",
+    "datePublished": "2020-03-26 00:00:00 \u002b0530 IST",
+    "dateModified" : "2020-03-26 00:00:00 \u002b0530 IST",
     "url" : "https:\/\/sprjg.github.io\/posts\/lassoplot_in_python\/",
-    "wordCount" : "710",
+    "wordCount" : "716",
     "keywords" : [ "matlab","python","plotting","Blog" ]
 }
 </script>
@@ -98,8 +102,9 @@
   </ul>
 </nav>
   </aside>
-  Is there an equivalent of MATLAB&#39;s lassoPlot in python? No, but we can make do. A comparison of python vs matlab.
-  <h2 id="lassoplot-in-matlab"><code>lassoPlot</code> in matlab</h2>
+  
+  <p>A comparison of python vs matlab</p>
+<h2 id="lassoplot-in-matlab"><code>lassoPlot</code> in matlab</h2>
 <p>In matlab, lasso regression&rsquo;s MSE is easily visualized using the command
 <code>lassoPlot</code>. The following is from Prof. Steve Brunton&rsquo;s
 <a href="http:uwdatabook.com">uwdatabook page</a>. In the zip file, the exact file is

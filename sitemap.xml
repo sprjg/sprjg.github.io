@@ -3,67 +3,67 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://sprjg.github.io/posts/algo_walkthrough_invert_binary_tree/</loc>
-    <lastmod>2021-06-24T21:09:39+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://sprjg.github.io/posts/algo_walkthrough_maximum_depth_of_a_binary_tree/</loc>
-    <lastmod>2021-06-24T21:29:22+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://sprjg.github.io/posts/20210623222504-algo_walkthrough_same_tree/</loc>
-    <lastmod>2021-06-25T11:13:04+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://sprjg.github.io/posts/algo_walkthrough_same_tree/</loc>
-    <lastmod>2021-06-24T21:29:46+05:30</lastmod>
+    <loc>https://sprjg.github.io/posts/algo_walkthrough_maximum_path_sum/</loc>
+    <lastmod>2021-08-06T22:43:23+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://sprjg.github.io/categories/algos/</loc>
-    <lastmod>2021-06-25T11:13:04+05:30</lastmod>
+    <lastmod>2021-08-06T22:43:23+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://sprjg.github.io/categories/</loc>
-    <lastmod>2021-06-25T11:13:04+05:30</lastmod>
+    <lastmod>2021-08-06T22:43:23+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://sprjg.github.io/</loc>
-    <lastmod>2021-06-25T11:13:04+05:30</lastmod>
+    <lastmod>2021-08-06T22:43:23+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://sprjg.github.io/posts/</loc>
-    <lastmod>2021-06-25T11:13:04+05:30</lastmod>
+    <lastmod>2021-08-06T22:43:23+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://sprjg.github.io/tags/</loc>
-    <lastmod>2021-06-25T11:13:04+05:30</lastmod>
+    <lastmod>2021-08-06T22:43:23+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://sprjg.github.io/tags/trees/</loc>
-    <lastmod>2021-06-25T11:13:04+05:30</lastmod>
+    <lastmod>2021-08-06T22:43:23+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://sprjg.github.io/posts/algo_walkthrough_invert_binary_tree/</loc>
+    <lastmod>2021-08-06T22:42:15+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://sprjg.github.io/posts/algo_walkthrough_same_tree/</loc>
+    <lastmod>2021-08-06T22:42:26+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://sprjg.github.io/posts/algo_walkthrough_jump_game/</loc>
-    <lastmod>2021-06-24T20:55:24+05:30</lastmod>
+    <lastmod>2021-02-26T12:53:32+05:30</lastmod>
   </url>
   
   <url>
-    <loc>https://sprjg.github.io/tags/graph-traversal/</loc>
-    <lastmod>2021-06-24T20:55:24+05:30</lastmod>
+    <loc>https://sprjg.github.io/tags/dynamic-programming/</loc>
+    <lastmod>2021-02-26T22:24:04+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://sprjg.github.io/posts/algo_walkthrough_pacific_atlantic_water_flow/</loc>
+    <lastmod>2021-02-26T13:31:36+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://sprjg.github.io/tags/graph-traversal/</loc>
     <lastmod>2021-02-26T13:31:36+05:30</lastmod>
   </url>
   
@@ -79,11 +79,6 @@
   
   <url>
     <loc>https://sprjg.github.io/tags/arrays/</loc>
-    <lastmod>2021-02-26T22:24:04+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://sprjg.github.io/tags/dynamic-programming/</loc>
     <lastmod>2021-02-26T22:24:04+05:30</lastmod>
   </url>
   
@@ -164,27 +159,27 @@
   
   <url>
     <loc>https://sprjg.github.io/posts/lassoplot_in_python/</loc>
-    <lastmod>2021-04-08T16:32:20+05:30</lastmod>
+    <lastmod>2020-12-07T18:55:25+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://sprjg.github.io/tags/matlab/</loc>
-    <lastmod>2021-04-08T16:32:20+05:30</lastmod>
+    <lastmod>2020-12-07T18:55:25+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://sprjg.github.io/tags/plotting/</loc>
-    <lastmod>2021-04-08T16:32:20+05:30</lastmod>
+    <lastmod>2020-12-07T18:55:25+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://sprjg.github.io/tags/python/</loc>
-    <lastmod>2021-04-08T16:32:20+05:30</lastmod>
+    <lastmod>2020-12-07T18:55:25+05:30</lastmod>
   </url>
   
   <url>
     <loc>https://sprjg.github.io/categories/tools/</loc>
-    <lastmod>2021-04-08T16:32:20+05:30</lastmod>
+    <lastmod>2020-12-07T18:55:25+05:30</lastmod>
   </url>
   
 </urlset>

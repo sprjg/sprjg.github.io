@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Notes on engineering math</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 23 Jun 2021 00:00:00 +0530</lastBuildDate>
+    <lastBuildDate>Fri, 25 Jun 2021 00:00:00 +0530</lastBuildDate>
     
 	<atom:link href="https://sprjg.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,16 +14,25 @@
     <item>
       <title>trees</title>
       <link>https://sprjg.github.io/tags/trees/</link>
-      <pubDate>Wed, 23 Jun 2021 00:00:00 +0530</pubDate>
+      <pubDate>Fri, 25 Jun 2021 00:00:00 +0530</pubDate>
       
       <guid>https://sprjg.github.io/tags/trees/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>dynamic-programming</title>
+      <link>https://sprjg.github.io/tags/dynamic-programming/</link>
+      <pubDate>Fri, 26 Feb 2021 00:00:00 +0530</pubDate>
+      
+      <guid>https://sprjg.github.io/tags/dynamic-programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>graph-traversal</title>
       <link>https://sprjg.github.io/tags/graph-traversal/</link>
-      <pubDate>Fri, 26 Feb 2021 00:00:00 +0530</pubDate>
+      <pubDate>Wed, 10 Feb 2021 00:00:00 +0530</pubDate>
       
       <guid>https://sprjg.github.io/tags/graph-traversal/</guid>
       <description></description>
@@ -44,15 +53,6 @@
       <pubDate>Sat, 12 Dec 2020 00:00:00 +0530</pubDate>
       
       <guid>https://sprjg.github.io/tags/arrays/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>dynamic-programming</title>
-      <link>https://sprjg.github.io/tags/dynamic-programming/</link>
-      <pubDate>Sat, 12 Dec 2020 00:00:00 +0530</pubDate>
-      
-      <guid>https://sprjg.github.io/tags/dynamic-programming/</guid>
       <description></description>
     </item>
     

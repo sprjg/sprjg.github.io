@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:type" content="article" />
+
+<meta property="og:url" content="https://sprjg.github.io/posts/algo_walkthrough_maximum_path_sum/" />
+
+<meta property="og:title" content="Algo walkthrough: maximum path sum" />
+
+<meta property="og:image" content="https://sprjg.github.io/ox-hugo/screenshot2021-06-24_20-51-25_.png" />
+
+<meta property="og:description" content="  A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.
+  The path sum of a path is the sum of the node&#39;s values in the path.
+  Given the root of a binary tree, return the maximum path sum of any path.
+  " />
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="twitter:site" content="">
+
+<meta name="twitter:creator" content="">
+
+<meta name="twitter:title" content="Algo walkthrough: maximum path sum" />
+
+<meta name="twitter:description" content="  A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.
+  The path sum of a path is the sum of the node&#39;s values in the path.
+  Given the root of a binary tree, return the maximum path sum of any path.
+  " />
+
+<meta name="twitter:image" content="https://sprjg.github.io/ox-hugo/screenshot2021-06-24_20-51-25_.png" />
+
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/sprjg.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "Algo walkthrough: maximum path sum",
+    "headline" : "Algo walkthrough: maximum path sum",
+    "description" : "  A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.\n  The path sum of a path is the sum of the node\u0027s values in the path.\n  Given the root of a binary tree, return the maximum path sum of any path.\n  ",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2021",
+    "datePublished": "2021-06-25 00:00:00 \u002b0530 IST",
+    "dateModified" : "2021-06-25 00:00:00 \u002b0530 IST",
+    "url" : "https:\/\/sprjg.github.io\/posts\/algo_walkthrough_maximum_path_sum\/",
+    "wordCount" : "1435",
+    "keywords" : [ "trees","Blog" ]
+}
+</script>
+
+
+    <title>Algo walkthrough: maximum path sum | Notes on engineering math</title>
+    <link rel="stylesheet" href="https://sprjg.github.io/css/style.css" />
+    <link rel="stylesheet" href="https://sprjg.github.io/css/fonts.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class='site-title'> <div> Notes on engineering math </div> </div>
+    <div id="posts-list">
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="https://sprjg.github.io/posts/">Archive</a></li>
+      
+      <li><a href="https://sprjg.github.io/categories/">Categories</a></li>
+      
+      <li><a href="https://sprjg.github.io/tags/">Tags</a></li>
+      
+      <li><a href="https://sprjg.github.io/">About</a></li>
+      
+      <li><a href="https://sprjg.github.io/index.xml">Subscribe</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+    </div>
+
+<div class="article-meta">
+<a href="https://sprjg.github.io/posts" style="text-decoration:none;color:black;"><h1><span class="title">Algo walkthrough: maximum path sum</span></h1></a>
+</div>
+
+<main>
+  <aside class="toc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#intuitions">Intuitions</a></li>
+    <li><a href="#kadane-s-for-a-binary-tree">Kadane&rsquo;s for a binary tree</a>
+      <ul>
+        <li><a href="#properties-of-kadane-s-in-a-binary-tree">Properties of Kadane&rsquo;s in a binary tree</a></li>
+        <li><a href="#recursive-nature-of-the-problem">Recursive nature of the problem</a></li>
+      </ul>
+    </li>
+    <li><a href="#code">Code</a></li>
+    <li><a href="#results">Results</a></li>
+  </ul>
+</nav>
+  </aside>
+    A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.
+  The path sum of a path is the sum of the node&#39;s values in the path.
+  Given the root of a binary tree, return the maximum path sum of any path.
+  
+  <p><a href="https://leetcode.com/problems/binary-tree-maximum-path-sum/">Link to the problem</a>.</p>
+<h2 id="intuitions">Intuitions</h2>
+<p><a href="https://medium.com/@rsinghal757/kadanes-algorithm-dynamic-programming-how-and-why-does-it-work-3fd8849ed73d">Kadane&rsquo;s algorithm</a> is the closest known concept I can think of to this problem. The core idea of Kadane&rsquo;s is this:</p>
+<ul>
+<li>[ITERATING method] it works for arrays because arrays are a sequence by definition</li>
+<li>[SWITCH condition] it is optimistic about a subsequence until it encounters a new element that completely destroys that optimism i.e. adding that new element to the existing subsequence leads to a value lower than the new element itself =&gt; might as well start a new sequence starting from this new element</li>
+<li>[MEMORY] we always store the best sum encountered in a global variable</li>
+<li>[FRACTAL-ness] the best path is an array within this array</li>
+</ul>
+<h2 id="kadane-s-for-a-binary-tree">Kadane&rsquo;s for a binary tree</h2>
+<p>Our task is to find an equivalent binary tree idea for each point in the above list. The least concrete idea is the fourth point involving fractal-ness. So let&rsquo;s start with that.
+Unlike arrays, a binary tree is not a sequence or a path. It&rsquo;s a graph of nodes. The best possible sum path is a sequence within this binary tree. So what can we say about this path? What properties will this path always have?
+Take a look at the possible max sum paths in a binary tree below:</p>
+<p>Some obvious things:</p>
+<ul>
+<li>there&rsquo;s always a node involved. Otherwise there&rsquo;s no path and so no sum</li>
+<li>the root of the binary tree may not always be involved in the max sum path</li>
+<li>but each of the max sum path is a non-strict binary tree!</li>
+</ul>
+<p>The third point is crucial. This means the resulting sequence always has a root and this root may not be input tree&rsquo;s root. But there&rsquo;s always a root!</p>
+<h3 id="properties-of-kadane-s-in-a-binary-tree">Properties of Kadane&rsquo;s in a binary tree</h3>
+<p>We will now find analogous properties of a binary tree to adapt Kadane&rsquo;s algorithm to it.</p>
+<h4 id="fractal-ness-the-tree-within-the-tree">[FRACTAL-ness] The tree within the tree</h4>
+<p>Now our task is to identify the max sum binary tree, say \(T^*\) , within the given tree, \(T\) . So what are the parameters to identify?</p>
+<ul>
+<li>the root</li>
+<li>the left subtree</li>
+<li>the right subtree</li>
+</ul>
+<h4 id="iterating-method-identifying-root-of--t">[ITERATING method] Identifying root of \(T^*\)</h4>
+<p>Among the parameters above, which one should we identify first? Let&rsquo;s draw inspiration from Kadane&rsquo;s.
+Note how as soon as Kadane&rsquo;s starts, it first optimistically adds the first element to its subarray. So, it assumes that the first element of the array is also the first element of the max sum subarray.  This means the subarray can only grow in one direction i.e. towards the right side.
+Analogously, we are looking for a node in the binary tree such that it can grow in a direction. This means we cannot choose the root node or the internal nodes since they can grow in both directions (left and right). So we are left with leaf nodes.
+We may have multiple leaf nodes but let&rsquo;s choose the leftmost and add it to our \(T^*\). We now have only one node in our \(T^*\).
+Look back at the parameters we need for identifying \(T^*\). Since we have only one node, it is the root, the left subtree, and the right subtree.
+Now we hope to grow \(T^*\) and we have only direction to grow in i.e. including its parent.</p>
+<h4 id="switch-condition-starting-a-new--t">[SWITCH condition] Starting a new \(T^*\)</h4>
+<p>In Kadane&rsquo;s for arrays, we choose to start a new subarray when adding an element \(e\) to the existing subarray leads to a worse sum that the element \(e\) itself. We need a similar condition to start a new subtree.</p>
+<blockquote>
+<p>In an array, starting a new subarray implies we are selecting a new leftmost element. In a binary tree, starting a new subtree implies we are selecting a new leftmost leaf element.</p>
+</blockquote>
+<p>When we start a new subtree, the existing subtree gets terminated i.e. it has to be a subtree fully parameterized/actualized. This makes more sense once we consider a two-node \(T^*\) i.e. the leftmost leaf node, denoted \(n_l\), and its parent, denoted \(n\).</p>
+<p>Note that we have two paths to consider:</p>
+<ul>
+<li>include elements from the right subtree of \(n\), denoted as \(T_r\), to increase the sum =&gt; \(n\) becomes the root of \(T^*\)
+OR</li>
+<li>ignore \(T_r\) and include the parent of \(n\) into \(T^*\) i.e. \(n\) becomes an internal node =&gt; root of \(T^*\) is not decided yet</li>
+</ul>
+<p>We have to consider both these paths and increase the global <code>max_sum</code> variable accordingly.</p>
+<h5 id="consider-the-right-subtree--t-r">Consider the right subtree \(T_r\)</h5>
+<p>Let&rsquo;s consider the second path in the list. We are looking for a sequence of elements within \(T_r\) to connect to \(n_p\) such that the sum increases.
+But it&rsquo;s also possible that the maximum sum path is actually a subtree within \(T_r\). So we are really asking two questions:</p>
+<ul>
+<li>what is the maximum sum path achievable within \(T_r\) and is this sum greater than our current <code>max_sum</code>? Denote this path as \(T^*_r\)</li>
+<li>what is the maximum sum path such that \(n_r\) has degree of 1? Denote this as \(t^*_r\)</li>
+</ul>
+<p>\(t^*_r\) is useful because we can attach it to our \(T^*\) consisting of \(n, n_l\) to increase its sum. But \(T^*_r\) is a sanity check to make sure that we are not missing out on any useful paths entirely within \(T_r\). This is where the global nature of <code>max_sum</code> is useful. We are constantly checking against the current best and then increasing it when we find something better.</p>
+<h3 id="recursive-nature-of-the-problem">Recursive nature of the problem</h3>
+<p>Notice how we considered the entire right subtree for maximum path sums. This indicates a recursive nature of the original question. Consider what happens when we start at the root of the binary tree instead of the leftmost leaf.
+What if we started by considering the root of \(T\) as the root of \(T^*\) and then we look for \(t_l\) and \(t_r\) such that they can be attached to the root to form a full path? While we look for \(t^*_l\) and \(t^*_r\), we also make sure that \(T_l^*\) and \(T_r^*\) are considered i.e. any self contained paths within these left and right subtrees that can be a maximum path sum.</p>
+<h4 id="the-questions-to-consider-for-each-subtree">The questions to consider for each subtree</h4>
+<p>Given a subtree (or tree) our aim is to answer two questions:</p>
+<ul>
+<li>what is the maximum sum path entirely contained within this given tree? Denote as \(T^*\)</li>
+<li>what is the maximum sum path in which the root has degree 1? \(t^*\)</li>
+</ul>
+<p>The answer to the first makes sure we consider all subtrees within our given tree. The answer to the second is useful for the caller to check the usefulness of combining our tree with its root.</p>
+<h4 id="the-base-cases">The base cases</h4>
+<h5 id="empty-tree">Empty tree</h5>
+<p>As an axiom, an empty tree&rsquo;s best achievable sum is 0.</p>
+<h5 id="single-node-tree">Single node tree</h5>
+<p>Given a single node tree, both \(T^*\) and \(t^*\) are the same i.e. the given tree itself.</p>
+<h5 id="any-tree-with-both-children">Any tree with both children</h5>
+<p>In this case, \(T^*\) is the maximum among these choices. Here \(\sum\) simply denotes that we are concerned with the sum of nodes in that tree and not the tree itself.</p>
+<ul>
+<li>root value combined with \(\sum t^*_l\)</li>
+<li>root value combined with \(\sum t^*_r\)</li>
+<li>root value combined with \(\sum t^*_l + \sum t^*r\)</li>
+<li>only root</li>
+</ul>
+<blockquote>
+<p>Note that we are not comparing \(T^*\) with \(T^*_l\) and \(T^*_r\). Because of the global nature of <code>max_sum</code>, they will be compared individually with <code>max_sum</code> and the best of them will reside in <code>max_sum</code>.</p>
+</blockquote>
+<h2 id="code">Code</h2>
+<p>Once the recursive nature is clear, we can write out the code as simply a base case check followed by two recursive calls. We are also maintaining a global <code>max_sum</code>. We initialize it with the root&rsquo;s value. In fact any large negative number will also work.
+In this implementation, the recursive function is an internal function <code>_maxPath</code> that does all the work. Since <code>_maxPath</code> recursively calls its children (and they call their children, and so on), it only returns after all subtrees have been considered. After that, we simply return the <code>max_sum</code> in our main function <code>maxPathSum</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Definition for a binary tree node.</span>
+<span style="color:#75715e"># class TreeNode:</span>
+<span style="color:#75715e">#     def __init__(self, val=0, left=None, right=None):</span>
+<span style="color:#75715e">#         self.val = val</span>
+<span style="color:#75715e">#         self.left = left</span>
+<span style="color:#75715e">#         self.right = right</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">maxPathSum</span>(self, root: TreeNode) <span style="color:#f92672">-&gt;</span> int:
+        max_sum <span style="color:#f92672">=</span> root<span style="color:#f92672">.</span>val
+        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_maxPath</span>(root: TreeNode):
+            nonlocal max_sum
+            <span style="color:#66d9ef">if</span> root <span style="color:#f92672">==</span> None:
+                <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+            left <span style="color:#f92672">=</span> _maxPath(root<span style="color:#f92672">.</span>left)
+            right <span style="color:#f92672">=</span> _maxPath(root<span style="color:#f92672">.</span>right)
+
+            sumnow <span style="color:#f92672">=</span> max(left <span style="color:#f92672">+</span> right <span style="color:#f92672">+</span> root<span style="color:#f92672">.</span>val,
+                         left <span style="color:#f92672">+</span> root<span style="color:#f92672">.</span>val,
+                         right <span style="color:#f92672">+</span> root<span style="color:#f92672">.</span>val,
+                         root<span style="color:#f92672">.</span>val)
+            <span style="color:#66d9ef">if</span> sumnow <span style="color:#f92672">&gt;</span> max_sum:
+                max_sum <span style="color:#f92672">=</span> sumnow
+            <span style="color:#66d9ef">return</span> max(root<span style="color:#f92672">.</span>val <span style="color:#f92672">+</span> left, root<span style="color:#f92672">.</span>val <span style="color:#f92672">+</span> right, root<span style="color:#f92672">.</span>val)
+
+        _maxPath(root)
+        <span style="color:#66d9ef">return</span> max_sum
+</code></pre></div><h2 id="results">Results</h2>
+<blockquote>
+<p>Runtime: 80 ms, faster than 91.54% of Python3 online submissions for Binary Tree Maximum Path Sum.</p>
+<p>Memory Usage: 21.9 MB, less than 7.56% of Python3 online submissions for Binary Tree Maximum Path Sum.</p>
+</blockquote>
+
+</main>
+
+<div class="related-content">
+
+
+<h3>See Also</h3>
+<ul>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_invert_binary_tree/">Algo walkthrough: invert binary tree</a></li>
+    
+    <li><a href="https://sprjg.github.io/posts/algo_walkthrough_same_tree/">Algo walkthrough: same tree</a></li>
+    
+</ul>
+
+</div>
+
+<script src="https://utteranc.es/client.js"
+        repo="sprjg/sprjg.github.io"
+        issue-term="title"
+        label="blog-comments"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+  <footer>
+  <script src="https://sprjg.github.io/js/math-code.js"></script>
+<script async src="https://sprjg.github.io/MathJax/es5/tex-chtml.js"></script>
+
+
+<script async src="https://sprjg.github.io/js/center-img.js"></script>
+
+  
+  <hr/>
+  © <a href="https://sprjg.github.io">SPR</a> 2019 &ndash; 2021 | <a href="https://github.com/sprajagopal">Github</a>
+  
+  </footer>
+  </body>
+</html>
+
